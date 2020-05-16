@@ -182,6 +182,8 @@ def comunicacion():
     """
     Entrypoint de comunicacion del agente
     """
+    message = Graph()
+    
     return "Hola"
 
 

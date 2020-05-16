@@ -20,6 +20,7 @@ directory-service-ontology.owl
 from multiprocessing import Process, Queue
 import socket
 import argparse
+import time
 
 from flask import Flask, request, render_template
 from rdflib import Graph, RDF, Namespace, RDFS
@@ -75,7 +76,7 @@ app = Flask(__name__)
 mss_cnt = 0
 
 cola1 = Queue()  # Cola de comunicacion entre procesos
-
+directory = {}
 
 @app.route("/Register")
 def register():
@@ -95,7 +96,7 @@ def register():
         # su direccion y su tipo
 
         logger.info('Peticion de registro')
-
+        directory[FOAF.name] = (DSO.AgentType, DSO.Uri, time.strftime('%Y-%m-%d %H:%M'))
         agn_add = gm.value(subject=content, predicate=DSO.Address)
         agn_name = gm.value(subject=content, predicate=FOAF.name)
         agn_uri = gm.value(subject=content, predicate=DSO.Uri)
@@ -206,7 +207,8 @@ def info():
     global dsgraph
     global mss_cnt
 
-    return render_template('info.html', nmess=mss_cnt, graph=dsgraph.serialize(format='turtle'))
+    #return render_template('info.html', nmess=mss_cnt, graph=dsgraph.serialize(format='turtle'))
+    return render_template('directory.html', dir=directory)
 
 
 @app.route("/Stop")
