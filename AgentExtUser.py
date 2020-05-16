@@ -89,11 +89,18 @@ def comunicacion():
         content=search
     )
     response = send_message(msg, AtencionAlCliente.address)
+    productos = []
     for item in response.subjects(RDF.type, agn.product):
         nombre=str(response.value(subject=item, predicate=agn.nombre))
         peso=str(response.value(subject=item, predicate=agn.peso))
         precio=str(response.value(subject=item, predicate=agn.precio))
         tieneMarca=str(response.value(subject=item, predicate=agn.tieneMarca))
+        productos.append(dict(
+            nombre=nombre,
+            peso=peso,
+            precio=precio,
+            tieneMarca=tieneMarca
+        ))
         logging.info('Nombre:')
         logging.info(nombre)
         logging.info('Peso:')
@@ -103,9 +110,14 @@ def comunicacion():
         logging.info('TieneMarca:')
         logging.info(tieneMarca)
 
-    return render_template('search_product.html')
+    return render_template('search_product.html', productos=productos)
     pass
 
+@app.route("/comprar", methods=['POST'])
+def comprar():
+    logging.info('Entra hola')
+    return render_template('search_product.html')
+    pass
 
 @app.route("/Stop")
 def stop():

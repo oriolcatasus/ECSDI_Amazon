@@ -3,6 +3,7 @@
 from multiprocessing import Process, Queue
 from string import Template
 import socket
+import sys
 
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
@@ -74,11 +75,11 @@ def comunicacion():
         logging.info('Entra MAX precio')
         req_dict['max_precio'] = req.value(subject=content, predicate=agn['max_precio'])
         logging.info(req_dict['max_precio'])   
+    
+    return build_response(**req_dict)
+    
 
-
-    '''
-        RESPUESTA
-    '''
+def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.max):
     productos = Graph()
     productos.parse('./data/product.owl')
 
@@ -96,8 +97,8 @@ def comunicacion():
             )
         }
     ''').substitute(dict(
-        min_precio=req_dict['min_precio'],
-        max_precio=req_dict['max_precio']
+        min_precio=min_precio,
+        max_precio=max_precio
     ))
 
     result = productos.query(

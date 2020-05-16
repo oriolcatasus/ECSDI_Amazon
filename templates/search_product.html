@@ -7,7 +7,7 @@
 <body>
     <div>
         <h2>Buscar productos</h2>
-        <form method="POST">
+        <form method="POST" action="/">
             <div>
                 <p>Precio minimo</p>
                 <input name="min_precio" type="text" class="form-control">
@@ -18,7 +18,33 @@
             </div>
             <div>
                 <button type="submit">Buscar</button>
-            </div>            
+            </div>
         </form>
+    <h2>Resultados</h2>
+    <br>
+    <form method="POST" action="/comprar">
+        <table border="1px">
+            <tr>
+                <th><b>Nombre</b></th>
+                <th><b>Marca</b></th>
+                <th><b>Precio</b></th>
+                <th><b>Peso</b></th>
+                <th><b>Selección</b></th>
+            </tr>
+            {% for product in productos %}
+            <tr>
+                <td>{{ product.nombre }}</td>
+                <td>{{ product.tieneMarca }}</td>
+                <td>{{ product.precio }} €</td>
+                <td>{{ product.peso }} gramos</td>
+                <td><input type="checkbox" value="{{ product.nombre }}"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div>
+            <button type="submit">Comprar</button>
+        </div>
+    </form>
+    <br>
     </div>
 </body>
