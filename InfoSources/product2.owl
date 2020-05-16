@@ -1,0 +1,492 @@
+@prefix pont: <http://www.products.org/ontology/> .
+@prefix pontp: <http://www.products.org/ontology/property/> .
+@prefix pontr: <http://www.products.org/ontology/resource/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+pontp:nombre a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:domain pont:Blender,
+        pont:Computer,
+        pont:Phone ;
+    rdfs:range xsd:string .
+
+pontp:peso a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:domain pont:Blender,
+        pont:Computer,
+        pont:Phone ;
+    rdfs:range xsd:float .
+
+pontp:precio a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+    rdfs:domain pont:Blender,
+        pont:Computer,
+        pont:Phone ;
+    rdfs:range xsd:int .
+
+pontp:tieneMarca a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    rdfs:domain pont:Blender,
+        pont:Computer,
+        pont:Phone ;
+    rdfs:range pont:Marca .
+
+pontr:Blender_07NZFQ a pont:Blender ;
+    pontp:nombre "nombre_4P90JJ" ;
+    pontp:peso 8.458289e+02 ;
+    pontp:precio 44 ;
+    pontp:tieneMarca pontr:Marca_Blender_J0LMRU .
+
+pontr:Blender_0LVP0N a pont:Blender ;
+    pontp:nombre "nombre_7E2ABN" ;
+    pontp:peso 6.915552e+02 ;
+    pontp:precio 96 ;
+    pontp:tieneMarca pontr:Marca_Blender_0LM58T .
+
+pontr:Blender_1JI6ET a pont:Blender ;
+    pontp:nombre "nombre_7EDJO9" ;
+    pontp:peso 9.481658e+02 ;
+    pontp:precio 95 ;
+    pontp:tieneMarca pontr:Marca_Blender_NBFDKM .
+
+pontr:Blender_3MOQ4P a pont:Blender ;
+    pontp:nombre "nombre_6ATOJK" ;
+    pontp:peso 7.913076e+02 ;
+    pontp:precio 98 ;
+    pontp:tieneMarca pontr:Marca_Blender_0LM58T .
+
+pontr:Blender_4HD2M7 a pont:Blender ;
+    pontp:nombre "nombre_0R6WJ8" ;
+    pontp:peso 9.605234e+02 ;
+    pontp:precio 46 ;
+    pontp:tieneMarca pontr:Marca_Blender_EREG7E .
+
+pontr:Blender_4PORGA a pont:Blender ;
+    pontp:nombre "nombre_YKY6CV" ;
+    pontp:peso 9.554341e+02 ;
+    pontp:precio 40 ;
+    pontp:tieneMarca pontr:Marca_Blender_DFNCNJ .
+
+pontr:Blender_79CN0P a pont:Blender ;
+    pontp:nombre "nombre_1PIUGZ" ;
+    pontp:peso 8.036334e+02 ;
+    pontp:precio 26 ;
+    pontp:tieneMarca pontr:Marca_Blender_2SZ7SN .
+
+pontr:Blender_7PF9TQ a pont:Blender ;
+    pontp:nombre "nombre_IGXR0D" ;
+    pontp:peso 7.753059e+02 ;
+    pontp:precio 40 ;
+    pontp:tieneMarca pontr:Marca_Blender_EREG7E .
+
+pontr:Blender_9C8JGQ a pont:Blender ;
+    pontp:nombre "nombre_VF780Q" ;
+    pontp:peso 5.673974e+02 ;
+    pontp:precio 48 ;
+    pontp:tieneMarca pontr:Marca_Blender_EREG7E .
+
+pontr:Blender_DIAN0F a pont:Blender ;
+    pontp:nombre "nombre_WD3RHB" ;
+    pontp:peso 9.246365e+02 ;
+    pontp:precio 63 ;
+    pontp:tieneMarca pontr:Marca_Blender_UDQ8QS .
+
+pontr:Blender_F0RMRM a pont:Blender ;
+    pontp:nombre "nombre_BC0KTP" ;
+    pontp:peso 5.345492e+02 ;
+    pontp:precio 28 ;
+    pontp:tieneMarca pontr:Marca_Blender_EREG7E .
+
+pontr:Blender_FU3MOZ a pont:Blender ;
+    pontp:nombre "nombre_5JTO53" ;
+    pontp:peso 9.557708e+02 ;
+    pontp:precio 98 ;
+    pontp:tieneMarca pontr:Marca_Blender_H6N5MD .
+
+pontr:Blender_IB97VR a pont:Blender ;
+    pontp:nombre "nombre_478WWU" ;
+    pontp:peso 5.534056e+02 ;
+    pontp:precio 53 ;
+    pontp:tieneMarca pontr:Marca_Blender_AAL0XD .
+
+pontr:Blender_L839HT a pont:Blender ;
+    pontp:nombre "nombre_XXNM9U" ;
+    pontp:peso 5.033177e+02 ;
+    pontp:precio 45 ;
+    pontp:tieneMarca pontr:Marca_Blender_DFNCNJ .
+
+pontr:Blender_N5HKG9 a pont:Blender ;
+    pontp:nombre "nombre_OXYZYA" ;
+    pontp:peso 5.952235e+02 ;
+    pontp:precio 34 ;
+    pontp:tieneMarca pontr:Marca_Blender_NBFDKM .
+
+pontr:Blender_PJYGBX a pont:Blender ;
+    pontp:nombre "nombre_I7TYY0" ;
+    pontp:peso 7.472942e+02 ;
+    pontp:precio 66 ;
+    pontp:tieneMarca pontr:Marca_Blender_DFNCNJ .
+
+pontr:Blender_R92H8F a pont:Blender ;
+    pontp:nombre "nombre_CBJP8S" ;
+    pontp:peso 8.888104e+02 ;
+    pontp:precio 50 ;
+    pontp:tieneMarca pontr:Marca_Blender_T56V1G .
+
+pontr:Blender_S60AVT a pont:Blender ;
+    pontp:nombre "nombre_U4NHNF" ;
+    pontp:peso 5.351291e+02 ;
+    pontp:precio 27 ;
+    pontp:tieneMarca pontr:Marca_Blender_J0LMRU .
+
+pontr:Blender_Z29RFB a pont:Blender ;
+    pontp:nombre "nombre_UKFU50" ;
+    pontp:peso 7.357489e+02 ;
+    pontp:precio 26 ;
+    pontp:tieneMarca pontr:Marca_Blender_J0LMRU .
+
+pontr:Blender_Z2E85V a pont:Blender ;
+    pontp:nombre "nombre_IFSIKT" ;
+    pontp:peso 5.79011e+02 ;
+    pontp:precio 82 ;
+    pontp:tieneMarca pontr:Marca_Blender_H6N5MD .
+
+pontr:Computer_06DGVF a pont:Computer ;
+    pontp:nombre "nombre_0SV192" ;
+    pontp:peso 1.016089e+03 ;
+    pontp:precio 2262 ;
+    pontp:tieneMarca pontr:Marca_Computer_PGI1LV .
+
+pontr:Computer_0WIRYK a pont:Computer ;
+    pontp:nombre "nombre_HKC8UM" ;
+    pontp:peso 1.138906e+03 ;
+    pontp:precio 1665 ;
+    pontp:tieneMarca pontr:Marca_Computer_AU0J3Z .
+
+pontr:Computer_21ZJ5Q a pont:Computer ;
+    pontp:nombre "nombre_JR7EPA" ;
+    pontp:peso 1.062083e+03 ;
+    pontp:precio 1166 ;
+    pontp:tieneMarca pontr:Marca_Computer_6NAE37 .
+
+pontr:Computer_5D3E59 a pont:Computer ;
+    pontp:nombre "nombre_P5Y7HM" ;
+    pontp:peso 1.904336e+03 ;
+    pontp:precio 1549 ;
+    pontp:tieneMarca pontr:Marca_Computer_PXMAGE .
+
+pontr:Computer_6HYSKH a pont:Computer ;
+    pontp:nombre "nombre_5FL2LS" ;
+    pontp:peso 2.406905e+03 ;
+    pontp:precio 780 ;
+    pontp:tieneMarca pontr:Marca_Computer_9EGKNW .
+
+pontr:Computer_6W8TGS a pont:Computer ;
+    pontp:nombre "nombre_ECTV4T" ;
+    pontp:peso 1.764452e+03 ;
+    pontp:precio 1426 ;
+    pontp:tieneMarca pontr:Marca_Computer_6NAE37 .
+
+pontr:Computer_95E79J a pont:Computer ;
+    pontp:nombre "nombre_ZYI73P" ;
+    pontp:peso 1.626176e+03 ;
+    pontp:precio 2185 ;
+    pontp:tieneMarca pontr:Marca_Computer_PXMAGE .
+
+pontr:Computer_F2VEO8 a pont:Computer ;
+    pontp:nombre "nombre_S9BY8V" ;
+    pontp:peso 1.054912e+03 ;
+    pontp:precio 866 ;
+    pontp:tieneMarca pontr:Marca_Computer_AUPOY2 .
+
+pontr:Computer_FDEY0V a pont:Computer ;
+    pontp:nombre "nombre_ORJXHC" ;
+    pontp:peso 1.260811e+03 ;
+    pontp:precio 2097 ;
+    pontp:tieneMarca pontr:Marca_Computer_DJM8PQ .
+
+pontr:Computer_GD85Y1 a pont:Computer ;
+    pontp:nombre "nombre_MD5L0L" ;
+    pontp:peso 1.219268e+03 ;
+    pontp:precio 2909 ;
+    pontp:tieneMarca pontr:Marca_Computer_DJM8PQ .
+
+pontr:Computer_GVNY2Y a pont:Computer ;
+    pontp:nombre "nombre_SICVYD" ;
+    pontp:peso 2.065177e+03 ;
+    pontp:precio 1004 ;
+    pontp:tieneMarca pontr:Marca_Computer_M61T1J .
+
+pontr:Computer_M0RZ5N a pont:Computer ;
+    pontp:nombre "nombre_TXTQGC" ;
+    pontp:peso 1.704509e+03 ;
+    pontp:precio 1983 ;
+    pontp:tieneMarca pontr:Marca_Computer_9EGKNW .
+
+pontr:Computer_O4BCYV a pont:Computer ;
+    pontp:nombre "nombre_P8KO92" ;
+    pontp:peso 2.431203e+03 ;
+    pontp:precio 1214 ;
+    pontp:tieneMarca pontr:Marca_Computer_DJM8PQ .
+
+pontr:Computer_OSA0T9 a pont:Computer ;
+    pontp:nombre "nombre_9IIEH3" ;
+    pontp:peso 2.160094e+03 ;
+    pontp:precio 785 ;
+    pontp:tieneMarca pontr:Marca_Computer_DJM8PQ .
+
+pontr:Computer_QW01OX a pont:Computer ;
+    pontp:nombre "nombre_NXKHLF" ;
+    pontp:peso 1.224484e+03 ;
+    pontp:precio 2675 ;
+    pontp:tieneMarca pontr:Marca_Computer_UE2YJK .
+
+pontr:Computer_S1N6VI a pont:Computer ;
+    pontp:nombre "nombre_1JRPXE" ;
+    pontp:peso 2.225352e+03 ;
+    pontp:precio 1042 ;
+    pontp:tieneMarca pontr:Marca_Computer_WXJ2EY .
+
+pontr:Computer_SC9W7W a pont:Computer ;
+    pontp:nombre "nombre_RIGZZ9" ;
+    pontp:peso 1.789236e+03 ;
+    pontp:precio 1292 ;
+    pontp:tieneMarca pontr:Marca_Computer_DJM8PQ .
+
+pontr:Computer_WRZMZG a pont:Computer ;
+    pontp:nombre "nombre_ASDUPA" ;
+    pontp:peso 2.193003e+03 ;
+    pontp:precio 692 ;
+    pontp:tieneMarca pontr:Marca_Computer_AU0J3Z .
+
+pontr:Computer_YE95AC a pont:Computer ;
+    pontp:nombre "nombre_AMVASZ" ;
+    pontp:peso 1.882909e+03 ;
+    pontp:precio 702 ;
+    pontp:tieneMarca pontr:Marca_Computer_M61T1J .
+
+pontr:Computer_ZUSSRG a pont:Computer ;
+    pontp:nombre "nombre_K2H8EF" ;
+    pontp:peso 2.433427e+03 ;
+    pontp:precio 2423 ;
+    pontp:tieneMarca pontr:Marca_Computer_AUPOY2 .
+
+pontr:Phone_6IURQ9 a pont:Phone ;
+    pontp:nombre "nombre_UCCSBQ" ;
+    pontp:peso 2.935764e+02 ;
+    pontp:precio 128 ;
+    pontp:tieneMarca pontr:Marca_Phone_GZQBUC .
+
+pontr:Phone_75LI6S a pont:Phone ;
+    pontp:nombre "nombre_XWCRD7" ;
+    pontp:peso 2.397377e+02 ;
+    pontp:precio 195 ;
+    pontp:tieneMarca pontr:Marca_Phone_91N3CG .
+
+pontr:Phone_9ETGJG a pont:Phone ;
+    pontp:nombre "nombre_YXNGP1" ;
+    pontp:peso 3.206199e+02 ;
+    pontp:precio 509 ;
+    pontp:tieneMarca pontr:Marca_Phone_LCROKC .
+
+pontr:Phone_B9O01H a pont:Phone ;
+    pontp:nombre "nombre_JFXHVQ" ;
+    pontp:peso 2.533579e+02 ;
+    pontp:precio 146 ;
+    pontp:tieneMarca pontr:Marca_Phone_SPJN2G .
+
+pontr:Phone_E9UDD1 a pont:Phone ;
+    pontp:nombre "nombre_A8MDDN" ;
+    pontp:peso 2.901393e+02 ;
+    pontp:precio 544 ;
+    pontp:tieneMarca pontr:Marca_Phone_QOP3IX .
+
+pontr:Phone_EACC46 a pont:Phone ;
+    pontp:nombre "nombre_3T660W" ;
+    pontp:peso 2.035131e+02 ;
+    pontp:precio 499 ;
+    pontp:tieneMarca pontr:Marca_Phone_FT0HEG .
+
+pontr:Phone_GERM2R a pont:Phone ;
+    pontp:nombre "nombre_AUCHFH" ;
+    pontp:peso 2.003039e+02 ;
+    pontp:precio 347 ;
+    pontp:tieneMarca pontr:Marca_Phone_LCROKC .
+
+pontr:Phone_J6XU92 a pont:Phone ;
+    pontp:nombre "nombre_6U14VT" ;
+    pontp:peso 2.111205e+02 ;
+    pontp:precio 320 ;
+    pontp:tieneMarca pontr:Marca_Phone_TLAWNZ .
+
+pontr:Phone_LQ81XG a pont:Phone ;
+    pontp:nombre "nombre_6S6OMU" ;
+    pontp:peso 3.500518e+02 ;
+    pontp:precio 477 ;
+    pontp:tieneMarca pontr:Marca_Phone_LCROKC .
+
+pontr:Phone_N2AV8P a pont:Phone ;
+    pontp:nombre "nombre_QI9ADX" ;
+    pontp:peso 3.803475e+02 ;
+    pontp:precio 390 ;
+    pontp:tieneMarca pontr:Marca_Phone_TLAWNZ .
+
+pontr:Phone_ON688S a pont:Phone ;
+    pontp:nombre "nombre_BWU7DJ" ;
+    pontp:peso 3.966601e+02 ;
+    pontp:precio 492 ;
+    pontp:tieneMarca pontr:Marca_Phone_25OJRY .
+
+pontr:Phone_P1IP0A a pont:Phone ;
+    pontp:nombre "nombre_E9K9X9" ;
+    pontp:peso 3.066913e+02 ;
+    pontp:precio 390 ;
+    pontp:tieneMarca pontr:Marca_Phone_FT0HEG .
+
+pontr:Phone_PB4374 a pont:Phone ;
+    pontp:nombre "nombre_JFPC5Z" ;
+    pontp:peso 2.091597e+02 ;
+    pontp:precio 556 ;
+    pontp:tieneMarca pontr:Marca_Phone_91N3CG .
+
+pontr:Phone_PWJ1WR a pont:Phone ;
+    pontp:nombre "nombre_SRL9BJ" ;
+    pontp:peso 3.845059e+02 ;
+    pontp:precio 308 ;
+    pontp:tieneMarca pontr:Marca_Phone_TLAWNZ .
+
+pontr:Phone_Q0PYA1 a pont:Phone ;
+    pontp:nombre "nombre_GCCS9F" ;
+    pontp:peso 2.088425e+02 ;
+    pontp:precio 190 ;
+    pontp:tieneMarca pontr:Marca_Phone_25OJRY .
+
+pontr:Phone_QGZMVB a pont:Phone ;
+    pontp:nombre "nombre_868WMZ" ;
+    pontp:peso 3.131442e+02 ;
+    pontp:precio 527 ;
+    pontp:tieneMarca pontr:Marca_Phone_QOP3IX .
+
+pontr:Phone_V4KXEW a pont:Phone ;
+    pontp:nombre "nombre_9555LQ" ;
+    pontp:peso 2.317409e+02 ;
+    pontp:precio 470 ;
+    pontp:tieneMarca pontr:Marca_Phone_QOP3IX .
+
+pontr:Phone_VQ34SM a pont:Phone ;
+    pontp:nombre "nombre_QDBQUX" ;
+    pontp:peso 3.311144e+02 ;
+    pontp:precio 205 ;
+    pontp:tieneMarca pontr:Marca_Phone_25OJRY .
+
+pontr:Phone_YCUVM2 a pont:Phone ;
+    pontp:nombre "nombre_B1SSKP" ;
+    pontp:peso 3.536183e+02 ;
+    pontp:precio 575 ;
+    pontp:tieneMarca pontr:Marca_Phone_X6MF2V .
+
+pontr:Phone_YNAF92 a pont:Phone ;
+    pontp:nombre "nombre_FH7NTB" ;
+    pontp:peso 3.219664e+02 ;
+    pontp:precio 437 ;
+    pontp:tieneMarca pontr:Marca_Phone_7RNXL3 .
+
+pontr:Marca_Blender_2SZ7SN a pont:Marca ;
+    pontp:nombre "Marca_Blender_2SZ7SN" .
+
+pontr:Marca_Blender_AAL0XD a pont:Marca ;
+    pontp:nombre "Marca_Blender_AAL0XD" .
+
+pontr:Marca_Blender_T56V1G a pont:Marca ;
+    pontp:nombre "Marca_Blender_T56V1G" .
+
+pontr:Marca_Blender_UDQ8QS a pont:Marca ;
+    pontp:nombre "Marca_Blender_UDQ8QS" .
+
+pontr:Marca_Computer_PGI1LV a pont:Marca ;
+    pontp:nombre "Marca_Computer_PGI1LV" .
+
+pontr:Marca_Computer_UE2YJK a pont:Marca ;
+    pontp:nombre "Marca_Computer_UE2YJK" .
+
+pontr:Marca_Computer_WXJ2EY a pont:Marca ;
+    pontp:nombre "Marca_Computer_WXJ2EY" .
+
+pontr:Marca_Phone_7RNXL3 a pont:Marca ;
+    pontp:nombre "Marca_Phone_7RNXL3" .
+
+pontr:Marca_Phone_GZQBUC a pont:Marca ;
+    pontp:nombre "Marca_Phone_GZQBUC" .
+
+pontr:Marca_Phone_SPJN2G a pont:Marca ;
+    pontp:nombre "Marca_Phone_SPJN2G" .
+
+pontr:Marca_Phone_X6MF2V a pont:Marca ;
+    pontp:nombre "Marca_Phone_X6MF2V" .
+
+pontr:Marca_Blender_0LM58T a pont:Marca ;
+    pontp:nombre "Marca_Blender_0LM58T" .
+
+pontr:Marca_Blender_H6N5MD a pont:Marca ;
+    pontp:nombre "Marca_Blender_H6N5MD" .
+
+pontr:Marca_Blender_NBFDKM a pont:Marca ;
+    pontp:nombre "Marca_Blender_NBFDKM" .
+
+pontr:Marca_Computer_6NAE37 a pont:Marca ;
+    pontp:nombre "Marca_Computer_6NAE37" .
+
+pontr:Marca_Computer_9EGKNW a pont:Marca ;
+    pontp:nombre "Marca_Computer_9EGKNW" .
+
+pontr:Marca_Computer_AU0J3Z a pont:Marca ;
+    pontp:nombre "Marca_Computer_AU0J3Z" .
+
+pontr:Marca_Computer_AUPOY2 a pont:Marca ;
+    pontp:nombre "Marca_Computer_AUPOY2" .
+
+pontr:Marca_Computer_M61T1J a pont:Marca ;
+    pontp:nombre "Marca_Computer_M61T1J" .
+
+pontr:Marca_Computer_PXMAGE a pont:Marca ;
+    pontp:nombre "Marca_Computer_PXMAGE" .
+
+pontr:Marca_Phone_91N3CG a pont:Marca ;
+    pontp:nombre "Marca_Phone_91N3CG" .
+
+pontr:Marca_Phone_FT0HEG a pont:Marca ;
+    pontp:nombre "Marca_Phone_FT0HEG" .
+
+pont:ElectronicDevice a <http://www.w3.org/2002/07/owl#Class> .
+
+pontr:Marca_Blender_DFNCNJ a pont:Marca ;
+    pontp:nombre "Marca_Blender_DFNCNJ" .
+
+pontr:Marca_Blender_J0LMRU a pont:Marca ;
+    pontp:nombre "Marca_Blender_J0LMRU" .
+
+pontr:Marca_Phone_25OJRY a pont:Marca ;
+    pontp:nombre "Marca_Phone_25OJRY" .
+
+pontr:Marca_Phone_LCROKC a pont:Marca ;
+    pontp:nombre "Marca_Phone_LCROKC" .
+
+pontr:Marca_Phone_QOP3IX a pont:Marca ;
+    pontp:nombre "Marca_Phone_QOP3IX" .
+
+pontr:Marca_Phone_TLAWNZ a pont:Marca ;
+    pontp:nombre "Marca_Phone_TLAWNZ" .
+
+pontr:Marca_Blender_EREG7E a pont:Marca ;
+    pontp:nombre "Marca_Blender_EREG7E" .
+
+pontr:Marca_Computer_DJM8PQ a pont:Marca ;
+    pontp:nombre "Marca_Computer_DJM8PQ" .
+
+pont:Blender rdfs:subClassOf pont:ElectronicDevice .
+
+pont:Computer rdfs:subClassOf pont:ElectronicDevice .
+
+pont:Phone rdfs:subClassOf pont:ElectronicDevice .
+
+pont:Marca a <http://www.w3.org/2002/07/owl#Class> .
+

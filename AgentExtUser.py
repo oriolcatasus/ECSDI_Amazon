@@ -6,7 +6,7 @@ import socket
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
 from rdflib.term import Literal
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 from AgentUtil.ACLMessages import get_message_properties, build_message, send_message
 from AgentUtil.FlaskServer import shutdown_server
@@ -51,24 +51,35 @@ cola1 = Queue()
 app = Flask(__name__)
 
 
-@app.route("/comm")
+@app.route("/", methods=['GET', 'POST'])
 def comunicacion():
     """
     Entrypoint de comunicacion
     """
+    if request.method == 'GET':
+        return render_template('search_product.html')
+
     global dsgraph
     global mss_cnt
-
 
     message = Graph()
     mss_cnt = mss_cnt + 1
     search = agn['search_query_' + str(mss_cnt)]
-    message.add((search, agn['Precio'], Literal('200')))
-    #message.add((search, RDF.type, Literal(OntologyConstants.ACTION_SEARCH_PRODUCTS)))
+
+    if request.form['min_precio']:
+        message.add((search, agn['min_precio'], Literal(int(request.form['min_precio']))))
+    if request.form['max_precio']:
+        message.add((search, agn['max_precio'], Literal(int(request.form['max_precio']))))
+
+    
+    #message.add((search, agn['Precio'], Literal('200')))
     message.add((search, RDF.type, Literal('Buscar_Productos')))
+    
     AtencionAlCliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+    
     logging.info('Nom:')
     logging.info(AtencionAlCliente.name)
+    
     msg = build_message(
         message,
         perf=Literal('request'),
@@ -78,12 +89,21 @@ def comunicacion():
         content=search
     )
     response = send_message(msg, AtencionAlCliente.address)
-    #content = get_message_properties(response)['prod']
     for item in response.subjects(RDF.type, agn.product):
-        product_name=str(response.value(subject=item, predicate=agn.product_name))
-        logging.info('Response name:')
-        logging.info(product_name)
+        nombre=str(response.value(subject=item, predicate=agn.nombre))
+        peso=str(response.value(subject=item, predicate=agn.peso))
+        precio=str(response.value(subject=item, predicate=agn.precio))
+        tieneMarca=str(response.value(subject=item, predicate=agn.tieneMarca))
+        logging.info('Nombre:')
+        logging.info(nombre)
+        logging.info('Peso:')
+        logging.info(peso)
+        logging.info('Precio:')
+        logging.info(precio)
+        logging.info('TieneMarca:')
+        logging.info(tieneMarca)
 
+    return render_template('search_product.html')
     pass
 
 
@@ -114,7 +134,7 @@ def agentbehavior1(cola):
     :return:
     """
     AgentExtUser.register_agent(DirectoryAgent)
-    comunicacion()
+    #comunicacion()
     pass
 
 
