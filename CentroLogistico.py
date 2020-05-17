@@ -67,11 +67,58 @@ def comunicacion():
 
 
 def empezar_envio_compra(req, content):
+    codigo_postal = str(req.value(subject=content, predicate=agn.codigo_postal))
+    logging.info('codigo postal: ' + codigo_postal)
+    direccion = str(req.value(subject=content, predicate=agn.direccion))
+    logging.info('direccion: ' + direccion)
     for item in req.subjects(RDF.type, agn.product):
         nombre=str(req.value(subject=item, predicate=agn.nombre))
         logging.info(nombre)
-    
+
+    lotes_graph = Graph()
+    try:
+        lotes_graph.parse('./data/lotes.owl')
+    except Exception as e:
+        logging.info('No lotes graph found')
+        cp = agn['codigo_postal']
+        lotes_graph.add((cp, RDF.type, Literal('Codigo_Postal')))
+    add_products_to_lote(req, lotes_graph, codigo_postal)
+    logging.info(codigo_postal)
+    sparql_query = Template('''
+        SELECT (COUNT(*) as ?cnt)?producto ?codigo_postal
+        WHERE {
+            ?producto rdf:type ?type_prod .
+            ?producto ns:codigo_postal ?codigo_postal .
+            FILTER (
+                ?codigo_postal = '$codigo_postal'
+            )
+        }
+    ''').substitute(dict(
+        codigo_postal=codigo_postal       
+    ))
+    result = lotes_graph.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            ns=agn
+        )
+    )
+    logging.info('Result:')
+    for x in result:
+        logging.info(x.cnt)
+
+    lotes_graph.serialize('./data/lotes.owl')
     return Graph().serialize(format='xml')
+
+def add_products_to_lote(req, lotes_graph, codigo_postal):
+    for item in req.subjects(RDF.type, agn.product):
+        nombre=req.value(subject=item, predicate=agn.nombre)
+        logging.info(nombre)
+        lotes_graph.add((item, RDF.type, agn.product))
+        lotes_graph.add((item, agn.nombre, Literal(nombre)))
+        lotes_graph.add((item, agn.codigo_postal, Literal(codigo_postal)))
+
+
 
 
 @app.route("/Stop")

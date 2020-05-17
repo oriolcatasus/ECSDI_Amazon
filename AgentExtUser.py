@@ -107,14 +107,18 @@ def comprar():
     mss_cnt = mss_cnt + 1
     #compra_id = str(uuid.uuid4())
     compra = agn['pedido_' + str(mss_cnt)]
-    graph.add((compra, RDF.type, Literal('Comprar')))
-    
+    graph.add((compra, RDF.type, Literal('Comprar')))    
+    codigo_postal = request.form['codigo_postal']
+    graph.add((compra, agn.codigo_postal, Literal(codigo_postal)))
+    direccion = request.form['direccion']
+    graph.add((compra, agn.direccion, Literal(direccion)))
     for nombre in request.form:
-        logging.info(nombre)
-        producto = agn[nombre]
-        graph.add((producto, RDF.type, agn.product))
-        graph.add((producto, agn.nombre, Literal(nombre)))
-    
+        if nombre != 'codigo_postal' and nombre != 'direccion':
+            logging.info(nombre)
+            producto = agn[nombre]
+            graph.add((producto, RDF.type, agn.product))
+            graph.add((producto, agn.nombre, Literal(nombre)))
+        
     atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
 
     message = build_message(

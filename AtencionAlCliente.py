@@ -78,10 +78,15 @@ def comprar(req, content):
     cl_graph = Graph()
     envio = agn['envio_' + str(mss_cnt)]
     cl_graph.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
+    codigo_postal = req.value(subject=content, predicate=agn.codigo_postal)
+    logging.info('codigo postal: ' + codigo_postal)
+    cl_graph.add((content, agn.codigo_postal, codigo_postal))
+    direccion = req.value(subject=content, predicate=agn.direccion)
+    logging.info('direccion: ' + direccion)
+    cl_graph.add((content, agn.direccion, direccion))
     for item in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=item, predicate=agn.nombre)
         logging.info(nombre)
-        #producto = agn[nombre]
         cl_graph.add((item, RDF.type, agn.product))
         cl_graph.add((item, agn.nombre, Literal(nombre)))
 
