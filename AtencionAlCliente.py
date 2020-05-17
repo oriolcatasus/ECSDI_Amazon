@@ -4,6 +4,7 @@ from multiprocessing import Process, Queue
 from string import Template
 import socket
 import sys
+import uuid
 
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
@@ -62,22 +63,54 @@ def comunicacion():
     req.parse(data=request.args['content'])
     message_properties = get_message_properties(req)
     content = message_properties['content']
-    logging.info('Content:')
-    logging.info(content)
+    accion = str(req.value(subject=content, predicate=RDF.type))
+    logging.info('Accion: ' + accion)
+    if accion == 'Buscar_Productos':
+        return buscar_productos(req, content)
+    elif accion == 'Comprar':
+        return comprar(req, content)
     
+    
+def comprar(req, content):
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+    #req.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
+    cl_graph = Graph()
+    envio = agn['envio_' + str(mss_cnt)]
+    cl_graph.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
+    for item in req.subjects(RDF.type, agn.product):
+        nombre = req.value(subject=item, predicate=agn.nombre)
+        logging.info(nombre)
+        #producto = agn[nombre]
+        cl_graph.add((item, RDF.type, agn.product))
+        cl_graph.add((item, agn.nombre, Literal(nombre)))
+
+    centro_logistico = AtencionAlCliente.directory_search(DirectoryAgent, agn.CentroLogistico)
+    message = build_message(
+        cl_graph,
+        perf=Literal('request'),
+        sender=AtencionAlCliente.uri,
+        receiver=centro_logistico.uri,
+        msgcnt=mss_cnt,
+        content=content
+    )
+    send_message(message, centro_logistico.address)
+
+    return Graph().serialize(format='xml')
+
+
+def buscar_productos(req, content):    
     req_dict = {}
     if req.value(subject=content, predicate=agn['min_precio']):
         logging.info('Entra MIN precio')
         req_dict['min_precio'] = req.value(subject=content, predicate=agn['min_precio'])
-        logging.info(req_dict['min_precio'])
-    
+        logging.info(req_dict['min_precio'])    
     if req.value(subject=content, predicate=agn['max_precio']):
         logging.info('Entra MAX precio')
         req_dict['max_precio'] = req.value(subject=content, predicate=agn['max_precio'])
-        logging.info(req_dict['max_precio'])   
-    
+        logging.info(req_dict['max_precio'])    
     return build_response(**req_dict)
-    
+
 
 def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.max):
     productos = Graph()

@@ -37,7 +37,7 @@
                 <td>{{ product.tieneMarca }}</td>
                 <td>{{ product.precio }} €</td>
                 <td>{{ product.peso }} gramos</td>
-                <td><input type="checkbox" value="{{ product.nombre }}"></td>
+                <td><input type="checkbox" name="{{ product.nombre }}" class="form-control"></td>
             </tr>
             {% endfor %}
         </table>

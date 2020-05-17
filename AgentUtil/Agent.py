@@ -85,16 +85,10 @@ class Agent():
                         msgcnt=mss_cnt)
     gr = send_message(msg, DirectoryAgent.address)
     mss_cnt += 1
-    logging.info('Recibimos informacion del agente')
-    
+    logging.info('Recibimos informacion del agente')    
     content = get_message_properties(gr)['content']
     address = gr.value(subject=content, predicate=DSO.Address)
-    logging.info('address:')
-    logging.info(address)
     uri = gr.value(subject=content, predicate=DSO.Uri)
-    logging.info('uri:')
-    logging.info(uri)
+    logging.info('uri: ' + uri)
     name = gr.value(subject=content, predicate=FOAF.name)
-    logging.info('Name:')
-    logging.info(name)
     return Agent(name, uri, address, None)

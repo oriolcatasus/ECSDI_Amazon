@@ -2,6 +2,7 @@
 
 from multiprocessing import Process, Queue
 import socket
+import uuid
 
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
@@ -65,21 +66,12 @@ def comunicacion():
     message = Graph()
     mss_cnt = mss_cnt + 1
     search = agn['search_query_' + str(mss_cnt)]
-
     if request.form['min_precio']:
         message.add((search, agn['min_precio'], Literal(int(request.form['min_precio']))))
     if request.form['max_precio']:
         message.add((search, agn['max_precio'], Literal(int(request.form['max_precio']))))
-
-    
-    #message.add((search, agn['Precio'], Literal('200')))
-    message.add((search, RDF.type, Literal('Buscar_Productos')))
-    
-    AtencionAlCliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
-    
-    logging.info('Nom:')
-    logging.info(AtencionAlCliente.name)
-    
+    message.add((search, RDF.type, Literal('Buscar_Productos')))    
+    AtencionAlCliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)    
     msg = build_message(
         message,
         perf=Literal('request'),
@@ -89,6 +81,7 @@ def comunicacion():
         content=search
     )
     response = send_message(msg, AtencionAlCliente.address)
+
     productos = []
     for item in response.subjects(RDF.type, agn.product):
         nombre=str(response.value(subject=item, predicate=agn.nombre))
@@ -101,21 +94,43 @@ def comunicacion():
             precio=precio,
             tieneMarca=tieneMarca
         ))
-        logging.info('Nombre:')
-        logging.info(nombre)
-        logging.info('Peso:')
-        logging.info(peso)
-        logging.info('Precio:')
-        logging.info(precio)
-        logging.info('TieneMarca:')
-        logging.info(tieneMarca)
 
     return render_template('search_product.html', productos=productos)
     pass
 
 @app.route("/comprar", methods=['POST'])
 def comprar():
-    logging.info('Entra hola')
+    global mss_cnt
+
+    logging.info('Comprar')
+    graph = Graph()
+    mss_cnt = mss_cnt + 1
+    #compra_id = str(uuid.uuid4())
+    compra = agn['pedido_' + str(mss_cnt)]
+    graph.add((compra, RDF.type, Literal('Comprar')))
+    
+    for nombre in request.form:
+        logging.info(nombre)
+        producto = agn[nombre]
+        graph.add((producto, RDF.type, agn.product))
+        graph.add((producto, agn.nombre, Literal(nombre)))
+    
+    atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AgentExtUser.uri,
+        receiver=atencion_al_cliente.uri,
+        msgcnt=mss_cnt,
+        content=compra
+    )
+
+    try:
+        send_message(message, atencion_al_cliente.address)
+    except Exception as e:
+        logging.info('Error: ' + e)
+
     return render_template('search_product.html')
     pass
 
