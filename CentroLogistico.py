@@ -31,6 +31,9 @@ agn = Namespace(Constants.ONTOLOGY)
 # Contador de mensajes
 mss_cnt = 0
 
+#Pedidos por envio
+max_pedidos = 5
+
 # Datos del Agente
 
 CentroLogistico = Agent('CentroLogistico',
@@ -106,6 +109,10 @@ def empezar_envio_compra(req, content):
     logging.info('Result:')
     for x in result:
         logging.info(x.cnt)
+        if (x.cnt >= max_pedidos):
+            negociar_y_enviar(codigo_postal)
+
+
 
     lotes_graph.serialize('./data/lotes.owl')
     return Graph().serialize(format='xml')
@@ -113,12 +120,98 @@ def empezar_envio_compra(req, content):
 def add_products_to_lote(req, lotes_graph, codigo_postal):
     for item in req.subjects(RDF.type, agn.product):
         nombre=req.value(subject=item, predicate=agn.nombre)
-        logging.info(nombre)
         lotes_graph.add((item, RDF.type, agn.product))
         lotes_graph.add((item, agn.nombre, Literal(nombre)))
         lotes_graph.add((item, agn.codigo_postal, Literal(codigo_postal)))
 
+def negociar_y_enviar(codigo_postal):
+    global mss_cnt
 
+    mss_cnt = mss_cnt + 1
+    transportista = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista)
+    gNegociar = Graph()
+    negociar = agn['negociar_' + str(mss_cnt)]
+    gNegociar.add((negociar, RDF.type, Literal('Negociar')))
+    gNegociar.add((negociar, agn.codigo_postal, Literal(codigo_postal)))
+    message = build_message(
+        gNegociar,
+        perf=Literal('request'),
+        sender=CentroLogistico.uri,
+        receiver=transportista.uri,
+        msgcnt=mss_cnt,
+        content=negociar
+    )
+    response = send_message(message, transportista.address)
+    subjects = list(response.subjects(RDF.type, Literal('Oferta_Transportista')))
+    logging.info('Size:')
+    logging.info(len(subjects))
+    precio = response.value((subjects[0], agn.oferta))
+    logging.info('Oferta: ' + str(precio))
+    enviar(codigo_postal, transportista)
+
+
+def enviar(codigo_postal, transportista):
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+
+    lotes_graph = Graph().parse('./data/lotes.owl')
+    logging.info('Aceptamos oferta')
+    gTransportar = Graph()
+    transportar = agn['transportar_' + str(mss_cnt)]
+    gTransportar.add((transportar, RDF.type, Literal('Transportar')))
+    gTransportar.add((transportar, agn.codigo_postal, Literal(codigo_postal)))
+    sparql_query = Template('''
+        SELECT ?producto ?codigo_postal ?nombre
+        WHERE {
+            ?producto rdf:type ?type_prod .
+            ?producto ns:codigo_postal ?codigo_postal .
+            ?producto ns:nombre ?nombre .
+            FILTER (
+                ?codigo_postal = '$codigo_postal'
+            )
+        }
+    ''').substitute(dict(
+        codigo_postal=codigo_postal       
+    ))
+    result = lotes_graph.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            ns=agn
+        )
+    )
+    for x in result:
+        gTransportar.add((x.producto, RDF.type, agn.product))
+        gTransportar.add((x.producto, agn.nombre, x.nombre))
+
+    sparql_query = Template('''
+        DELETE { ?producto ?codigo_postal }
+        WHERE {
+            ?producto rdf:type ?type_prod .
+            ?producto ns:codigo_postal ?codigo_postal .
+            FILTER (
+                ?codigo_postal = '$codigo_postal'
+            )
+        }
+    ''').substitute(dict(
+        codigo_postal=codigo_postal       
+    ))
+    #lotes_graph.update(
+    #    sparql_query,
+    #    initNs=dict(
+    #        rdf=RDF,
+    #        ns=agn
+    #    )
+    #)
+    message = build_message(
+        gTransportar,
+        perf=Literal('request'),
+        sender=CentroLogistico.uri,
+        receiver=transportista.uri,
+        msgcnt=mss_cnt,
+        content=transportar
+    )
+    send_message(message, transportista.address)
 
 
 @app.route("/Stop")

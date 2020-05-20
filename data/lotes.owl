@@ -3,58 +3,79 @@
    xmlns:ns1="http://"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_V0VIX5">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_43VWSW">
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_43VWSW</ns1:ALIEXPLESS.ECSDInombre>
     <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
-    <ns1:ALIEXPLESS.ECSDInombre>nombre_V0VIX5</ns1:ALIEXPLESS.ECSDInombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_L3JE4I">
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
-    <ns1:ALIEXPLESS.ECSDInombre>nombre_L3JE4I</ns1:ALIEXPLESS.ECSDInombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_Y9CEUI">
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
     <ns1:ALIEXPLESS.ECSDInombre>nombre_Y9CEUI</ns1:ALIEXPLESS.ECSDInombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_BYUPI0">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>1234</ns1:ALIEXPLESS.ECSDIcodigo_postal>
-    <ns1:ALIEXPLESS.ECSDInombre>nombre_BYUPI0</ns1:ALIEXPLESS.ECSDInombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_43VWSW">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-    <ns1:ALIEXPLESS.ECSDInombre>nombre_43VWSW</ns1:ALIEXPLESS.ECSDInombre>
     <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
   </rdf:Description>
   <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_ZHBGUS">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
     <ns1:ALIEXPLESS.ECSDInombre>nombre_ZHBGUS</ns1:ALIEXPLESS.ECSDInombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_6Z7ZT6">
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>111º</ns1:ALIEXPLESS.ECSDIcodigo_postal>
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-    <ns1:ALIEXPLESS.ECSDInombre>nombre_6Z7ZT6</ns1:ALIEXPLESS.ECSDInombre>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_BYUPI0">
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_BYUPI0</ns1:ALIEXPLESS.ECSDInombre>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>1234</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_9ERZUD">
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
     <ns1:ALIEXPLESS.ECSDInombre>nombre_9ERZUD</ns1:ALIEXPLESS.ECSDInombre>
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_GDWEYZ">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
     <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
-    <ns1:ALIEXPLESS.ECSDInombre>nombre_GDWEYZ</ns1:ALIEXPLESS.ECSDInombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_4XFJZH">
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
-    <ns1:ALIEXPLESS.ECSDInombre>nombre_4XFJZH</ns1:ALIEXPLESS.ECSDInombre>
     <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_4XFJZH</ns1:ALIEXPLESS.ECSDInombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_C093SK">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_C093SK</ns1:ALIEXPLESS.ECSDInombre>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_6Z7ZT6">
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>111º</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_6Z7ZT6</ns1:ALIEXPLESS.ECSDInombre>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_GDWEYZ">
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_GDWEYZ</ns1:ALIEXPLESS.ECSDInombre>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://ALIEXPLESS.ECSDIcodigo_postal">
     <rdf:type>Codigo_Postal</rdf:type>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_J3AE5F">
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_J3AE5F</ns1:ALIEXPLESS.ECSDInombre>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_C2J9DH">
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_C2J9DH</ns1:ALIEXPLESS.ECSDInombre>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>1234</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_F78QO5">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_F78QO5</ns1:ALIEXPLESS.ECSDInombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_V0VIX5">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_V0VIX5</ns1:ALIEXPLESS.ECSDInombre>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_L3JE4I">
+    <ns1:ALIEXPLESS.ECSDInombre>nombre_L3JE4I</ns1:ALIEXPLESS.ECSDInombre>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>1234</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
   </rdf:Description>
 </rdf:RDF>
