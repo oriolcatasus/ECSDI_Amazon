@@ -70,6 +70,8 @@ def comunicacion():
 
 
 def empezar_envio_compra(req, content):
+    global max_pedidos
+
     codigo_postal = str(req.value(subject=content, predicate=agn.codigo_postal))
     logging.info('codigo postal: ' + codigo_postal)
     direccion = str(req.value(subject=content, predicate=agn.direccion))
@@ -83,7 +85,7 @@ def empezar_envio_compra(req, content):
         lotes_graph.parse('./data/lotes.owl')
     except Exception as e:
         logging.info('No lotes graph found')
-        cp = agn['codigo_postal']
+        cp = agn[codigo_postal]
         lotes_graph.add((cp, RDF.type, Literal('Codigo_Postal')))
     add_products_to_lote(req, lotes_graph, codigo_postal)
     logging.info(codigo_postal)
@@ -109,11 +111,11 @@ def empezar_envio_compra(req, content):
     logging.info('Result:')
     for x in result:
         logging.info(x.cnt)
-        if (x.cnt >= max_pedidos):
-            negociar_y_enviar(codigo_postal)
-
-
-
+        logging.info(max_pedidos)
+        if (int(x.cnt) >= max_pedidos):
+            logging.info('Entra if')
+            transportista = negociar(codigo_postal)
+            transportar(codigo_postal, transportista, lotes_graph)
     lotes_graph.serialize('./data/lotes.owl')
     return Graph().serialize(format='xml')
 
@@ -124,7 +126,7 @@ def add_products_to_lote(req, lotes_graph, codigo_postal):
         lotes_graph.add((item, agn.nombre, Literal(nombre)))
         lotes_graph.add((item, agn.codigo_postal, Literal(codigo_postal)))
 
-def negociar_y_enviar(codigo_postal):
+def negociar(codigo_postal):
     global mss_cnt
 
     mss_cnt = mss_cnt + 1
@@ -143,18 +145,15 @@ def negociar_y_enviar(codigo_postal):
     )
     response = send_message(message, transportista.address)
     subjects = list(response.subjects(RDF.type, Literal('Oferta_Transportista')))
-    logging.info('Size:')
-    logging.info(len(subjects))
     precio = response.value((subjects[0], agn.oferta))
     logging.info('Oferta: ' + str(precio))
-    enviar(codigo_postal, transportista)
+    return transportista
 
 
-def enviar(codigo_postal, transportista):
+def transportar(codigo_postal, transportista, lotes_graph):
     global mss_cnt
+    
     mss_cnt = mss_cnt + 1
-
-    lotes_graph = Graph().parse('./data/lotes.owl')
     logging.info('Aceptamos oferta')
     gTransportar = Graph()
     transportar = agn['transportar_' + str(mss_cnt)]
@@ -183,26 +182,7 @@ def enviar(codigo_postal, transportista):
     for x in result:
         gTransportar.add((x.producto, RDF.type, agn.product))
         gTransportar.add((x.producto, agn.nombre, x.nombre))
-
-    sparql_query = Template('''
-        DELETE { ?producto ?codigo_postal }
-        WHERE {
-            ?producto rdf:type ?type_prod .
-            ?producto ns:codigo_postal ?codigo_postal .
-            FILTER (
-                ?codigo_postal = '$codigo_postal'
-            )
-        }
-    ''').substitute(dict(
-        codigo_postal=codigo_postal       
-    ))
-    #lotes_graph.update(
-    #    sparql_query,
-    #    initNs=dict(
-    #        rdf=RDF,
-    #        ns=agn
-    #    )
-    #)
+        lotes_graph.remove((x.producto, None, None))
     message = build_message(
         gTransportar,
         perf=Literal('request'),
