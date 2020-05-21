@@ -131,6 +131,10 @@ def negociar(codigo_postal):
 
     mss_cnt = mss_cnt + 1
     transportista = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista)
+    transportista_a_enviar = transportista
+    ofertaT1 = 0
+    ofertaT2 = 0
+    transportista2 = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista2)
     gNegociar = Graph()
     negociar = agn['negociar_' + str(mss_cnt)]
     gNegociar.add((negociar, RDF.type, Literal('Negociar')))
@@ -144,10 +148,26 @@ def negociar(codigo_postal):
         content=negociar
     )
     response = send_message(message, transportista.address)
-    subjects = list(response.subjects(RDF.type, Literal('Oferta_Transportista')))
-    precio = response.value((subjects[0], agn.oferta))
-    logging.info('Oferta: ' + str(precio))
-    return transportista
+    for item in response.subjects(RDF.type, Literal('Oferta_Transportista')):
+        logging.info("BUCLE 1")
+        for oferta in response.objects(item, agn.oferta):
+            logging.info("BUCLE 2")
+            ofertaT1 = oferta
+            logging.info('Oferta1: ' + str(ofertaT1))
+    response2 = send_message(message, transportista2.address)
+    for item in response2.subjects(RDF.type, Literal('Oferta_Transportista')):
+        logging.info("BUCLE 1")
+        for oferta in response2.objects(item, agn.oferta):
+            logging.info("BUCLE 2")
+            ofertaT2 = oferta
+            logging.info('Oferta2: ' + str(ofertaT2))
+    #subjects = list(response.subjects(RDF.type, Literal('Oferta_Transportista')))
+    #precio = response.value((subjects[0], agn.oferta))
+    #logging.info('Oferta: ' + str(precio))
+    if (ofertaT2 < ofertaT1) :
+        transportista_a_enviar = transportista2
+    logging.info("Escogemos transportista " + str(transportista_a_enviar.address))
+    return transportista_a_enviar
 
 
 def transportar(codigo_postal, transportista, lotes_graph):
