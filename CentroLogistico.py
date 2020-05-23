@@ -71,7 +71,9 @@ def comunicacion():
 
 def empezar_envio_compra(req, content):
     global max_pedidos
+    global mss_cnt
 
+    mss_cnt = mss_cnt + 1
     codigo_postal = str(req.value(subject=content, predicate=agn.codigo_postal))
     logging.info('codigo postal: ' + codigo_postal)
     direccion = str(req.value(subject=content, predicate=agn.direccion))
@@ -85,8 +87,8 @@ def empezar_envio_compra(req, content):
         lotes_graph.parse('./data/lotes.owl')
     except Exception as e:
         logging.info('No lotes graph found')
-        cp = agn[codigo_postal]
-        lotes_graph.add((cp, RDF.type, Literal('Codigo_Postal')))
+        #cp = agn[codigo_postal]
+        #lotes_graph.add((cp, RDF.type, Literal('Codigo_Postal')))
     add_products_to_lote(req, lotes_graph, codigo_postal)
     logging.info(codigo_postal)
     sparql_query = Template('''
@@ -120,13 +122,24 @@ def empezar_envio_compra(req, content):
     return Graph().serialize(format='xml')
 
 def add_products_to_lote(req, lotes_graph, codigo_postal):
+    global mss_cnt
+
+    i = 1
     for item in req.subjects(RDF.type, agn.product):
         nombre=req.value(subject=item, predicate=agn.nombre)
+<<<<<<< HEAD
         precio=req.value(subject=item, predicate=agn.precio)
         lotes_graph.add((item, RDF.type, agn.product))
         lotes_graph.add((item, agn.nombre, Literal(nombre)))
         lotes_graph.add((item, agn.codigo_postal, Literal(codigo_postal)))
         lotes_graph.add((item, agn.precio, Literal(precio)))
+=======
+        new_item = agn[nombre + '_' + str(mss_cnt) + '_' + str(i)]
+        lotes_graph.add((new_item, RDF.type, agn.product))
+        lotes_graph.add((new_item, agn.nombre, Literal(nombre)))
+        lotes_graph.add((new_item, agn.codigo_postal, Literal(codigo_postal)))
+        i = i+1
+>>>>>>> a68f207... Fix lotes ontology
 
 def negociar(codigo_postal):
     global mss_cnt
