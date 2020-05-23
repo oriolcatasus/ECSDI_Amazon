@@ -73,26 +73,49 @@ def comunicacion():
     
 def comprar(req, content):
     global mss_cnt
+    
     mss_cnt = mss_cnt + 1
-    #req.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
+    # datos historial compra
+    historial_compras = Graph()
+    try:
+        historial_compras.parse('./data/historial_compras.owl')
+    except Exception as e:
+        logging.info('No historial_compras found, creating a new one')
+    compra = agn['compra_' + str(mss_cnt)]    
+    historial_compras.add((compra, RDF.type, agn.compra))
+    # Graph message
     cl_graph = Graph()
-    envio = agn['envio_' + str(mss_cnt)]
     cl_graph.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
+    # codigo postal
     codigo_postal = req.value(subject=content, predicate=agn.codigo_postal)
     logging.info('codigo postal: ' + codigo_postal)
     cl_graph.add((content, agn.codigo_postal, codigo_postal))
+    historial_compras.add((compra, agn.codigo_postal, codigo_postal))
+    # direccion
     direccion = req.value(subject=content, predicate=agn.direccion)
     logging.info('direccion: ' + direccion)
     cl_graph.add((content, agn.direccion, direccion))
+    historial_compras.add((compra, agn.direccion, direccion))
+    # id usuario
+    id = req.value(subject=content, predicate=agn.id_usuario)
+    logging.info('id usuario: ' + id)
+    cl_graph.add((content, agn.id_usuario, id))
+    historial_compras.add((compra, agn.id_usuario, id))
+    # tarjeta bancaria
+    tarjeta_bancaria = req.value(subject=content, predicate=agn.tarjeta_bancaria)
+    logging.info('tarjeta_bancaria: ' + tarjeta_bancaria)
+    historial_compras.add((compra, agn.tarjeta_bancaria, tarjeta_bancaria))
+    # productos
     for item in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=item, predicate=agn.nombre)
         precio = get_precioDB(nombre)
-        logging.info("AtencionCLiernte Preccio " + str(precio))
         logging.info(nombre)
         cl_graph.add((item, RDF.type, agn.product))
+        historial_compras.add((compra, agn.product, Literal(nombre)))
         cl_graph.add((item, agn.nombre, Literal(nombre)))
         cl_graph.add((item, agn.precio, Literal(precio)))
-
+    historial_compras.serialize('./data/historial_compras.owl')
+    # Enviar mensaje
     centro_logistico = AtencionAlCliente.directory_search(DirectoryAgent, agn.CentroLogistico)
     message = build_message(
         cl_graph,
@@ -102,8 +125,7 @@ def comprar(req, content):
         msgcnt=mss_cnt,
         content=content
     )
-    send_message(message, centro_logistico.address)
-
+    send_message(message, centro_logistico.address)    
     return Graph().serialize(format='xml')
 
 

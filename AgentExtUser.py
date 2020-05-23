@@ -102,26 +102,25 @@ def comunicacion():
 def comprar():
     global mss_cnt
 
+    mss_cnt = mss_cnt + 1
     logging.info('Comprar')
     graph = Graph()
-    mss_cnt = mss_cnt + 1
-    #compra_id = str(uuid.uuid4())
     compra = agn['pedido_' + str(mss_cnt)]
     graph.add((compra, RDF.type, Literal('Comprar')))    
     codigo_postal = request.form['codigo_postal']
     graph.add((compra, agn.codigo_postal, Literal(codigo_postal)))
     direccion = request.form['direccion']
     graph.add((compra, agn.direccion, Literal(direccion)))
+    id = request.form['id_usuario']
+    graph.add((compra, agn.id_usuario, Literal(id)))
+    tarjeta_bancaria = request.form['tarjeta_bancaria']
+    graph.add((compra, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))
     for nombre in request.form:
-        if nombre != 'codigo_postal' and nombre != 'direccion':
-            logging.info(nombre)
+        if nombre.startswith('nombre_'):
             producto = agn[nombre]
             graph.add((producto, RDF.type, agn.product))
             graph.add((producto, agn.nombre, Literal(nombre)))
-            #graph.add((producto, agn.precio, Literal(precio)))
-        
     atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
-
     message = build_message(
         graph,
         perf=Literal('request'),
@@ -130,12 +129,7 @@ def comprar():
         msgcnt=mss_cnt,
         content=compra
     )
-
-    try:
-        send_message(message, atencion_al_cliente.address)
-    except Exception as e:
-        logging.info('Error: ' + e)
-
+    send_message(message, atencion_al_cliente.address)
     return render_template('search_product.html')
     pass
 

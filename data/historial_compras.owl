@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:ns2="http://ALIEXPLESS.ECSDI/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_1">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:codigo_postal>1234</ns2:codigo_postal>
+    <ns2:id_usuario>123456789A</ns2:id_usuario>
+    <ns2:product>nombre_9ERZUD</ns2:product>
+    <ns2:tarjeta_bancaria>0987654321</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_6Z7ZT6</ns2:product>
+    <ns2:direccion>qwerty</ns2:direccion>
+    <ns2:product>nombre_43VWSW</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_2">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:id_usuario>123456789A</ns2:id_usuario>
+    <ns2:tarjeta_bancaria>0987654321</ns2:tarjeta_bancaria>
+    <ns2:direccion>qwerty</ns2:direccion>
+    <ns2:codigo_postal>08025</ns2:codigo_postal>
+    <ns2:product>nombre_9ERZUD</ns2:product>
+  </rdf:Description>
+</rdf:RDF>

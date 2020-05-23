@@ -78,6 +78,8 @@ def empezar_envio_compra(req, content):
     logging.info('codigo postal: ' + codigo_postal)
     direccion = str(req.value(subject=content, predicate=agn.direccion))
     logging.info('direccion: ' + direccion)
+    id_usuario = str(req.value(subject=content, predicate=agn.id_usuario))
+    logging.info('id_usuario: ' + id_usuario)
     for item in req.subjects(RDF.type, agn.product):
         nombre=str(req.value(subject=item, predicate=agn.nombre))
         logging.info(nombre)
@@ -87,8 +89,6 @@ def empezar_envio_compra(req, content):
         lotes_graph.parse('./data/lotes.owl')
     except Exception as e:
         logging.info('No lotes graph found')
-        #cp = agn[codigo_postal]
-        #lotes_graph.add((cp, RDF.type, Literal('Codigo_Postal')))
     add_products_to_lote(req, lotes_graph, codigo_postal)
     logging.info(codigo_postal)
     sparql_query = Template('''
@@ -115,7 +115,6 @@ def empezar_envio_compra(req, content):
         logging.info(x.cnt)
         logging.info(max_pedidos)
         if (int(x.cnt) >= max_pedidos):
-            logging.info('Entra if')
             transportista = negociar(codigo_postal)
             transportar(codigo_postal, transportista, lotes_graph)
     lotes_graph.serialize('./data/lotes.owl')
