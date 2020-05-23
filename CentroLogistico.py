@@ -127,19 +127,13 @@ def add_products_to_lote(req, lotes_graph, codigo_postal):
     i = 1
     for item in req.subjects(RDF.type, agn.product):
         nombre=req.value(subject=item, predicate=agn.nombre)
-<<<<<<< HEAD
         precio=req.value(subject=item, predicate=agn.precio)
-        lotes_graph.add((item, RDF.type, agn.product))
-        lotes_graph.add((item, agn.nombre, Literal(nombre)))
-        lotes_graph.add((item, agn.codigo_postal, Literal(codigo_postal)))
-        lotes_graph.add((item, agn.precio, Literal(precio)))
-=======
         new_item = agn[nombre + '_' + str(mss_cnt) + '_' + str(i)]
         lotes_graph.add((new_item, RDF.type, agn.product))
         lotes_graph.add((new_item, agn.nombre, Literal(nombre)))
         lotes_graph.add((new_item, agn.codigo_postal, Literal(codigo_postal)))
+        lotes_graph.add((new_item, agn.precio, Literal(precio)))
         i = i+1
->>>>>>> a68f207... Fix lotes ontology
 
 def negociar(codigo_postal):
     global mss_cnt

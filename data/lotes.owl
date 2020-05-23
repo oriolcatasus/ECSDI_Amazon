@@ -3,9 +3,10 @@
    xmlns:ns1="http://"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_9ERZUD_3_1">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDInombre_9ERZUD_4_1">
+    <ns1:ALIEXPLESS.ECSDIcodigo_postal>08025</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <ns1:ALIEXPLESS.ECSDIprecio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</ns1:ALIEXPLESS.ECSDIprecio>
     <ns1:ALIEXPLESS.ECSDInombre>nombre_9ERZUD</ns1:ALIEXPLESS.ECSDInombre>
-    <ns1:ALIEXPLESS.ECSDIcodigo_postal>1234</ns1:ALIEXPLESS.ECSDIcodigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDIproduct"/>
   </rdf:Description>
 </rdf:RDF>
