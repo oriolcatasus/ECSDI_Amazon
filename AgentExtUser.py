@@ -118,6 +118,7 @@ def comprar():
             producto = agn[nombre]
             graph.add((producto, RDF.type, agn.product))
             graph.add((producto, agn.nombre, Literal(nombre)))
+            #graph.add((producto, agn.precio, Literal(precio)))
         
     atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
 

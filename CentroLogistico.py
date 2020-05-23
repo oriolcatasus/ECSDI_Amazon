@@ -122,9 +122,11 @@ def empezar_envio_compra(req, content):
 def add_products_to_lote(req, lotes_graph, codigo_postal):
     for item in req.subjects(RDF.type, agn.product):
         nombre=req.value(subject=item, predicate=agn.nombre)
+        precio=req.value(subject=item, predicate=agn.precio)
         lotes_graph.add((item, RDF.type, agn.product))
         lotes_graph.add((item, agn.nombre, Literal(nombre)))
         lotes_graph.add((item, agn.codigo_postal, Literal(codigo_postal)))
+        lotes_graph.add((item, agn.precio, Literal(precio)))
 
 def negociar(codigo_postal):
     global mss_cnt
@@ -180,11 +182,12 @@ def transportar(codigo_postal, transportista, lotes_graph):
     gTransportar.add((transportar, RDF.type, Literal('Transportar')))
     gTransportar.add((transportar, agn.codigo_postal, Literal(codigo_postal)))
     sparql_query = Template('''
-        SELECT ?producto ?codigo_postal ?nombre
+        SELECT ?producto ?codigo_postal ?nombre ?precio
         WHERE {
             ?producto rdf:type ?type_prod .
             ?producto ns:codigo_postal ?codigo_postal .
             ?producto ns:nombre ?nombre .
+            ?producto ns:precio ?precio .
             FILTER (
                 ?codigo_postal = '$codigo_postal'
             )
@@ -199,10 +202,13 @@ def transportar(codigo_postal, transportista, lotes_graph):
             ns=agn
         )
     )
+    sum_preu = 0
     for x in result:
         gTransportar.add((x.producto, RDF.type, agn.product))
         gTransportar.add((x.producto, agn.nombre, x.nombre))
+        sum_preu += int(x.precio)
         lotes_graph.remove((x.producto, None, None))
+    logging.info("Precio productos = " + str(sum_preu))
     message = build_message(
         gTransportar,
         perf=Literal('request'),

@@ -86,9 +86,12 @@ def comprar(req, content):
     cl_graph.add((content, agn.direccion, direccion))
     for item in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=item, predicate=agn.nombre)
+        precio = get_precioDB(nombre)
+        logging.info("AtencionCLiernte Preccio " + str(precio))
         logging.info(nombre)
         cl_graph.add((item, RDF.type, agn.product))
         cl_graph.add((item, agn.nombre, Literal(nombre)))
+        cl_graph.add((item, agn.precio, Literal(precio)))
 
     centro_logistico = AtencionAlCliente.directory_search(DirectoryAgent, agn.CentroLogistico)
     message = build_message(
@@ -158,6 +161,36 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
         result_message.add((x.producto, agn.tieneMarca, x.tieneMarca))
 
     return result_message.serialize(format='xml')
+
+def get_precioDB(nombre):
+    productos = Graph()
+    productos.parse('./data/product.owl')
+
+    sparql_query = Template('''
+        SELECT DISTINCT ?producto ?nombre ?precio
+        WHERE {
+            ?producto rdf:type ?type_prod .
+            ?producto pontp:nombre ?nombre .
+            ?producto pontp:precio ?precio .
+            FILTER (
+                ?nombre = '$nombre' 
+            )
+        }
+    ''').substitute(dict(
+        nombre = nombre
+    ))
+
+    result = productos.query(
+        sparql_query,
+        initNs=dict(
+            foaf=FOAF,
+            rdf=RDF,
+            ns=agn,
+            pontp=Namespace("http://www.products.org/ontology/property/")
+        )
+    )
+    for x in result:
+        return x.precio
 
 
 @app.route("/Stop")
