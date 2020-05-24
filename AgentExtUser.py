@@ -114,8 +114,8 @@ def comprar():
     direccion = request.form['direccion']
     graph.add((compra, agn.direccion, Literal(direccion)))
     # id usario
-    id = request.form['id_usuario']
-    graph.add((compra, agn.id_usuario, Literal(id)))
+    id_usuario = request.form['id_usuario']
+    graph.add((compra, agn.id_usuario, Literal(id_usuario)))
     # tarjeta bancaria
     tarjeta_bancaria = request.form['tarjeta_bancaria']
     graph.add((compra, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))

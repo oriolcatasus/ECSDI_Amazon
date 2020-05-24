@@ -111,9 +111,9 @@ def comprar(req, content):
     logging.info('tarjeta_bancaria: ' + tarjeta_bancaria)
     historial_compras.add((compra, agn.tarjeta_bancaria, tarjeta_bancaria))
     # prioridad envio
-    #prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
-    #logging.info('priodad envio: ' + str(prioridad_envio))
-    #cl_graph.add((content, agn.prioridad_envio, Literal(prioridad_envio)))
+    prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
+    logging.info('priodad envio: ' + str(prioridad_envio))
+    cl_graph.add((content, agn.prioridad_envio, Literal(prioridad_envio)))
     # productos
     total_precio = 0
     total_peso = 0.0

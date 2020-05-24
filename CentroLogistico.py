@@ -104,8 +104,8 @@ def empezar_envio_compra(req, content):
     logging.info('total peso: ' + str(total_peso))
     lotes_graph.add((compra, agn.total_peso, Literal(total_peso)))
     # Prioridad envio
-    #prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
-    #logging.info(())
+    prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
+    logging.info('prioridad de envio: ' + str(prioridad_envio))
     # Productos
     for producto in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=producto, predicate=agn.nombre)
@@ -113,9 +113,9 @@ def empezar_envio_compra(req, content):
         lotes_graph.add((producto, RDF.type, agn.product))
         lotes_graph.add((producto, agn.nombre, nombre))
         lotes_graph.add((producto, agn.id_compra, literal_id_compra))
-    # Lotes
     nuevo_lote = False
-    if total_peso >= peso_lote: # Si el pedido ya es todo un lote
+    # Si el envio ocupa todo un lote o es un envio con prioridad
+    if total_peso >= peso_lote or prioridad_envio == 1:
         id_lote = uuid.uuid4().int
         lotes_graph.add((compra, agn.lote, Literal(id_lote)))
         nuevo_lote = True
@@ -123,7 +123,7 @@ def empezar_envio_compra(req, content):
         lotes_graph.add((compra, agn.lote, Literal(-1)))
         nuevo_lote = distribuir_lotes(lotes_graph, codigo_postal)
     # Si podemos, enviamos los lotes
-    if nuevo_lote and get_numero_lotes(lotes_graph) >= max_lotes:
+    if nuevo_lote and (get_numero_lotes(lotes_graph) >= max_lotes or prioridad_envio == 1):
         transportista = negociar(codigo_postal)
         transportar(transportista, lotes_graph)
     lotes_graph.serialize('./data/lotes.owl')
