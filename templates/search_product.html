@@ -128,23 +128,25 @@
                 <button type="submit">Productos comprados</button>
             </div>
         </form>
-        </div>
-        <table border="1px">
-            <tr>
-                <th><b>Nombre</b></th>
-                <th><b>Selección</b></th>
-            </tr>
-            {% for product in productos_usuario %}
-            <tr>
-                <td>{{ product.nombre }}</td>
-                <td><input type="checkbox" name="{{ product.nombre }}" class="form-control"></td>
-            </tr>
-            {% endfor %}
-        </table>
-        <div>
         <br>
         <div>
             <form method="POST" action="/devolver">
+                </div>
+                <table border="1px">
+                    <tr>
+                        <th><b>Nombre</b></th>
+                        <th><b>Selección</b></th>
+                    </tr>
+                    {% for product in productos_usuario %}
+                    <tr>
+                        <td>{{ product.nombre }}</td>
+                        <td><input type="checkbox" name="{{ product.nombre }}" class="form-control"></td>
+                        <td><input type="checkbox" name="{{ product.id }}" class="form-control"></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <div>
+                    <br><br>
                 <p>Motivo de la devolucion</p>
                 <input type="radio" id="defectuoso" name="motivo" value="defectuoso" class="form-control">
                 <label for="defectuoso">Producto defectuoso</label><br>

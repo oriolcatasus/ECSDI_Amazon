@@ -4,6 +4,7 @@ from multiprocessing import Process, Queue
 from string import Template
 import socket
 import sys
+import random
 import uuid
 
 from rdflib import Namespace, Graph, RDF
@@ -85,17 +86,11 @@ def comprar(req, content):
         historial_compras.parse('./data/historial_compras.owl')
     except Exception as e:
         logging.info('No historial_compras found, creating a new one')
+    compra = agn['compra_' + str(mss_cnt)]    
+    historial_compras.add((compra, RDF.type, agn.compra))
     # Graph message
     cl_graph = Graph()
     cl_graph.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
-    # ID compra
-    id_compra = str(uuid.uuid4().int)
-    logging.info('id compra: ' + id_compra)
-    compra = agn['compra_' + id_compra]
-    literal_id_compra = Literal(id_compra)
-    historial_compras.add((compra, RDF.type, agn.compra))
-    historial_compras.add((compra, agn.id, literal_id_compra))
-    cl_graph.add((content, agn.id_compra, literal_id_compra))
     # codigo postal
     codigo_postal = req.value(subject=content, predicate=agn.codigo_postal)
     logging.info('codigo postal: ' + codigo_postal)
@@ -107,37 +102,23 @@ def comprar(req, content):
     cl_graph.add((content, agn.direccion, direccion))
     historial_compras.add((compra, agn.direccion, direccion))
     # id usuario
-    id_usuario = req.value(subject=content, predicate=agn.id_usuario)
-    logging.info('id usuario: ' + id_usuario)
-    historial_compras.add((compra, agn.id_usuario, id_usuario))
+    id = req.value(subject=content, predicate=agn.id_usuario)
+    logging.info('id usuario: ' + id)
+    cl_graph.add((content, agn.id_usuario, id))
+    historial_compras.add((compra, agn.id_usuario, id))
     # tarjeta bancaria
     tarjeta_bancaria = req.value(subject=content, predicate=agn.tarjeta_bancaria)
     logging.info('tarjeta_bancaria: ' + tarjeta_bancaria)
     historial_compras.add((compra, agn.tarjeta_bancaria, tarjeta_bancaria))
-    # prioridad envio
-    #prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
-    #logging.info('priodad envio: ' + str(prioridad_envio))
-    #cl_graph.add((content, agn.prioridad_envio, Literal(prioridad_envio)))
     # productos
-    total_precio = 0
-    total_peso = 0.0
     for item in req.subjects(RDF.type, agn.product):
-        nombre = str(req.value(subject=item, predicate=agn.nombre))
-        producto = get_producto(nombre)
-        total_precio += int(producto['precio'])
-        total_peso += float(producto['peso'])
+        nombre = req.value(subject=item, predicate=agn.nombre)
+        precio = get_precioDB(nombre)
         logging.info(nombre)
-        producto_compra = agn[nombre + '_' + str(uuid.uuid4().int)]
-        #historial_compras.add((producto_compra, RDF.type, agn.product))
-        #historial_compras.add((producto_compra, agn.nombre, Literal(nombre)))
-        #historial_compras.add((producto_compra, agn.id_compra, literal_id_compra))
+        cl_graph.add((item, RDF.type, agn.product))
         historial_compras.add((compra, agn.product, Literal(nombre)))
-        cl_graph.add((producto_compra, RDF.type, agn.product))
-        cl_graph.add((producto_compra, agn.nombre, Literal(nombre)))
-    logging.info('Total precio: ' + str(total_precio))
-    logging.info('Total peso: ' + str(total_peso))
-    cl_graph.add((content, agn.total_peso, Literal(total_peso)))
-    historial_compras.add((compra, agn.precio, Literal(total_precio)))
+        cl_graph.add((item, agn.nombre, Literal(nombre)))
+        cl_graph.add((item, agn.precio, Literal(precio)))
     historial_compras.serialize('./data/historial_compras.owl')
     # Enviar mensaje
     centro_logistico = AtencionAlCliente.directory_search(DirectoryAgent, agn.CentroLogistico)
@@ -187,6 +168,7 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
         min_precio=min_precio,
         max_precio=max_precio
     ))
+
     result = productos.query(
         sparql_query,
         initNs=dict(
@@ -207,16 +189,16 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
 
     return result_message.serialize(format='xml')
 
-def get_producto(nombre):
+def get_precioDB(nombre):
     productos = Graph()
     productos.parse('./data/product.owl')
+
     sparql_query = Template('''
-        SELECT DISTINCT ?producto ?nombre ?precio ?peso
+        SELECT DISTINCT ?producto ?nombre ?precio
         WHERE {
             ?producto rdf:type ?type_prod .
             ?producto pontp:nombre ?nombre .
             ?producto pontp:precio ?precio .
-            ?producto pontp:peso ?peso .
             FILTER (
                 ?nombre = '$nombre' 
             )
@@ -224,6 +206,7 @@ def get_producto(nombre):
     ''').substitute(dict(
         nombre = nombre
     ))
+
     result = productos.query(
         sparql_query,
         initNs=dict(
@@ -233,11 +216,9 @@ def get_producto(nombre):
             pontp=Namespace("http://www.products.org/ontology/property/")
         )
     )
-    producto = next(iter(result))
-    return dict(
-        precio=producto.precio,
-        peso=producto.peso
-    )
+    for x in result:
+        return x.precio
+
 
 def buscar_productos_usuario(req, content):    
     req_dict = {}
@@ -254,11 +235,12 @@ def build_response_devolver(id_usuario=0):
     logging.info("ID Usuario en la busqueda " + id_usuario) 
 
     sparql_query = Template('''
-        SELECT DISTINCT ?compra ?product ?id_usuario
+        SELECT DISTINCT ?compra ?product ?id ?id_usuario
         WHERE {
             ?compra rdf:type ?type_prod .
             ?compra ns:product ?product .
             ?compra ns:id_usuario ?id_usuario .
+            ?compra ns:id ?id .
             FILTER (
                 ?id_usuario = '$id_usuario'
             )
@@ -277,15 +259,14 @@ def build_response_devolver(id_usuario=0):
         )
     )
 
+    i = 0
     result_message = Graph()
     for x in result:
-        logging.info('Nombre producto: ' + str(x.product))
-        result_message.add((x.compra, RDF.type, agn.compra))
-        result_message.add((x.compra, agn.product, x.product))
-
-    for item in result_message.subjects(RDF.type, agn.compra):
-        nombre=str(result_message.value(subject=item, predicate=agn.product))
-        logging.info(nombre)
+        producto = agn[x.product + '_' + i]
+        result_message.add((producto, RDF.type, agn.product))
+        result_message.add((producto, agn.nombre, x.product))
+        result_message.add((producto, agn.id, x.id))
+        i = i + 1
 
     return result_message.serialize(format='xml')
 
@@ -295,7 +276,48 @@ def devolver(req, content):
     logging.info('ID Usuario devolucion = ' + str(id_usuario))
     motivo = req.value(subject=content, predicate=agn.motivo)
     logging.info('Motivo devolucion = ' + str(motivo))
+    nombre = req.value(subject=content, predicate=agn.producto)
+    logging.info('Nombre producto de devolucion = ' + str(nombre))
+    id_compra = req.value(subject=content, predicate=agn.id_compra)
+    logging.info('ID Compra de producto de devolucion = ' + str(id_compra))
+
+    resultado = 'null'
+    precio = 0
+
+    if str(motivo) == 'equivocado':
+        resultado = 'Devolucion por equivocacion'
+        precio = get_precioDB(nombre)
+    elif str(motivo) == 'defectuoso':
+        prob_dev = random.randint(0, 100)
+        if prob_dev < 90:
+            resultado = 'Devolucion por producto defectuoso'
+            precio = get_precioDB(nombre)
+        else:
+            resultado = 'Devolucion rechazada'
+    elif str(motivo) == 'no_satisface':
+        prob_dev = random.randint(0, 100)
+        if prob_dev < 70:
+            resultado = 'Devolucion por producto que no satisface las necesidades del comprador'
+            precio = get_precioDB(nombre)
+        else:
+            resultado = 'Devolucion rechazada'
+
+
     result_message = Graph()
+
+    respuesta = agn['respuesta' + str(mss_cnt)]
+    result_message.add((respuesta, RDF.type, agn.respuesta))
+    result_message.add((respuesta, agn.resultado, Literal(resultado)))
+
+    if precio > Literal(0):
+        logging.info("Entra delete")
+        id_compra_elim = agn['compra_' + str(id_compra)]
+        logging.info(id_compra_elim)
+        productos = Graph()
+        productos.parse('./data/historial_compras.owl')
+        productos.remove((id_compra_elim, agn.product, Literal(nombre)))
+        #mensaje a pagador
+
     return result_message.serialize(format='xml')
 
 

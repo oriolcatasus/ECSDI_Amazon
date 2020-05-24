@@ -169,11 +169,14 @@ def buscarProductosUsuario():
     logging.info('Productos del usuario:')
 
     productos_usuario = []
-    for item in response.subjects(RDF.type, agn.compra):
-        nombre=str(response.value(subject=item, predicate=agn.product))
+    for item in response.subjects(RDF.type, agn.product):
+        nombre=str(response.value(subject=item, predicate=agn.nombre))
         logging.info(nombre)
+        id_compra=str(response.value(subject=item, predicate=agn.id))
+        logging.info("ID Compra: " + str(id_compra))
         productos_usuario.append(dict(
             nombre=nombre,
+            id=id_compra,
         ))
 
     return render_template('search_product.html', productos_usuario=productos_usuario)
@@ -189,9 +192,6 @@ def devolver():
     if request.form['motivo']:
         logging.info(Literal(str(request.form['motivo'])))
 
-    return render_template('search_product.html')
-    pass
-
     mss_cnt = mss_cnt + 1
     graph = Graph()
     devolucion = agn['devolucion_' + str(mss_cnt)]
@@ -200,13 +200,16 @@ def devolver():
     graph.add((devolucion, agn.id_usuario, Literal(id)))
     motivo = request.form['motivo']
     graph.add((devolucion, agn.motivo, Literal(motivo)))
-    '''
+
     for nombre in request.form:
         if nombre.startswith('nombre_'):
             producto = agn[nombre]
-            graph.add((producto, RDF.type, agn.product))
-            graph.add((producto, agn.nombre, Literal(nombre)))
-    '''
+            graph.add((devolucion, agn.producto, Literal(nombre)))
+
+    for nombre in request.form:
+        if len(str(nombre)) > 30:
+            graph.add((devolucion, agn.id_compra, Literal(nombre)))
+    
     atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
     message = build_message(
         graph,
@@ -217,6 +220,10 @@ def devolver():
         content=devolucion
     )
     result = send_message(message, atencion_al_cliente.address)
+
+    for item in result.subjects(RDF.type, agn.respuesta):
+        resultado=str(result.value(subject=item, predicate=agn.resultado))
+        logging.info(resultado)
 
     return render_template('search_product.html')
     pass
