@@ -8,16 +8,72 @@
     <div>
         <h2>Buscar productos</h2>
         <form method="POST" action="/">
+            <label>
+                Precio mínimo:<br>
+                <input name="min_precio" id="min_precio" type="text">
+            </label><br>
+            <label>
+                Precio máximo:<br>
+                <input name="max_precio" id="max_precio" type="text">
+            </label><br>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <div>
+        <br><br>
+        <h2>Compra</h2>
+        <form method="POST" action="/comprar">
+            <label>
+                Dirección de envío:<br>
+                <input name="direccion" id="direccion" type="text" required>
+            </label><br>
+            <label>
+                Codigo postal:<br>
+                <input name="codigo_postal" id="codigo_postal" type="text" required>
+            </label><br>
+            <label>
+                Identificador de usuario:<br>
+                <input name="id_usuario" id="id_usuario" type="text" required>
+            </label><br>
+            <label>
+                Targeta bancaria:<br>
+                <input name="tarjeta_bancaria" type="text" required>
+            </label>
             <div>
-                <p>Precio minimo</p>
-                <input name="min_precio" type="text" class="form-control">
+                Prioridad de entrega:<br>
+                <label>
+                    <input name="prioridad" type="radio" value="1" required>
+                    Envío en 1 día
+                </label><br>
+                <label>
+                    <input name="prioridad" type="radio" value="2" required>
+                    Envío de 3 a 5 días
+                </label><br>
+                <label>
+                    <input name="prioridad" type="radio" value="3" required>
+                    Sin prioridad
+                </label>
             </div>
+            <table border="1px">
+                <tr>
+                    <th><b>Nombre</b></th>
+                    <th><b>Marca</b></th>
+                    <th><b>Precio</b></th>
+                    <th><b>Peso</b></th>
+                    <th><b>Selección</b></th>
+                </tr>
+                {% for product in productos %}
+                <tr>
+                    <td>{{ product.nombre }}</td>
+                    <td>{{ product.tieneMarca }}</td>
+                    <td>{{ product.precio }} €</td>
+                    <td>{{ product.peso }} gramos</td>
+                    <td><input type="checkbox" name="{{ product.nombre }}" class="form-control"></td>
+                </tr>
+                {% endfor %}
+            </table>
             <div>
-                <p>Precio maximo</p>
-                <input name="max_precio" type="text" class="form-control">
-            </div>
-            <div>
-                <button type="submit">Buscar</button>
+                <button type="submit">Comprar</button>
             </div>
         </form>
     <h2>Resultados</h2>

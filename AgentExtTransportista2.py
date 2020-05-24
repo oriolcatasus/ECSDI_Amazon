@@ -87,8 +87,6 @@ def transportar(req, content):
 
     mss_cnt = mss_cnt + 1
     logging.info('Transporte recibido:')
-    codigo_postal = req.value(subject=content, predicate=agn.codigo_postal)
-    logging.info('Codigo postal: ' + codigo_postal)
     for item in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=item, predicate=agn.nombre)
         logging.info(nombre)

@@ -39,4 +39,44 @@
     <ns2:id_usuario>5678</ns2:id_usuario>
     <ns2:product>nombre_489N07</ns2:product>
   </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_164439700746504618140122693508353344767">
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</ns2:precio>
+    <ns2:id>164439700746504618140122693508353344767</ns2:id>
+    <ns2:direccion>s</ns2:direccion>
+    <ns2:id_usuario>s</ns2:id_usuario>
+    <ns2:codigo_postal>s</ns2:codigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:tarjeta_bancaria>1</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_9ERZUD</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_92363653453604644410660717417845322214">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_9ERZUD</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</ns2:precio>
+    <ns2:id>92363653453604644410660717417845322214</ns2:id>
+    <ns2:direccion>s</ns2:direccion>
+    <ns2:id_usuario>s</ns2:id_usuario>
+    <ns2:codigo_postal>s</ns2:codigo_postal>
+    <ns2:tarjeta_bancaria>1</ns2:tarjeta_bancaria>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_125677228935681721186786466970583255834">
+    <ns2:id>125677228935681721186786466970583255834</ns2:id>
+    <ns2:direccion>s</ns2:direccion>
+    <ns2:id_usuario>s</ns2:id_usuario>
+    <ns2:codigo_postal>s</ns2:codigo_postal>
+    <ns2:product>nombre_CKIQA5</ns2:product>
+    <ns2:tarjeta_bancaria>1</ns2:tarjeta_bancaria>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1494</ns2:precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_7220252634913412443256852227274016681">
+    <ns2:id>7220252634913412443256852227274016681</ns2:id>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</ns2:precio>
+    <ns2:id_usuario>s</ns2:id_usuario>
+    <ns2:direccion>s</ns2:direccion>
+    <ns2:codigo_postal>s</ns2:codigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:tarjeta_bancaria>1</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+  </rdf:Description>
 </rdf:RDF>

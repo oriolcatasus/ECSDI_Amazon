@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
-   xmlns:ns2="http://ALIEXPLESS.ECSDI/"
+   xmlns:ns1="http://ALIEXPLESS.ECSDI/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_9ERZUD_3_1">
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_9ERZUD_42605809791904400872571006103213851170">
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/product"/>
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</ns2:precio>
-    <ns2:codigo_postal>08025</ns2:codigo_postal>
-    <ns2:nombre>nombre_9ERZUD</ns2:nombre>
+    <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">124237817757280008602284331411003569729</ns1:id_compra>
+    <ns1:nombre>nombre_9ERZUD</ns1:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_124237817757280008602284331411003569729">
+    <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">124237817757280008602284331411003569729</ns1:id_compra>
+    <ns1:direccion>a</ns1:direccion>
+    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">572.9761560217081</ns1:total_peso>
+    <ns1:codigo_postal>a</ns1:codigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</ns1:lote>
   </rdf:Description>
 </rdf:RDF>

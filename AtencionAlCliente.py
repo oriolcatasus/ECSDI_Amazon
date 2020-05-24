@@ -85,11 +85,17 @@ def comprar(req, content):
         historial_compras.parse('./data/historial_compras.owl')
     except Exception as e:
         logging.info('No historial_compras found, creating a new one')
-    compra = agn['compra_' + str(mss_cnt)]    
-    historial_compras.add((compra, RDF.type, agn.compra))
     # Graph message
     cl_graph = Graph()
     cl_graph.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
+    # ID compra
+    id_compra = str(uuid.uuid4().int)
+    logging.info('id compra: ' + id_compra)
+    compra = agn['compra_' + id_compra]
+    literal_id_compra = Literal(id_compra)
+    historial_compras.add((compra, RDF.type, agn.compra))
+    historial_compras.add((compra, agn.id, literal_id_compra))
+    cl_graph.add((content, agn.id_compra, literal_id_compra))
     # codigo postal
     codigo_postal = req.value(subject=content, predicate=agn.codigo_postal)
     logging.info('codigo postal: ' + codigo_postal)
@@ -101,23 +107,37 @@ def comprar(req, content):
     cl_graph.add((content, agn.direccion, direccion))
     historial_compras.add((compra, agn.direccion, direccion))
     # id usuario
-    id = req.value(subject=content, predicate=agn.id_usuario)
-    logging.info('id usuario: ' + id)
-    cl_graph.add((content, agn.id_usuario, id))
-    historial_compras.add((compra, agn.id_usuario, id))
+    id_usuario = req.value(subject=content, predicate=agn.id_usuario)
+    logging.info('id usuario: ' + id_usuario)
+    historial_compras.add((compra, agn.id_usuario, id_usuario))
     # tarjeta bancaria
     tarjeta_bancaria = req.value(subject=content, predicate=agn.tarjeta_bancaria)
     logging.info('tarjeta_bancaria: ' + tarjeta_bancaria)
     historial_compras.add((compra, agn.tarjeta_bancaria, tarjeta_bancaria))
+    # prioridad envio
+    #prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
+    #logging.info('priodad envio: ' + str(prioridad_envio))
+    #cl_graph.add((content, agn.prioridad_envio, Literal(prioridad_envio)))
     # productos
+    total_precio = 0
+    total_peso = 0.0
     for item in req.subjects(RDF.type, agn.product):
-        nombre = req.value(subject=item, predicate=agn.nombre)
-        precio = get_precioDB(nombre)
+        nombre = str(req.value(subject=item, predicate=agn.nombre))
+        producto = get_producto(nombre)
+        total_precio += int(producto['precio'])
+        total_peso += float(producto['peso'])
         logging.info(nombre)
-        cl_graph.add((item, RDF.type, agn.product))
+        producto_compra = agn[nombre + '_' + str(uuid.uuid4().int)]
+        #historial_compras.add((producto_compra, RDF.type, agn.product))
+        #historial_compras.add((producto_compra, agn.nombre, Literal(nombre)))
+        #historial_compras.add((producto_compra, agn.id_compra, literal_id_compra))
         historial_compras.add((compra, agn.product, Literal(nombre)))
-        cl_graph.add((item, agn.nombre, Literal(nombre)))
-        cl_graph.add((item, agn.precio, Literal(precio)))
+        cl_graph.add((producto_compra, RDF.type, agn.product))
+        cl_graph.add((producto_compra, agn.nombre, Literal(nombre)))
+    logging.info('Total precio: ' + str(total_precio))
+    logging.info('Total peso: ' + str(total_peso))
+    cl_graph.add((content, agn.total_peso, Literal(total_peso)))
+    historial_compras.add((compra, agn.precio, Literal(total_precio)))
     historial_compras.serialize('./data/historial_compras.owl')
     # Enviar mensaje
     centro_logistico = AtencionAlCliente.directory_search(DirectoryAgent, agn.CentroLogistico)
@@ -167,7 +187,6 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
         min_precio=min_precio,
         max_precio=max_precio
     ))
-
     result = productos.query(
         sparql_query,
         initNs=dict(
@@ -188,16 +207,16 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
 
     return result_message.serialize(format='xml')
 
-def get_precioDB(nombre):
+def get_producto(nombre):
     productos = Graph()
     productos.parse('./data/product.owl')
-
     sparql_query = Template('''
-        SELECT DISTINCT ?producto ?nombre ?precio
+        SELECT DISTINCT ?producto ?nombre ?precio ?peso
         WHERE {
             ?producto rdf:type ?type_prod .
             ?producto pontp:nombre ?nombre .
             ?producto pontp:precio ?precio .
+            ?producto pontp:peso ?peso .
             FILTER (
                 ?nombre = '$nombre' 
             )
@@ -205,7 +224,6 @@ def get_precioDB(nombre):
     ''').substitute(dict(
         nombre = nombre
     ))
-
     result = productos.query(
         sparql_query,
         initNs=dict(
@@ -215,9 +233,11 @@ def get_precioDB(nombre):
             pontp=Namespace("http://www.products.org/ontology/property/")
         )
     )
-    for x in result:
-        return x.precio
-
+    producto = next(iter(result))
+    return dict(
+        precio=producto.precio,
+        peso=producto.peso
+    )
 
 def buscar_productos_usuario(req, content):    
     req_dict = {}

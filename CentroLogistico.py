@@ -31,8 +31,10 @@ agn = Namespace(Constants.ONTOLOGY)
 # Contador de mensajes
 mss_cnt = 0
 
-#Pedidos por envio
-max_pedidos = 5
+# Datos de los lotes
+peso_lote = 1000.0
+num_lotes = 0
+max_lotes = 2
 
 # Datos del Agente
 
@@ -70,34 +72,76 @@ def comunicacion():
 
 
 def empezar_envio_compra(req, content):
-    global max_pedidos
     global mss_cnt
+    global peso_lote
+    global max_lotes
 
     mss_cnt = mss_cnt + 1
-    codigo_postal = str(req.value(subject=content, predicate=agn.codigo_postal))
-    logging.info('codigo postal: ' + codigo_postal)
-    direccion = str(req.value(subject=content, predicate=agn.direccion))
-    logging.info('direccion: ' + direccion)
-    id_usuario = str(req.value(subject=content, predicate=agn.id_usuario))
-    logging.info('id_usuario: ' + id_usuario)
-    for item in req.subjects(RDF.type, agn.product):
-        nombre=str(req.value(subject=item, predicate=agn.nombre))
-        logging.info(nombre)
-
+    # Datos de los lotes
     lotes_graph = Graph()
     try:
         lotes_graph.parse('./data/lotes.owl')
     except Exception as e:
         logging.info('No lotes graph found')
-    add_products_to_lote(req, lotes_graph, codigo_postal)
-    logging.info(codigo_postal)
+    # id compra
+    id_compra = int(req.value(subject=content, predicate=agn.id_compra))
+    literal_id_compra = Literal(id_compra)
+    str_id_compra = str(id_compra)
+    logging.info('id_compra: ' + str_id_compra)
+    compra = agn['compra_' + str_id_compra]
+    lotes_graph.add((compra, RDF.type, agn.compra))
+    lotes_graph.add((compra, agn.id_compra, literal_id_compra))
+    # Codigo postal
+    codigo_postal = str(req.value(subject=content, predicate=agn.codigo_postal))
+    logging.info('codigo postal: ' + codigo_postal)
+    lotes_graph.add((compra, agn.codigo_postal, Literal(codigo_postal)))
+    # Direccion de envio
+    direccion = str(req.value(subject=content, predicate=agn.direccion))
+    logging.info('direccion: ' + direccion)
+    lotes_graph.add((compra, agn.direccion, Literal(direccion)))
+    # Total peso compra
+    total_peso = float(req.value(subject=content, predicate=agn.total_peso))
+    logging.info('total peso: ' + str(total_peso))
+    lotes_graph.add((compra, agn.total_peso, Literal(total_peso)))
+    # Prioridad envio
+    #prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
+    #logging.info(())
+    # Productos
+    for producto in req.subjects(RDF.type, agn.product):
+        nombre = req.value(subject=producto, predicate=agn.nombre)
+        logging.info(nombre)
+        lotes_graph.add((producto, RDF.type, agn.product))
+        lotes_graph.add((producto, agn.nombre, nombre))
+        lotes_graph.add((producto, agn.id_compra, literal_id_compra))
+    # Lotes
+    nuevo_lote = False
+    if total_peso >= peso_lote: # Si el pedido ya es todo un lote
+        id_lote = uuid.uuid4().int
+        lotes_graph.add((compra, agn.lote, Literal(id_lote)))
+        nuevo_lote = True
+    else:
+        lotes_graph.add((compra, agn.lote, Literal(-1)))
+        nuevo_lote = distribuir_lotes(lotes_graph, codigo_postal)
+    # Si podemos, enviamos los lotes
+    if nuevo_lote and get_numero_lotes(lotes_graph) >= max_lotes:
+        transportista = negociar(codigo_postal)
+        transportar(transportista, lotes_graph)
+    lotes_graph.serialize('./data/lotes.owl')
+    return Graph().serialize(format='xml')
+
+def distribuir_lotes(lotes_graph, codigo_postal):
+    global peso_lote
+
     sparql_query = Template('''
-        SELECT (COUNT(*) as ?cnt)?producto ?codigo_postal
+        SELECT (SUM(?total_peso) as ?sum) ?compra ?codigo_postal ?lote
         WHERE {
-            ?producto rdf:type ?type_prod .
-            ?producto ns:codigo_postal ?codigo_postal .
+            ?compra rdf:type ?type_compra .
+            ?compra ns:codigo_postal ?codigo_postal .
+            ?compra ns:total_peso ?total_peso .
+            ?compra ns:lote ?lote .
             FILTER (
-                ?codigo_postal = '$codigo_postal'
+                ?codigo_postal = '$codigo_postal' &&
+                ?lote = -1
             )
         }
     ''').substitute(dict(
@@ -110,29 +154,40 @@ def empezar_envio_compra(req, content):
             ns=agn
         )
     )
-    logging.info('Result:')
-    for x in result:
-        logging.info(x.cnt)
-        logging.info(max_pedidos)
-        if (int(x.cnt) >= max_pedidos):
-            transportista = negociar(codigo_postal)
-            transportar(codigo_postal, transportista, lotes_graph)
-    lotes_graph.serialize('./data/lotes.owl')
-    return Graph().serialize(format='xml')
+    total_peso_lote = float(next(iter(result)).sum)
+    logging.info('Total peso hasta ahora: ' + str(total_peso_lote))
+    nuevo_lote = total_peso_lote >= peso_lote
+    if nuevo_lote:
+        id_lote = Literal(uuid.uuid4().int)
+        for compra in lotes_graph.subjects(RDF.type, agn.compra):
+            lote_producto = int(lotes_graph.value(compra, agn.lote))
+            codig_postal_producto = str(lotes_graph.value(compra, agn.codigo_postal))
+            if lote_producto == -1 and codig_postal_producto == codigo_postal:
+                lotes_graph.remove((compra, agn.lote, None))
+                lotes_graph.add((compra, agn.lote, id_lote))
+    return nuevo_lote
 
-def add_products_to_lote(req, lotes_graph, codigo_postal):
-    global mss_cnt
-
-    i = 1
-    for item in req.subjects(RDF.type, agn.product):
-        nombre=req.value(subject=item, predicate=agn.nombre)
-        precio=req.value(subject=item, predicate=agn.precio)
-        new_item = agn[nombre + '_' + str(mss_cnt) + '_' + str(i)]
-        lotes_graph.add((new_item, RDF.type, agn.product))
-        lotes_graph.add((new_item, agn.nombre, Literal(nombre)))
-        lotes_graph.add((new_item, agn.codigo_postal, Literal(codigo_postal)))
-        lotes_graph.add((new_item, agn.precio, Literal(precio)))
-        i = i+1
+def get_numero_lotes(lotes_graph):
+    sparql_query = '''
+        SELECT (COUNT(DISTINCT ?lote) as ?cnt) ?compra ?lote
+        WHERE {
+            ?compra rdf:type ?type_compra .
+            ?compra ns:lote ?lote .
+            FILTER ( 
+                ?lote != -1
+            )
+        }
+    '''
+    result = lotes_graph.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            ns=agn
+        )
+    )
+    num_lotes = int(next(iter(result)).cnt)
+    logging.info('num_lotes: ' + str(num_lotes))
+    return num_lotes
 
 def negociar(codigo_postal):
     global mss_cnt
@@ -169,16 +224,13 @@ def negociar(codigo_postal):
             logging.info("BUCLE 2")
             ofertaT2 = oferta
             logging.info('Oferta2: ' + str(ofertaT2))
-    #subjects = list(response.subjects(RDF.type, Literal('Oferta_Transportista')))
-    #precio = response.value((subjects[0], agn.oferta))
-    #logging.info('Oferta: ' + str(precio))
     if (ofertaT2 < ofertaT1) :
         transportista_a_enviar = transportista2
     logging.info("Escogemos transportista " + str(transportista_a_enviar.address))
     return transportista_a_enviar
 
 
-def transportar(codigo_postal, transportista, lotes_graph):
+def transportar(transportista, lotes_graph):
     global mss_cnt
     
     mss_cnt = mss_cnt + 1
@@ -186,35 +238,23 @@ def transportar(codigo_postal, transportista, lotes_graph):
     gTransportar = Graph()
     transportar = agn['transportar_' + str(mss_cnt)]
     gTransportar.add((transportar, RDF.type, Literal('Transportar')))
-    gTransportar.add((transportar, agn.codigo_postal, Literal(codigo_postal)))
-    sparql_query = Template('''
-        SELECT ?producto ?codigo_postal ?nombre ?precio
-        WHERE {
-            ?producto rdf:type ?type_prod .
-            ?producto ns:codigo_postal ?codigo_postal .
-            ?producto ns:nombre ?nombre .
-            ?producto ns:precio ?precio .
-            FILTER (
-                ?codigo_postal = '$codigo_postal'
-            )
-        }
-    ''').substitute(dict(
-        codigo_postal=codigo_postal       
-    ))
-    result = lotes_graph.query(
-        sparql_query,
-        initNs=dict(
-            rdf=RDF,
-            ns=agn
-        )
-    )
-    sum_preu = 0
-    for x in result:
-        gTransportar.add((x.producto, RDF.type, agn.product))
-        gTransportar.add((x.producto, agn.nombre, x.nombre))
-        sum_preu += int(x.precio)
-        lotes_graph.remove((x.producto, None, None))
-    logging.info("Precio productos = " + str(sum_preu))
+    for compra in lotes_graph.subjects(RDF.type, agn.compra):
+        lote = int(lotes_graph.value(compra, agn.lote))
+        if lote != -1:
+            # Enviar compra
+            gTransportar.add((compra, RDF.type, agn.compra))
+            gTransportar.add((compra, agn.lote, Literal(lote)))
+            codigo_postal = str(lotes_graph.value(compra, agn.codigo_postal))
+            gTransportar.add((compra, agn.codigo_postal, Literal(codigo_postal)))            
+            total_peso = float(lotes_graph.value(compra, agn.total_peso))
+            gTransportar.add((compra, agn.total_peso, Literal(total_peso)))
+            direccion = str(lotes_graph.value(compra, agn.direccion))
+            gTransportar.add((compra, agn.direccion, Literal(direccion)))
+            # Borrar compra de los productos para enviar
+            id_compra = int(lotes_graph.value(compra, agn.id_compra))
+            lotes_graph.remove((compra, None, None))
+            borrar_productos_enviados(lotes_graph, id_compra)
+    # Enviar mensaje
     message = build_message(
         gTransportar,
         perf=Literal('request'),
@@ -224,6 +264,12 @@ def transportar(codigo_postal, transportista, lotes_graph):
         content=transportar
     )
     send_message(message, transportista.address)
+
+def borrar_productos_enviados(lotes_graph, id_compra):
+    for producto in lotes_graph.subjects(RDF.type, agn.product):
+        producto_id_compra = int(lotes_graph.value(producto, agn.id_compra))
+        if (id_compra == producto_id_compra):
+            lotes_graph.remove((producto, None, None))
 
 
 @app.route("/Stop")
