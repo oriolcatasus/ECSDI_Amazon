@@ -9,22 +9,4 @@
     <ns2:codigo_postal>08025</ns2:codigo_postal>
     <ns2:nombre>nombre_9ERZUD</ns2:nombre>
   </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_6Z7ZT6_2_2">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/product"/>
-    <ns2:codigo_postal>1234</ns2:codigo_postal>
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</ns2:precio>
-    <ns2:nombre>nombre_6Z7ZT6</ns2:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_43VWSW_2_3">
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">41</ns2:precio>
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/product"/>
-    <ns2:codigo_postal>1234</ns2:codigo_postal>
-    <ns2:nombre>nombre_43VWSW</ns2:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_9ERZUD_2_1">
-    <ns2:nombre>nombre_9ERZUD</ns2:nombre>
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/product"/>
-    <ns2:codigo_postal>1234</ns2:codigo_postal>
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</ns2:precio>
-  </rdf:Description>
 </rdf:RDF>

@@ -133,6 +133,87 @@ def comprar():
     return render_template('search_product.html')
     pass
 
+@app.route("/buscarProductosUsuario", methods=['GET', 'POST'])
+def buscarProductosUsuario():
+
+    if request.method == 'GET':
+        return render_template('search_product.html')
+
+    global dsgraph
+    global mss_cnt
+
+    message = Graph()
+    mss_cnt = mss_cnt + 1
+    search = agn['search_query_' + str(mss_cnt)]
+    if request.form['id_usuario']:
+        message.add((search, agn['id_usuario'], Literal(int(request.form['id_usuario']))))
+    message.add((search, RDF.type, Literal('Buscar_Productos_Usuario')))    
+    AtencionAlCliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)    
+    msg = build_message(
+        message,
+        perf=Literal('request'),
+        sender=AgentExtUser.uri,
+        receiver=AtencionAlCliente.uri,
+        msgcnt=mss_cnt,
+        content=search
+    )
+    response = send_message(msg, AtencionAlCliente.address)
+
+    logging.info('Productos del usuario:')
+
+    productos_usuario = []
+    for item in response.subjects(RDF.type, agn.compra):
+        nombre=str(response.value(subject=item, predicate=agn.product))
+        logging.info(nombre)
+        productos_usuario.append(dict(
+            nombre=nombre,
+        ))
+
+    return render_template('search_product.html', productos_usuario=productos_usuario)
+    pass
+
+
+@app.route("/devolver", methods=['POST'])
+def devolver():
+
+    global mss_cnt
+    logging.info('Devolver')
+    logging.info(Literal(request.form['id_usuario']))
+    if request.form['motivo']:
+        logging.info(Literal(str(request.form['motivo'])))
+
+    return render_template('search_product.html')
+    pass
+
+    mss_cnt = mss_cnt + 1
+    graph = Graph()
+    devolucion = agn['devolucion_' + str(mss_cnt)]
+    graph.add((devolucion, RDF.type, Literal('Devolver')))
+    id = request.form['id_usuario']
+    graph.add((devolucion, agn.id_usuario, Literal(id)))
+    motivo = request.form['motivo']
+    graph.add((devolucion, agn.motivo, Literal(motivo)))
+    '''
+    for nombre in request.form:
+        if nombre.startswith('nombre_'):
+            producto = agn[nombre]
+            graph.add((producto, RDF.type, agn.product))
+            graph.add((producto, agn.nombre, Literal(nombre)))
+    '''
+    atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AgentExtUser.uri,
+        receiver=atencion_al_cliente.uri,
+        msgcnt=mss_cnt,
+        content=devolucion
+    )
+    result = send_message(message, atencion_al_cliente.address)
+
+    return render_template('search_product.html')
+    pass
+
 @app.route("/Stop")
 def stop():
     """
@@ -175,5 +256,4 @@ if __name__ == '__main__':
     # Esperamos a que acaben los behaviors
     ab1.join()
     print('The End')
-
 

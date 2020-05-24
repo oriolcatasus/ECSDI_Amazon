@@ -69,6 +69,10 @@ def comunicacion():
         return buscar_productos(req, content)
     elif accion == 'Comprar':
         return comprar(req, content)
+    elif accion == 'Buscar_Productos_Usuario':
+        return buscar_productos_usuario(req, content)
+    elif accion == 'Devolver':
+        return devolver(req,content)
     
     
 def comprar(req, content):
@@ -213,6 +217,66 @@ def get_precioDB(nombre):
     )
     for x in result:
         return x.precio
+
+
+def buscar_productos_usuario(req, content):    
+    req_dict = {}
+    if req.value(subject=content, predicate=agn['id_usuario']):
+        logging.info('Entra ID Usuario')
+        req_dict['id_usuario'] = req.value(subject=content, predicate=agn['id_usuario'])
+        logging.info(req_dict['id_usuario'])        
+    return build_response_devolver(**req_dict)
+
+
+def build_response_devolver(id_usuario=0):
+    productos = Graph()
+    productos.parse('./data/historial_compras.owl')
+    logging.info("ID Usuario en la busqueda " + id_usuario) 
+
+    sparql_query = Template('''
+        SELECT DISTINCT ?compra ?product ?id_usuario
+        WHERE {
+            ?compra rdf:type ?type_prod .
+            ?compra ns:product ?product .
+            ?compra ns:id_usuario ?id_usuario .
+            FILTER (
+                ?id_usuario = '$id_usuario'
+            )
+        }
+    ''').substitute(dict(
+        id_usuario = id_usuario
+    ))
+
+    result = productos.query(
+        sparql_query,
+        initNs=dict(
+            foaf=FOAF,
+            rdf=RDF,
+            ns=agn,
+            ns2=Namespace("http://ALIEXPLESS.ECSDI/")
+        )
+    )
+
+    result_message = Graph()
+    for x in result:
+        logging.info('Nombre producto: ' + str(x.product))
+        result_message.add((x.compra, RDF.type, agn.compra))
+        result_message.add((x.compra, agn.product, x.product))
+
+    for item in result_message.subjects(RDF.type, agn.compra):
+        nombre=str(result_message.value(subject=item, predicate=agn.product))
+        logging.info(nombre)
+
+    return result_message.serialize(format='xml')
+
+def devolver(req, content):
+    logging.info('Empezamos devolucion')
+    id_usuario = req.value(subject=content, predicate=agn.id_usuario)
+    logging.info('ID Usuario devolucion = ' + str(id_usuario))
+    motivo = req.value(subject=content, predicate=agn.motivo)
+    logging.info('Motivo devolucion = ' + str(motivo))
+    result_message = Graph()
+    return result_message.serialize(format='xml')
 
 
 @app.route("/Stop")
