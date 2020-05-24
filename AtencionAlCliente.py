@@ -110,6 +110,10 @@ def comprar(req, content):
     tarjeta_bancaria = req.value(subject=content, predicate=agn.tarjeta_bancaria)
     logging.info('tarjeta_bancaria: ' + tarjeta_bancaria)
     historial_compras.add((compra, agn.tarjeta_bancaria, tarjeta_bancaria))
+    # prioridad envio
+    #prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
+    #logging.info('priodad envio: ' + str(prioridad_envio))
+    #cl_graph.add((content, agn.prioridad_envio, Literal(prioridad_envio)))
     # productos
     total_precio = 0
     total_peso = 0.0
@@ -120,9 +124,10 @@ def comprar(req, content):
         total_peso += float(producto['peso'])
         logging.info(nombre)
         producto_compra = agn[nombre + '_' + str(uuid.uuid4().int)]
-        historial_compras.add((producto_compra, RDF.type, agn.product))
-        historial_compras.add((producto_compra, agn.nombre, Literal(nombre)))
-        historial_compras.add((producto_compra, agn.id_compra, literal_id_compra))
+        #historial_compras.add((producto_compra, RDF.type, agn.product))
+        #historial_compras.add((producto_compra, agn.nombre, Literal(nombre)))
+        #historial_compras.add((producto_compra, agn.id_compra, literal_id_compra))
+        historial_compras.add((compra, agn.product, Literal(nombre)))
         cl_graph.add((producto_compra, RDF.type, agn.product))
         cl_graph.add((producto_compra, agn.nombre, Literal(nombre)))
     logging.info('Total precio: ' + str(total_precio))
@@ -178,7 +183,6 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
         min_precio=min_precio,
         max_precio=max_precio
     ))
-
     result = productos.query(
         sparql_query,
         initNs=dict(

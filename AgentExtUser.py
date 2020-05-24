@@ -106,15 +106,23 @@ def comprar():
     logging.info('Comprar')
     graph = Graph()
     compra = agn['pedido_' + str(mss_cnt)]
-    graph.add((compra, RDF.type, Literal('Comprar')))    
+    graph.add((compra, RDF.type, Literal('Comprar')))
+    # Codigo postal
     codigo_postal = request.form['codigo_postal']
     graph.add((compra, agn.codigo_postal, Literal(codigo_postal)))
+    # Direccion de envio
     direccion = request.form['direccion']
     graph.add((compra, agn.direccion, Literal(direccion)))
+    # id usario
     id = request.form['id_usuario']
     graph.add((compra, agn.id_usuario, Literal(id)))
+    # tarjeta bancaria
     tarjeta_bancaria = request.form['tarjeta_bancaria']
     graph.add((compra, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))
+    # Prioridad
+    prioridad_envio = int(request.form['prioridad'])
+    graph.add((compra, agn.prioridad_envio, Literal(prioridad_envio)))
+    # Productos
     for nombre in request.form:
         if nombre.startswith('nombre_'):
             producto = agn[nombre]
@@ -131,7 +139,6 @@ def comprar():
     )
     send_message(message, atencion_al_cliente.address)
     return render_template('search_product.html')
-    pass
 
 @app.route("/Stop")
 def stop():

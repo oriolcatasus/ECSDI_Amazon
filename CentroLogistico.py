@@ -83,7 +83,7 @@ def empezar_envio_compra(req, content):
         lotes_graph.parse('./data/lotes.owl')
     except Exception as e:
         logging.info('No lotes graph found')
-    # Id compra
+    # id compra
     id_compra = int(req.value(subject=content, predicate=agn.id_compra))
     literal_id_compra = Literal(id_compra)
     str_id_compra = str(id_compra)
@@ -103,6 +103,9 @@ def empezar_envio_compra(req, content):
     total_peso = float(req.value(subject=content, predicate=agn.total_peso))
     logging.info('total peso: ' + str(total_peso))
     lotes_graph.add((compra, agn.total_peso, Literal(total_peso)))
+    # Prioridad envio
+    #prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
+    #logging.info(())
     # Productos
     for producto in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=producto, predicate=agn.nombre)
@@ -160,7 +163,7 @@ def distribuir_lotes(lotes_graph, codigo_postal):
             lote_producto = int(lotes_graph.value(compra, agn.lote))
             codig_postal_producto = str(lotes_graph.value(compra, agn.codigo_postal))
             if lote_producto == -1 and codig_postal_producto == codigo_postal:
-                lotes_graph.remove((compra, agn.lote))
+                lotes_graph.remove((compra, agn.lote, None))
                 lotes_graph.add((compra, agn.lote, id_lote))
     return nuevo_lote
 
