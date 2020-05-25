@@ -6,6 +6,7 @@
 </head>
 <body>
     <h2>Facturas:</h2>
+    <hr>
     {% for factura in facturas %}
     <div>
         <b>Identificador de compra</b>: {{ factura.id_compra }}<br>
@@ -28,6 +29,7 @@
         <b>Fecha de recepción</b>: {{ factura.fecha_recepcion }}<br>
         <b>Transportista</b>: {{ factura.transportista }}
     </div>
+    <hr>
     {% endfor %}
     <a href="http://127.0.1.1:9001">Volver</a>
 </body>
