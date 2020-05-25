@@ -69,37 +69,40 @@ def comunicacion():
     message = Graph()
     mss_cnt = mss_cnt + 1
     search = agn['search_query_' + str(mss_cnt)]
+    message.add((search, RDF.type, Literal('Buscar_Productos')))
     if request.form['min_precio']:
         message.add((search, agn['min_precio'], Literal(int(request.form['min_precio']))))
     if request.form['max_precio']:
         message.add((search, agn['max_precio'], Literal(int(request.form['max_precio']))))
-    message.add((search, RDF.type, Literal('Buscar_Productos')))    
-    AtencionAlCliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)    
+    if request.form['nombre']:
+        message.add((search, agn.nombre, Literal(request.form['nombre'].lower())))
+    if request.form['marca']:
+        message.add((search, agn.tieneMarca, Literal(request.form['marca'].lower())))
+    if request.form['tipo']:
+        message.add((search, agn.tipo, Literal(request.form['tipo'].lower())))    
+    atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)    
     msg = build_message(
         message,
         perf=Literal('request'),
         sender=AgentExtUser.uri,
-        receiver=AtencionAlCliente.uri,
+        receiver=atencion_al_cliente.uri,
         msgcnt=mss_cnt,
         content=search
     )
-    response = send_message(msg, AtencionAlCliente.address)
-
+    response = send_message(msg, atencion_al_cliente.address)
+    # Respuesta
     productos = []
-    for item in response.subjects(RDF.type, agn.product):
-        nombre=str(response.value(subject=item, predicate=agn.nombre))
-        peso=str(response.value(subject=item, predicate=agn.peso))
-        precio=str(response.value(subject=item, predicate=agn.precio))
-        tieneMarca=str(response.value(subject=item, predicate=agn.tieneMarca))
-        productos.append(dict(
-            nombre=nombre,
-            peso=peso,
-            precio=precio,
-            tieneMarca=tieneMarca
-        ))
-
+    for item in response.subjects(RDF.type, None):
+        producto = dict(
+            nombre = response.value(item, agn.nombre),
+            peso = float(response.value(item, agn.peso)),
+            precio = int(response.value(item, agn.precio)),
+            tieneMarca = response.value(item, agn.tieneMarca),
+            tipo = response.value(item, RDF.type)
+        )
+        producto['peso'] = float(int(producto['peso']*100)/100)
+        productos.append(producto)
     return render_template('search_product.html', productos=productos)
-    pass
 
 @app.route("/comprar", methods=['POST'])
 def comprar():

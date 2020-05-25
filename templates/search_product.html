@@ -10,30 +10,47 @@
         <form method="POST" action="/">
             <label>
                 Precio mínimo:<br>
-                <input name="min_precio" id="min_precio" type="text">
+                <input name="min_precio" type="number" placeholder="0"> €
             </label><br>
             <label>
                 Precio máximo:<br>
-                <input name="max_precio" id="max_precio" type="text">
+                <input name="max_precio" type="number"> €
+            </label><br>
+            <label>
+                Nombre:<br>
+                <input name="nombre" type="text" placeholder="nombre_KELHLL">
+            </label><br>
+            <label>
+                Marca:<br>
+                <input name="marca" type="text" placeholder="Ex: Marca_Blender_OTS3VZ">
+            </label><br>
+            <label>
+                Tipo:<br>
+                <input name="tipo" type="text" placeholder="Ex: Blender">
             </label><br>
             <button type="submit">Buscar</button>
         </form>
     </div>
+    <br>
+    <hr>
     <div>
-        <br><br>
+        <a href="http://127.0.1.1:9001/factura">Facturas</a>
+    </div>
+    <hr>
+    <div>
         <h2>Compra</h2>
         <form method="POST" action="/comprar">
             <label>
                 Dirección de envío:<br>
-                <input name="direccion" id="direccion" type="text" required>
+                <input name="direccion" type="text" required>
             </label><br>
             <label>
                 Codigo postal:<br>
-                <input name="codigo_postal" id="codigo_postal" type="text" required>
+                <input name="codigo_postal" type="text" required>
             </label><br>
             <label>
                 Identificador de usuario:<br>
-                <input name="id_usuario" id="id_usuario" type="text" required>
+                <input name="id_usuario" type="text" required>
             </label><br>
             <label>
                 Targeta bancaria:<br>
@@ -50,10 +67,12 @@
                     Sin prioridad
                 </label>
             </div>
+            <br>
             <table border="1px">
                 <tr>
                     <th><b>Nombre</b></th>
                     <th><b>Marca</b></th>
+                    <th><b>Tipo</b></th>
                     <th><b>Precio</b></th>
                     <th><b>Peso</b></th>
                     <th><b>Selección</b></th>
@@ -62,9 +81,10 @@
                 <tr>
                     <td>{{ product.nombre }}</td>
                     <td>{{ product.tieneMarca }}</td>
-                    <td>{{ product.precio }} €</td>
-                    <td>{{ product.peso }} gramos</td>
-                    <td><input type="checkbox" name="{{ product.nombre }}" class="form-control"></td>
+                    <td>{{ product.tipo }}</td>
+                    <td>{{ product.precio }}€</td>
+                    <td>{{ product.peso }}g</td>
+                    <td><input type="checkbox" name="{{ product.nombre }}"></td>
                 </tr>
                 {% endfor %}
             </table>
@@ -73,8 +93,5 @@
             </div>
         </form>
         <br>
-    </div>
-    <div>
-        <a href="http://127.0.1.1:9001/factura">Facturas</a>
     </div>
 </body>

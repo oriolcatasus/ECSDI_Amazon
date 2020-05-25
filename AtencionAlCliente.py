@@ -155,23 +155,29 @@ def comprar(req, content):
 def buscar_productos(req, content):    
     req_dict = {}
     if req.value(subject=content, predicate=agn['min_precio']):
-        logging.info('Entra MIN precio')
         req_dict['min_precio'] = req.value(subject=content, predicate=agn['min_precio'])
-        logging.info(req_dict['min_precio'])    
+        logging.info('Min precio: ' + req_dict['min_precio'])    
     if req.value(subject=content, predicate=agn['max_precio']):
-        logging.info('Entra MAX precio')
         req_dict['max_precio'] = req.value(subject=content, predicate=agn['max_precio'])
-        logging.info(req_dict['max_precio'])    
+        logging.info('Max precio: ' + req_dict['max_precio'])    
+    if req.value(content, agn.nombre):
+        req_dict['nombre'] = req.value(content, agn.nombre)
+        logging.info('Nombre: ' + req_dict['nombre'])
+    if req.value(content, agn.tieneMarca):
+        req_dict['tieneMarca'] = req.value(content, agn.tieneMarca)
+        logging.info('Marca: ' + req_dict['tieneMarca'])
+    if req.value(content, agn.tipo):
+        req_dict['tipo'] = req.value(content, agn.tipo)
+        logging.info('Tipo: ' + req_dict['tipo'])
     return build_response(**req_dict)
 
 
-def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.max):
+def build_response(tieneMarca='', min_precio=0, max_precio=sys.float_info.max, tipo='', nombre=''):
     productos = Graph().parse('./data/product.owl')
-
     sparql_query = Template('''
-        SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca
+        SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca ?tipo
         WHERE {
-            ?producto rdf:type ?type_prod .
+            ?producto rdf:type ?tipo .
             ?producto pontp:nombre ?nombre .
             ?producto pontp:precio ?precio .
             ?producto pontp:peso ?peso .
@@ -180,29 +186,31 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
                 ?precio > $min_precio && 
                 ?precio < $max_precio
             )
+            FILTER CONTAINS (lcase(?nombre), '$nombre')
+            FILTER CONTAINS (lcase(str(?tipo)), '$tipo')
+            FILTER CONTAINS (lcase(str(?tieneMarca)), '$tieneMarca')
         }
     ''').substitute(dict(
-        min_precio=min_precio,
-        max_precio=max_precio
+        min_precio = min_precio,
+        max_precio = max_precio,
+        nombre = nombre,
+        tieneMarca = tieneMarca,
+        tipo = tipo
     ))
     result = productos.query(
         sparql_query,
         initNs=dict(
-            foaf=FOAF,
             rdf=RDF,
-            ns=agn,
             pontp=Namespace("http://www.products.org/ontology/property/")
         )
     )
-
     result_message = Graph()
     for x in result:
-        result_message.add((x.producto, RDF.type, agn.product))
+        result_message.add((x.producto, RDF.type, Literal(x.tipo)))
         result_message.add((x.producto, agn.nombre, x.nombre))
         result_message.add((x.producto, agn.peso, x.peso))
         result_message.add((x.producto, agn.precio, x.precio))
-        result_message.add((x.producto, agn.tieneMarca, Literal(x.tieneMarca.split('/')[5])))
-
+        result_message.add((x.producto, agn.tieneMarca, Literal(x.tieneMarca)))
     return result_message.serialize(format='xml')
 
 def get_producto(nombre):
