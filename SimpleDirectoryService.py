@@ -134,11 +134,13 @@ def register():
         if rsearch is not None:
             agn_uri = next(rsearch)[0]
             agn_add = dsgraph.value(subject=agn_uri, predicate=DSO.Address)
+            agn_name = dsgraph.value(subject=agn_uri, predicate=FOAF.name)
             gr = Graph()
             gr.bind('dso', DSO)
             rsp_obj = agn['Directory-response']
             gr.add((rsp_obj, DSO.Address, agn_add))
             gr.add((rsp_obj, DSO.Uri, agn_uri))
+            gr.add((rsp_obj, DSO.Name, agn_name))
             return build_message(gr,
                                  ACL.inform,
                                  sender=DirectoryAgent.uri,

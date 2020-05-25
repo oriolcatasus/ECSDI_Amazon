@@ -106,6 +106,7 @@ def empezar_envio_compra(req, content):
     # Prioridad envio
     prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
     logging.info('prioridad de envio: ' + str(prioridad_envio))
+    lotes_graph.add((compra, agn.prioridad_envio, Literal(prioridad_envio)))
     # Productos
     for producto in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=producto, predicate=agn.nombre)
@@ -124,8 +125,8 @@ def empezar_envio_compra(req, content):
         nuevo_lote = distribuir_lotes(lotes_graph, codigo_postal)
     # Si podemos, enviamos los lotes
     if nuevo_lote and (get_numero_lotes(lotes_graph) >= max_lotes or prioridad_envio == 1):
-        transportista = negociar(codigo_postal)
-        transportar(transportista, lotes_graph)
+        transportista = negociar(codigo_postal, prioridad_envio)
+        transportar(transportista, lotes_graph, prioridad_envio)
     lotes_graph.serialize('./data/lotes.owl')
     return Graph().serialize(format='xml')
 
@@ -189,19 +190,20 @@ def get_numero_lotes(lotes_graph):
     logging.info('num_lotes: ' + str(num_lotes))
     return num_lotes
 
-def negociar(codigo_postal):
+def negociar(codigo_postal, prioridad_envio):
     global mss_cnt
 
     mss_cnt = mss_cnt + 1
     transportista = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista)
     transportista_a_enviar = transportista
     ofertaT1 = 0
-    ofertaT2 = 0
-    transportista2 = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista2)
+    ofertaT2 = 10000000
+    #transportista2 = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista2)
     gNegociar = Graph()
     negociar = agn['negociar_' + str(mss_cnt)]
     gNegociar.add((negociar, RDF.type, Literal('Negociar')))
     gNegociar.add((negociar, agn.codigo_postal, Literal(codigo_postal)))
+    gNegociar.add((negociar, agn.prioridad_envio, Literal(prioridad_envio)))
     message = build_message(
         gNegociar,
         perf=Literal('request'),
@@ -212,25 +214,21 @@ def negociar(codigo_postal):
     )
     response = send_message(message, transportista.address)
     for item in response.subjects(RDF.type, Literal('Oferta_Transportista')):
-        logging.info("BUCLE 1")
         for oferta in response.objects(item, agn.oferta):
-            logging.info("BUCLE 2")
-            ofertaT1 = oferta
+            ofertaT1 = int(oferta)
             logging.info('Oferta1: ' + str(ofertaT1))
-    response2 = send_message(message, transportista2.address)
-    for item in response2.subjects(RDF.type, Literal('Oferta_Transportista')):
-        logging.info("BUCLE 1")
-        for oferta in response2.objects(item, agn.oferta):
-            logging.info("BUCLE 2")
-            ofertaT2 = oferta
-            logging.info('Oferta2: ' + str(ofertaT2))
+    #response2 = send_message(message, transportista2.address)
+    #for item in response2.subjects(RDF.type, Literal('Oferta_Transportista')):
+    #    for oferta in response2.objects(item, agn.oferta):
+    #        ofertaT2 = int(oferta)
+    #        logging.info('Oferta2: ' + str(ofertaT2))
     if (ofertaT2 < ofertaT1) :
         transportista_a_enviar = transportista2
     logging.info("Escogemos transportista " + str(transportista_a_enviar.address))
     return transportista_a_enviar
 
 
-def transportar(transportista, lotes_graph):
+def transportar(transportista, lotes_graph, prioridad_envio):
     global mss_cnt
     
     mss_cnt = mss_cnt + 1
@@ -238,9 +236,12 @@ def transportar(transportista, lotes_graph):
     gTransportar = Graph()
     transportar = agn['transportar_' + str(mss_cnt)]
     gTransportar.add((transportar, RDF.type, Literal('Transportar')))
+    gTransportar.add((transportar, agn.prioridad_envio, Literal(prioridad_envio)))
+    compras_enviadas = []
     for compra in lotes_graph.subjects(RDF.type, agn.compra):
         lote = int(lotes_graph.value(compra, agn.lote))
-        if lote != -1:
+        prioridad_envio_compra = int(lotes_graph.value(compra, agn.prioridad_envio))
+        if lote != -1 and prioridad_envio == prioridad_envio_compra:
             # Enviar compra
             gTransportar.add((compra, RDF.type, agn.compra))
             gTransportar.add((compra, agn.lote, Literal(lote)))
@@ -252,9 +253,10 @@ def transportar(transportista, lotes_graph):
             gTransportar.add((compra, agn.direccion, Literal(direccion)))
             # Borrar compra de los productos para enviar
             id_compra = int(lotes_graph.value(compra, agn.id_compra))
+            compras_enviadas.append(id_compra)
             lotes_graph.remove((compra, None, None))
             borrar_productos_enviados(lotes_graph, id_compra)
-    # Enviar mensaje
+    # Enviar mensaje transportista
     message = build_message(
         gTransportar,
         perf=Literal('request'),
@@ -263,7 +265,34 @@ def transportar(transportista, lotes_graph):
         msgcnt=mss_cnt,
         content=transportar
     )
-    send_message(message, transportista.address)
+    response = send_message(message, transportista.address)
+    fecha_recepcion = response.value(agn.respuesta, agn.fecha_recepcion)
+    logging.info('Fecha de recepcion del envio: ' + fecha_recepcion)
+    informar_envio_iniciado(compras_enviadas, transportista, fecha_recepcion)
+
+def informar_envio_iniciado(compras_enviadas, transportista, fecha_recepcion):
+    global mss_cnt
+    
+    logging.info('Transportista del pedido: ' + transportista.name)
+    for id_compra in compras_enviadas:
+        mss_cnt = mss_cnt + 1
+        graph = Graph()
+        predicado = agn['informar_envio_iniciado_' + str(mss_cnt)]
+        graph.add((predicado, RDF.type, Literal('Informar_Envio_Iniciado')))
+        graph.add((predicado, agn.id_compra, Literal(id_compra)))
+        graph.add((predicado, agn.transportista, Literal(transportista.name)))
+        graph.add((predicado, agn.fecha_recepcion, Literal(fecha_recepcion)))
+        atencion_al_cliente = CentroLogistico.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+        message = build_message(
+            graph,
+            perf=Literal('request'),
+            sender=CentroLogistico.uri,
+            receiver=atencion_al_cliente.uri,
+            msgcnt=mss_cnt,
+            content=predicado
+        )
+        send_message(message, atencion_al_cliente.address)
+
 
 def borrar_productos_enviados(lotes_graph, id_compra):
     for producto in lotes_graph.subjects(RDF.type, agn.product):

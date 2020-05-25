@@ -29,6 +29,9 @@ agn = Namespace(Constants.ONTOLOGY)
 # Contador de mensajes
 mss_cnt = 0
 
+#facturas
+facturas = []
+
 # Datos del Agente
 
 AgentExtUser = Agent('AgentExtUser',
@@ -139,6 +142,36 @@ def comprar():
     )
     send_message(message, atencion_al_cliente.address)
     return render_template('search_product.html')
+
+@app.route("/factura", methods=['GET', 'POST'])
+def factura():
+    if request.method == 'GET':
+        return render_template('factura.html', facturas=facturas)
+
+
+@app.route("/comm")
+def comm():    
+    req = Graph().parse(data=request.args['content'])
+    message_properties = get_message_properties(req)
+    content = message_properties['content']    
+    productos = []
+    for producto in req.subjects(RDF.type, agn.product):
+        producto_obj = dict(
+            nombre = req.value(producto, agn.nombre),
+            precio = req.value(producto, agn.precio),
+            tieneMarca = str(req.value(producto, agn.tieneMarca))
+        )
+        productos.append(producto_obj)
+    factura = dict(
+        id_compra = req.value(content, agn.id_compra),
+        transportista = req.value(content, agn.transportista),
+        fecha_recepcion = req.value(content, agn.fecha_recepcion),
+        precio_total = req.value(content, agn.precio_total),
+        productos = productos
+    )
+    facturas.append(factura)
+    return Graph().serialize(format='xml')
+
 
 @app.route("/Stop")
 def stop():

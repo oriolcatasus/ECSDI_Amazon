@@ -69,6 +69,8 @@ def comunicacion():
         return buscar_productos(req, content)
     elif accion == 'Comprar':
         return comprar(req, content)
+    elif accion == 'Informar_Envio_Iniciado':
+        return informar_envio_iniciado(req, content)
     
     
 def comprar(req, content):
@@ -85,9 +87,10 @@ def comprar(req, content):
     cl_graph = Graph()
     cl_graph.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
     # ID compra
-    id_compra = str(uuid.uuid4().int)
-    logging.info('id compra: ' + id_compra)
-    compra = agn['compra_' + id_compra]
+    id_compra = uuid.uuid4().int
+    str_id_compra = str(id_compra)
+    logging.info('id compra: ' + str_id_compra)
+    compra = agn['compra_' + str_id_compra]
     literal_id_compra = Literal(id_compra)
     historial_compras.add((compra, RDF.type, agn.compra))
     historial_compras.add((compra, agn.id, literal_id_compra))
@@ -163,8 +166,7 @@ def buscar_productos(req, content):
 
 
 def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.max):
-    productos = Graph()
-    productos.parse('./data/product.owl')
+    productos = Graph().parse('./data/product.owl')
 
     sparql_query = Template('''
         SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca
@@ -199,20 +201,20 @@ def build_response(tieneMarca='(.*)', min_precio=0, max_precio=sys.float_info.ma
         result_message.add((x.producto, agn.nombre, x.nombre))
         result_message.add((x.producto, agn.peso, x.peso))
         result_message.add((x.producto, agn.precio, x.precio))
-        result_message.add((x.producto, agn.tieneMarca, x.tieneMarca))
+        result_message.add((x.producto, agn.tieneMarca, Literal(x.tieneMarca.split('/')[5])))
 
     return result_message.serialize(format='xml')
 
 def get_producto(nombre):
-    productos = Graph()
-    productos.parse('./data/product.owl')
+    productos = Graph().parse('./data/product.owl')
     sparql_query = Template('''
-        SELECT DISTINCT ?producto ?nombre ?precio ?peso
+        SELECT ?producto ?nombre ?precio ?peso ?tieneMarca
         WHERE {
             ?producto rdf:type ?type_prod .
             ?producto pontp:nombre ?nombre .
             ?producto pontp:precio ?precio .
             ?producto pontp:peso ?peso .
+            ?producto pontp:tieneMarca ?tieneMarca
             FILTER (
                 ?nombre = '$nombre' 
             )
@@ -223,17 +225,72 @@ def get_producto(nombre):
     result = productos.query(
         sparql_query,
         initNs=dict(
-            foaf=FOAF,
             rdf=RDF,
-            ns=agn,
             pontp=Namespace("http://www.products.org/ontology/property/")
         )
     )
     producto = next(iter(result))
     return dict(
         precio=producto.precio,
-        peso=producto.peso
+        peso=producto.peso,
+        tieneMarca=producto.tieneMarca
     )
+
+
+def informar_envio_iniciado(req, content):
+    global mss_cnt
+    
+    mss_cnt = mss_cnt + 1
+    logging.info('Envio iniciado')
+    id_compra = int(req.value(content, agn.id_compra))
+    literal_id_compra = Literal(id_compra)
+    logging.info('id compra: ' + literal_id_compra)
+    fecha_recepcion = req.value(content, agn.fecha_recepcion)
+    logging.info('fecha de recepcion del envio: ' + fecha_recepcion)
+    transportista = req.value(content, agn.transportista)
+    logging.info('transportista: ' + transportista)
+    # Hacemos la factura
+    graph = Graph()
+    factura = agn['factura_' + str(mss_cnt)]
+    graph.add((factura, RDF.type, Literal('factura')))
+    graph.add((factura, agn.id_compra, literal_id_compra))
+    graph.add((factura, agn.fecha_recepcion, fecha_recepcion))
+    graph.add((factura, agn.transportista, transportista))
+    # Buscamos todos los productos de la compra
+    historial_compras = Graph().parse('./data/historial_compras.owl')
+    productos = Graph().parse('./data/product.owl')
+    subject = next(historial_compras.subjects(agn.id, literal_id_compra))
+    i = 1
+    for producto in historial_compras.objects(subject, agn.product):
+        logging.info('Producto:')
+        logging.info('nombre: ' + producto)
+        subject_producto = agn[producto + '_' + str(i)]
+        graph.add((subject_producto, RDF.type, agn.product))
+        graph.add((subject_producto, agn.nombre, producto))
+        datos_producto = get_producto(producto)
+        precio = datos_producto['precio']
+        logging.info('precio: ' + precio)
+        graph.add((subject_producto, agn.precio, Literal(precio)))
+        marca = datos_producto['tieneMarca'].split('/')[5]
+        logging.info('marca: ' + marca)
+        graph.add((subject_producto, agn.tieneMarca, Literal(marca)))
+        i += 1
+    # Precio total
+    precio_total = int(historial_compras.value(subject, agn.precio))
+    graph.add((factura, agn.precio_total, Literal(precio_total)))
+    # Enviar mensaje
+    agente_ext_usuario = AtencionAlCliente.directory_search(DirectoryAgent, agn.AgentExtUser)
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AtencionAlCliente.uri,
+        receiver=agente_ext_usuario.uri,
+        msgcnt=mss_cnt,
+        content=factura
+    )
+    send_message(message, agente_ext_usuario.address) 
+    return Graph().serialize(format='xml')
+
 
 @app.route("/Stop")
 def stop():

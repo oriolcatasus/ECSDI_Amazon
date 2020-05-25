@@ -5,6 +5,7 @@ from string import Template
 import socket
 import random
 import uuid
+import datetime
 
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
@@ -73,7 +74,13 @@ def negociar(req, content):
     global precio_oferta
 
     mss_cnt = mss_cnt + 1
-    precio_oferta = random.randint(200, 500)
+    logging.info('Peticion de oferta')
+    prioridad_envio = int(req.value(content, agn.prioridad_envio))
+    if (prioridad_envio == 1):
+        logging.info('Envio en 1 dia')
+    else:
+        logging.info('Envio sin prioridad')
+    precio_oferta = random.randint(200, 500)*(prioridad_envio+1)
     logging.info('Precio oferta: ' + str(precio_oferta))
     graph = Graph()
     oferta = agn['oferta_' + str(mss_cnt)]
@@ -87,12 +94,31 @@ def transportar(req, content):
 
     mss_cnt = mss_cnt + 1
     logging.info('Transporte recibido:')
-    for item in req.subjects(RDF.type, agn.product):
-        nombre = req.value(subject=item, predicate=agn.nombre)
-        logging.info(nombre)
+    prioridad_envio = int(req.value(content, agn.prioridad_envio))
+    fecha_recepcion = None
+    if (prioridad_envio == 1):
+        logging.info('Envío en 1 día')
+        fecha_recepcion = datetime.date.today() + datetime.timedelta(days=1)
+    else:
+        logging.info('Envío sin prioridad')
+        extra_days = random.randint(5, 15)
+        fecha_recepcion = datetime.date.today() + datetime.timedelta(days=extra_days)
+    for item in req.subjects(RDF.type, agn.compra):
+        lote = req.value(subject=item, predicate=agn.lote)
+        logging.info('Lote: ' + lote)
+        direccion = req.value(subject=item, predicate=agn.direccion)
+        logging.info('Dirección: ' + direccion)
+        codigo_postal = req.value(subject=item, predicate=agn.codigo_postal)
+        logging.info('Codigo postal: ' + codigo_postal)
+        total_peso = req.value(subject=item, predicate=agn.total_peso)
+        logging.info('Total peso: ' + total_peso)
     logging.info('Precio envio: ' + str(precio_oferta))
-
-    return Graph().serialize(format='xml')
+    logging.info('Fecha de recepción del envio: ' + str(fecha_recepcion))
+    graph = Graph()
+    sujeto = agn['respuesta']
+    graph.add((sujeto, agn.precio, Literal(precio_oferta)))
+    graph.add((sujeto, agn.fecha_recepcion, Literal(fecha_recepcion)))
+    return graph.serialize(format='xml')
 
 
 @app.route("/Stop")
@@ -136,5 +162,3 @@ if __name__ == '__main__':
     # Esperamos a que acaben los behaviors
     ab1.join()
     print('The End')
-
-

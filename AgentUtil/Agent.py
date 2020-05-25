@@ -90,5 +90,5 @@ class Agent():
     address = gr.value(subject=content, predicate=DSO.Address)
     uri = gr.value(subject=content, predicate=DSO.Uri)
     logging.info('uri: ' + uri)
-    name = gr.value(subject=content, predicate=FOAF.name)
+    name = gr.value(subject=content, predicate=DSO.Name)
     return Agent(name, uri, address, None)
