@@ -175,6 +175,87 @@ def comm():
     facturas.append(factura)
     return Graph().serialize(format='xml')
 
+@app.route("/buscarProductosUsuario", methods=['GET', 'POST'])
+def buscarProductosUsuario():
+
+    if request.method == 'GET':
+        return render_template('devolucion.html')
+
+    global dsgraph
+    global mss_cnt
+
+    message = Graph()
+    mss_cnt = mss_cnt + 1
+    search = agn['search_query_' + str(mss_cnt)]
+    id_usuario = request.form['id_usuario']
+    message.add((search, agn['id_usuario'], Literal(id_usuario)))
+    message.add((search, RDF.type, Literal('Buscar_Productos_Usuario')))    
+    AtencionAlCliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)    
+    msg = build_message(
+        message,
+        perf=Literal('request'),
+        sender=AgentExtUser.uri,
+        receiver=AtencionAlCliente.uri,
+        msgcnt=mss_cnt,
+        content=search
+    )
+    response = send_message(msg, AtencionAlCliente.address)
+
+    logging.info('Productos del usuario:')
+
+    productos_usuario = []
+    for item in response.subjects(RDF.type, agn.product):
+        nombre=str(response.value(subject=item, predicate=agn.nombre))
+        logging.info(nombre)
+        id_compra=str(response.value(subject=item, predicate=agn.id_compra))
+        logging.info("ID Compra: " + str(id_compra))
+        productos_usuario.append(dict(
+            nombre=nombre,
+            id_compra=id_compra,
+        ))
+    return render_template('devolucion.html', productos_usuario=productos_usuario, id_usuario=id_usuario)
+
+
+@app.route("/devolver", methods=['POST'])
+def devolver():
+    global mss_cnt
+    
+    mss_cnt = mss_cnt + 1
+    logging.info('Devolver')
+    logging.info(request.form['id_usuario'])
+    logging.info(request.form['motivo'])
+
+    graph = Graph()
+    devolucion = agn['devolucion_' + str(mss_cnt)]
+    graph.add((devolucion, RDF.type, Literal('Devolver')))
+    id_usuario = request.form['id_usuario']
+    graph.add((devolucion, agn.id_usuario, Literal(id_usuario)))
+    motivo = request.form['motivo']
+    graph.add((devolucion, agn.motivo, Literal(motivo)))
+
+    i = 0
+    for nombre in request.form.getlist('nombre'):
+        producto = agn[nombre]
+        graph.add((devolucion, agn.producto, Literal(nombre)))
+        graph.add((devolucion, agn.id_compra, Literal(request.form.getlist('id_compra')[i])))
+        i += 1    
+    atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AgentExtUser.uri,
+        receiver=atencion_al_cliente.uri,
+        msgcnt=mss_cnt,
+        content=devolucion
+    )
+    result = send_message(message, atencion_al_cliente.address)
+
+    for item in result.subjects(RDF.type, agn.respuesta):
+        resultado=str(result.value(subject=item, predicate=agn.resultado))
+        logging.info(resultado)
+
+    return render_template('devolucion.html')
+
 
 @app.route("/Stop")
 def stop():
@@ -218,5 +299,4 @@ if __name__ == '__main__':
     # Esperamos a que acaben los behaviors
     ab1.join()
     print('The End')
-
 
