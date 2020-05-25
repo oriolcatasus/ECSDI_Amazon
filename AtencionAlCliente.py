@@ -6,6 +6,7 @@ import socket
 import sys
 import random
 import uuid
+import datetime
 
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
@@ -124,6 +125,10 @@ def comprar(req, content):
     logging.info('priodad envio: ' + str(prioridad_envio))
     cl_graph.add((content, agn.prioridad_envio, Literal(prioridad_envio)))
     historial_compras.add((compra, agn.prioridad_envio, Literal(prioridad_envio)))
+    # fecha de compra
+    fecha_compra = datetime.date.today()
+    logging.info('fecha de compra: ' + str(fecha_compra))
+    historial_compras.add((compra, agn.fecha_compra, Literal(fecha_compra)))
     # productos
     total_precio = 0
     total_peso = 0.0
@@ -286,6 +291,10 @@ def informar_envio_iniciado(req, content):
     direccion = historial_compras.value(subject, agn.direccion)
     logging.info('direccion: ' + direccion)
     graph.add((factura, agn.direccion, direccion))
+    # Fecha de compra
+    fecha_compra = historial_compras.value(subject, agn.fecha_compra)
+    logging.info('fecha de compra: ' + str(fecha_compra))
+    graph.add((factura, agn.fecha_compra, fecha_compra))
     # Productos
     i = 1
     for producto in historial_compras.objects(subject, agn.product):
