@@ -147,7 +147,7 @@ def agentbehavior1(cola):
 
     :return:
     """
-    AgentExtTransportista.register_agent(DirectoryAgent)
+    AgentExtTransportista2.register_agent(DirectoryAgent)
     pass
 
 

@@ -25,7 +25,7 @@ import Constants.Constants as Constants
 
 # Configuration stuff
 hostname = '127.0.1.1'
-port = 9009
+port = 9008
 
 agn = Namespace(Constants.ONTOLOGY)
 
@@ -34,8 +34,8 @@ mss_cnt = 0
 
 # Datos del Agente
 
-AgenteExtEntidadBancaria = Agent('AgenteExtEntidadBancaria',
-                       agn.AgenteExtEntidadBancaria,
+Pagador = Agent('Pagador',
+                       agn.Pagador,
                        'http://%s:%d/comm' % (hostname, port),
                        'http://%s:%d/Stop' % (hostname, port))
 
@@ -66,23 +66,44 @@ def comunicacion():
     content = message_properties['content']
     accion = str(req.value(subject=content, predicate=RDF.type))
     logging.info('Accion: ' + accion)
-    if accion == 'CobrarP':        
-        return cobrarP(req, content)
+    if accion == 'Cobrar':        
+        return cobrar(req, content)
 
-def cobrarP(req, content):
+def cobrar(req, content):
     global mss_cnt
-    
+
     mss_cnt = mss_cnt + 1
+    logging.info("Se empezará a cobrar el pedido")
     tarjeta_bancaria = req.value(content, agn.tarjeta_bancaria)
     precio_total = req.value(content, agn.precio_total)
-    logging.info("Se ha realizado el cobro en la tarjeta bancaria " + str(tarjeta_bancaria) +
-                " de un importe de " + str(precio_total))
-    respuesta = str("Cobro realizado correctamente")
-    gCobroRealizado = Graph()
-    cobroRealizado = agn['cobroRealizado_' + str(mss_cnt)]
-    gCobroRealizado.add((cobroRealizado, RDF.type, Literal('CobroRealizado')))
-    gCobroRealizado.add((cobroRealizado, agn.respuesta, Literal(respuesta)))
-    return gCobroRealizado.serialize(format='xml')
+    AgenteExtEntidadBancaria = Pagador.directory_search(DirectoryAgent, agn.AgenteExtEntidadBancaria)
+    gCobrarP = Graph()
+    cobrarP = agn['cobrarP_' + str(mss_cnt)]
+    gCobrarP.add((cobrarP, RDF.type, Literal('CobrarP')))
+    gCobrarP.add((cobrarP, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))
+    gCobrarP.add((cobrarP, agn.precio_total, Literal(precio_total)))
+    message = build_message(
+        gCobrarP,
+        perf=Literal('request'),
+        sender=Pagador.uri,
+        receiver=AgenteExtEntidadBancaria.uri,
+        msgcnt=mss_cnt,
+        content=cobrarP
+    )
+    response = send_message(message, AgenteExtEntidadBancaria.address)
+    respuesta_cobro = ""
+    for item in response.subjects(RDF.type, Literal('CobroRealizado')):
+        for cobroRelalizado in response.objects(item, agn.respuesta):
+            respuesta_cobro = str(cobroRelalizado)
+            logging.info(respuesta_cobro)
+    gRespuestaCobro = Graph()
+    RespuestaCobro = agn['RespuestaCobro_' + str(mss_cnt)]
+    gRespuestaCobro.add((RespuestaCobro, RDF.type, Literal('RespuestaCobro')))
+    gRespuestaCobro.add((RespuestaCobro, agn.respuesta_cobro, Literal(respuesta_cobro)))
+    return gRespuestaCobro.serialize(format='xml')
+
+
+
 
 
 @app.route("/Stop")
@@ -111,7 +132,7 @@ def agentbehavior1(cola):
 
     :return:
     """
-    AgenteExtEntidadBancaria.register_agent(DirectoryAgent)
+    Pagador.register_agent(DirectoryAgent)
     pass
 
 
@@ -126,6 +147,4 @@ if __name__ == '__main__':
     # Esperamos a que acaben los behaviors
     ab1.join()
     print('The End')
-
-
 

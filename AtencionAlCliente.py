@@ -277,6 +277,32 @@ def informar_envio_iniciado(req, content):
         i += 1
     # Precio total
     precio_total = int(historial_compras.value(subject, agn.precio))
+    #enviar accion pagador
+    logging.info("Abans del caos")
+    tarjeta_bancaria = int(historial_compras.value(subject, agn.tarjeta_bancaria))
+    logging.info("C mamó")
+    Pagador = AtencionAlCliente.directory_search(DirectoryAgent, agn.Pagador)
+    logging.info("Estamos chill")
+    gCobrar = Graph()
+    cobrar = agn['cobrar_' + str(mss_cnt)]
+    gCobrar.add((cobrar, RDF.type, Literal('Cobrar')))
+    gCobrar.add((cobrar, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))
+    gCobrar.add((cobrar, agn.precio_total, Literal(precio_total)))
+    message = build_message(
+        gCobrar,
+        perf=Literal('request'),
+        sender=AtencionAlCliente.uri,
+        receiver=Pagador.uri,
+        msgcnt=mss_cnt,
+        content=cobrar
+    )
+    logging.info("Abans d'enviar")
+    Pagado_correctamente = send_message(message, Pagador.address)
+    for item in Pagado_correctamente.subjects(RDF.type, Literal('RespuestaCobro')):
+        for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
+            logging.info(str(RespuestaCobro))
+    logging.info("cobro rebut")
+    #afegir factura
     graph.add((factura, agn.precio_total, Literal(precio_total)))
     # Enviar mensaje
     agente_ext_usuario = AtencionAlCliente.directory_search(DirectoryAgent, agn.AgentExtUser)

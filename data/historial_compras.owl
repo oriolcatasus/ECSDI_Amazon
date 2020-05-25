@@ -3,4 +3,293 @@
    xmlns:ns2="http://ALIEXPLESS.ECSDI/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_27207368487902656398708521446899651011">
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">27207368487902656398708521446899651011</ns2:id>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_26780596792577952358623843613765275467">
+    <ns2:product>nombre_J3AE5F</ns2:product>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:product>nombre_4C94DR</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">361</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:product>nombre_V0VIX5</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">26780596792577952358623843613765275467</ns2:id>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_302630782312455944898262148599447579811">
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">302630782312455944898262148599447579811</ns2:id>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">414</ns2:precio>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:product>nombre_ZHBGUS</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_C2J9DH</ns2:product>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_273470020051454956474536254116767045100">
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">361</ns2:precio>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:product>nombre_4C94DR</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_J3AE5F</ns2:product>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:product>nombre_V0VIX5</ns2:product>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">273470020051454956474536254116767045100</ns2:id>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_147878986687327133559322424248805597710">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">414</ns2:precio>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:product>nombre_C2J9DH</ns2:product>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">147878986687327133559322424248805597710</ns2:id>
+    <ns2:product>nombre_ZHBGUS</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_160870955644927745713844945610917327467">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">160870955644927745713844945610917327467</ns2:id>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_237658709802733421679357949187515703721">
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:product>nombre_J3AE5F</ns2:product>
+    <ns2:product>nombre_V0VIX5</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">361</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">237658709802733421679357949187515703721</ns2:id>
+    <ns2:product>nombre_4C94DR</ns2:product>
+    <ns2:product>nombre_F78QO5</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_290851306865209101306037770645958461005">
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">290851306865209101306037770645958461005</ns2:id>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_285296381202175071210000661073674504907">
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">361</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:product>nombre_V0VIX5</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">285296381202175071210000661073674504907</ns2:id>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_J3AE5F</ns2:product>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:product>nombre_4C94DR</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_124243566025479066730737226713609593864">
+    <ns2:product>nombre_4C94DR</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_J3AE5F</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">124243566025479066730737226713609593864</ns2:id>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:product>nombre_V0VIX5</ns2:product>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">361</ns2:precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_202757330917746252315115320845086691915">
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">202757330917746252315115320845086691915</ns2:id>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_489N07</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_152394679729325906317836947391670383721">
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">152394679729325906317836947391670383721</ns2:id>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_265170443553119300651161698863869564580">
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:product>nombre_J3AE5F</ns2:product>
+    <ns2:product>nombre_V0VIX5</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">361</ns2:precio>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">265170443553119300651161698863869564580</ns2:id>
+    <ns2:product>nombre_4C94DR</ns2:product>
+    <ns2:product>nombre_F78QO5</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_29175236710028897680735169554686743502">
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29175236710028897680735169554686743502</ns2:id>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_94527025934980729211620307620490481873">
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94527025934980729211620307620490481873</ns2:id>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_166935055546475449296719132397853182616">
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_KELHLL</ns2:product>
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">348</ns2:precio>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">166935055546475449296719132397853182616</ns2:id>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_210859754431756430759244336685644723014">
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">361</ns2:precio>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_V0VIX5</ns2:product>
+    <ns2:product>nombre_F78QO5</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">210859754431756430759244336685644723014</ns2:id>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_4XFJZH</ns2:product>
+    <ns2:product>nombre_J3AE5F</ns2:product>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:product>nombre_4C94DR</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_130438626049015862883383948310831385414">
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">130438626049015862883383948310831385414</ns2:id>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_137237601910606775332133720121472971723">
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">137237601910606775332133720121472971723</ns2:id>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_288890729955169367505447038350697618951">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_C2J9DH</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">414</ns2:precio>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">288890729955169367505447038350697618951</ns2:id>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <ns2:product>nombre_ZHBGUS</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_F78QO5</ns2:product>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_242986361701537441543894966676382055995">
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</ns2:precio>
+    <ns2:tarjeta_bancaria>258</ns2:tarjeta_bancaria>
+    <ns2:product>nombre_C093SK</ns2:product>
+    <ns2:codigo_postal>123456</ns2:codigo_postal>
+    <ns2:product>nombre_7F2PVF</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns2:product>nombre_M1RFOW</ns2:product>
+    <ns2:product>nombre_489N07</ns2:product>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">242986361701537441543894966676382055995</ns2:id>
+    <ns2:product>nombre_BQKC3M</ns2:product>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>Mikasa, CanoSity</ns2:direccion>
+  </rdf:Description>
 </rdf:RDF>
