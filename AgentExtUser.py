@@ -129,11 +129,10 @@ def comprar():
     prioridad_envio = int(request.form['prioridad'])
     graph.add((compra, agn.prioridad_envio, Literal(prioridad_envio)))
     # Productos
-    for nombre in request.form:
-        if nombre.startswith('nombre_'):
-            producto = agn[nombre]
-            graph.add((producto, RDF.type, agn.product))
-            graph.add((producto, agn.nombre, Literal(nombre)))
+    for nombre in request.form.getlist('nombre'):
+        producto = agn[nombre]
+        graph.add((producto, RDF.type, agn.product))
+        graph.add((producto, agn.nombre, Literal(nombre)))            
     atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
     message = build_message(
         graph,
