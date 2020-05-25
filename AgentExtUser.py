@@ -167,6 +167,7 @@ def comm():
         productos.append(producto_obj)
     factura = dict(
         id_compra = req.value(content, agn.id_compra),
+        id_usuario = req.value(content, agn.id_usuario),
         transportista = req.value(content, agn.transportista),
         fecha_recepcion = req.value(content, agn.fecha_recepcion),
         precio_total = req.value(content, agn.precio_total),
