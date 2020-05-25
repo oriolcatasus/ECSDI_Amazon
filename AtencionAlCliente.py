@@ -87,7 +87,8 @@ def comprar(req, content):
     try:
         historial_compras.parse('./data/historial_compras.owl')
     except Exception as e:
-        logging.info('No historial_compras found, creating a new one')    # Graph message
+        logging.info('No historial_compras found, creating a new one')    
+    # Graph message
     cl_graph = Graph()
     cl_graph.add((content, RDF.type, Literal('Empezar_Envio_Compra')))
     # ID compra
@@ -122,6 +123,7 @@ def comprar(req, content):
     prioridad_envio = int(req.value(subject=content, predicate=agn.prioridad_envio))
     logging.info('priodad envio: ' + str(prioridad_envio))
     cl_graph.add((content, agn.prioridad_envio, Literal(prioridad_envio)))
+    historial_compras.add((compra, agn.prioridad_envio, Literal(prioridad_envio)))
     # productos
     total_precio = 0
     total_peso = 0.0
@@ -188,8 +190,8 @@ def build_response(tieneMarca='', min_precio=0, max_precio=sys.float_info.max, t
             ?producto pontp:peso ?peso .
             ?producto pontp:tieneMarca ?tieneMarca .
             FILTER (
-                ?precio > $min_precio && 
-                ?precio < $max_precio
+                ?precio >= $min_precio && 
+                ?precio <= $max_precio
             )
             FILTER CONTAINS (lcase(?nombre), '$nombre')
             FILTER CONTAINS (lcase(str(?tipo)), '$tipo')
@@ -276,6 +278,14 @@ def informar_envio_iniciado(req, content):
     id_usuario = historial_compras.value(subject, agn.id_usuario)
     logging.info('id usuario: ' + id_usuario)
     graph.add((factura, agn.id_usuario, id_usuario))
+    # prioridad envio
+    prioridad_envio = int(historial_compras.value(subject, agn.prioridad_envio))
+    logging.info('prioridad envio: ' + str(prioridad_envio))
+    graph.add((factura, agn.prioridad_envio, Literal(prioridad_envio)))
+    # Direccion
+    direccion = historial_compras.value(subject, agn.direccion)
+    logging.info('direccion: ' + direccion)
+    graph.add((factura, agn.direccion, direccion))
     # Productos
     i = 1
     for producto in historial_compras.objects(subject, agn.product):
@@ -294,6 +304,8 @@ def informar_envio_iniciado(req, content):
         i += 1
     # Precio total
     precio_total = int(historial_compras.value(subject, agn.precio))
+    if prioridad_envio > 0:
+        precio_total += 10
     graph.add((factura, agn.precio_total, Literal(precio_total)))
     # Enviar mensaje
     agente_ext_usuario = AtencionAlCliente.directory_search(DirectoryAgent, agn.AgentExtUser)
