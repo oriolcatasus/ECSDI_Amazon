@@ -10,6 +10,10 @@
     {% for factura in facturas %}
     <div>
         <b>Identificador de compra</b>: {{ factura.id_compra }}<br>
+        <b>Identificador de usuario</b>: {{ factura.id_usuario}}<br>
+        <b>Direccion de facturación</b>: {{ factura.direccion }}<br>
+        <b>Fecha de compra</b>: {{ factura.fecha_compra}}<br>
+        <br>
         <b>Productos comprados</b>:<br>
         <table border="1px">
             <tr>
@@ -21,15 +25,21 @@
             <tr>
                 <td>{{ producto.nombre }}</td>
                 <td>{{ producto.tieneMarca }}</td>
-                <td>{{ producto.precio }} €</td>
+                <td>{{ producto.precio }}€</td>
             </tr>
             {% endfor %}
         </table>
-        <b>Precio total</b>: {{ factura.precio_total }}<br>
+        {% if factura.prioridad_envio > 0 %}
+            Extra envio en 1 día: 10€<br>
+        {% endif %}
+        <b>Precio total</b>: {{ factura.precio_total }}€<br>
+        <br>
         <b>Fecha de recepción</b>: {{ factura.fecha_recepcion }}<br>
-        <b>Transportista</b>: {{ factura.transportista }}
+        <b>Transportista</b>: {{ factura.transportista }}<br>
     </div>
     <hr>
     {% endfor %}
-    <a href="http://127.0.1.1:9001">Volver</a>
+    <div>
+        <a href="http://127.0.1.1:9001">Volver</a>
+    </div>
 </body>

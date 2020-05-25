@@ -193,12 +193,7 @@ def get_numero_lotes(lotes_graph):
 def negociar(codigo_postal, prioridad_envio):
     global mss_cnt
 
-    mss_cnt = mss_cnt + 1
-    transportista = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista)
-    transportista_a_enviar = transportista
-    ofertaT1 = 0
-    ofertaT2 = 10000000
-    #transportista2 = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista2)
+    mss_cnt = mss_cnt + 1    
     gNegociar = Graph()
     negociar = agn['negociar_' + str(mss_cnt)]
     gNegociar.add((negociar, RDF.type, Literal('Negociar')))
@@ -208,22 +203,34 @@ def negociar(codigo_postal, prioridad_envio):
         gNegociar,
         perf=Literal('request'),
         sender=CentroLogistico.uri,
-        receiver=transportista.uri,
         msgcnt=mss_cnt,
         content=negociar
     )
-    response = send_message(message, transportista.address)
-    for item in response.subjects(RDF.type, Literal('Oferta_Transportista')):
-        for oferta in response.objects(item, agn.oferta):
-            ofertaT1 = int(oferta)
-            logging.info('Oferta1: ' + str(ofertaT1))
-    #response2 = send_message(message, transportista2.address)
-    #for item in response2.subjects(RDF.type, Literal('Oferta_Transportista')):
-    #    for oferta in response2.objects(item, agn.oferta):
-    #        ofertaT2 = int(oferta)
-    #        logging.info('Oferta2: ' + str(ofertaT2))
+    transportista_a_enviar = None
+    ofertaT1 = sys.maxsize
+    ofertaT2 = sys.maxsize
+    try:
+        transportista = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista)
+        response = send_message(message, transportista.address)
+        for item in response.subjects(RDF.type, Literal('Oferta_Transportista')):
+            for oferta in response.objects(item, agn.oferta):
+                ofertaT1 = int(oferta)
+                logging.info('Oferta1: ' + str(ofertaT1))
+    except:
+        pass
+    try:
+        transportista2 = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista2)
+        response2 = send_message(message, transportista2.address)
+        for item in response2.subjects(RDF.type, Literal('Oferta_Transportista')):
+            for oferta in response2.objects(item, agn.oferta):
+                ofertaT2 = int(oferta)
+                logging.info('Oferta2: ' + str(ofertaT2))
+    except:
+        pass
     if (ofertaT2 < ofertaT1) :
-        transportista_a_enviar = transportista2
+            transportista_a_enviar = transportista2
+    else:
+        transportista_a_enviar = transportista
     logging.info("Escogemos transportista " + str(transportista_a_enviar.address))
     return transportista_a_enviar
 

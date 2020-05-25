@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ECSDI Amazon</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div>
+        <h2>Devolver productos</h2>
+        <form method="POST" action="/buscarProductosUsuario">
+            <div>
+                <p>ID Usuario</p>
+                <input name="id_usuario" type="text" required>
+            </div>
+            <div>
+                <button type="submit">Productos comprados</button>
+            </div>
+        </form>
+        <br>
+        <div>
+            <form method="POST" action="/devolver">
+                </div>
+                <table border="1px">
+                    <tr>
+                        <th><b>Nombre</b></th>
+                        <th><b>Selección</b></th>
+                    </tr>
+                    {% for product in productos_usuario %}
+                    <tr>
+                        <td>{{ product.nombre }}</td>
+                        <td><input type="checkbox" name="nombre" value="{{ product.nombre }}"></td>
+                        <input type="hidden" name="id_compra" value="{{ product.id_compra }}"></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                    <br><br>
+                <p>Motivo de la devolucion</p>
+                <input type="radio" id="defectuoso" name="motivo" value="defectuoso">
+                <label for="defectuoso">Producto defectuoso</label><br>
+                <input type="radio" id="equivocado" name="motivo" value="equivocado">
+                <label for="equivocado">Producto equivocado</label><br>
+                <input type="radio" id="no_satisface" name="motivo" value="no_satisface">
+                <label for="no_satisface">Producto no satisface las expectativas</label>
+                <input name="id_usuario" type="hidden" value="{{ id_usuario }}">
+                <br><br>
+                <input type="submit" value="Devolver">
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <div>
+        <a href="http://127.0.1.1:9001">Volver</a>
+    </div>
+</body>

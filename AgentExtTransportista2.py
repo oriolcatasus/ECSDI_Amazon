@@ -24,7 +24,7 @@ import Constants.Constants as Constants
 
 # Configuration stuff
 hostname = '127.0.1.1'
-port = 9005
+port = 9101
 
 agn = Namespace(Constants.ONTOLOGY)
 
@@ -113,7 +113,7 @@ def transportar(req, content):
         total_peso = req.value(subject=item, predicate=agn.total_peso)
         logging.info('Total peso: ' + total_peso)
     logging.info('Precio envio: ' + str(precio_oferta))
-    logging.info('Fecha envio: ' + str(fecha_recepcion))
+    logging.info('Fecha de recepción del envio: ' + str(fecha_recepcion))
     graph = Graph()
     sujeto = agn['respuesta']
     graph.add((sujeto, agn.precio, Literal(precio_oferta)))
