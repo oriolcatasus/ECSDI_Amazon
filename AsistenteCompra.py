@@ -469,7 +469,6 @@ def devolver(req, content):
 
     return result_message.serialize(format='xml')
 
-
 @app.route("/Stop")
 def stop():
     """
