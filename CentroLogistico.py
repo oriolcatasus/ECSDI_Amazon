@@ -37,7 +37,6 @@ num_lotes = 0
 max_lotes = 2
 
 # Datos del Agente
-
 CentroLogistico = Agent('CentroLogistico',
                        agn.CentroLogistico,
                        'http://%s:%d/comm' % (hostname, port),
@@ -48,6 +47,12 @@ DirectoryAgent = Agent('DirectoryAgent',
                        agn.Directory,
                        'http://%s:9000/Register' % hostname,
                        'http://%s:9000/Stop' % hostname)
+
+# Transportista directory agent address
+TransportistaDirAgent = Agent('TransportistaDirAgent',
+                       agn.Directory,
+                       'http://%s:9100/Register' % hostname,
+                       'http://%s:9100/Stop' % hostname)
 
 
 # Global triplestore graph
@@ -126,7 +131,8 @@ def empezar_envio_compra(req, content):
     # Si podemos, enviamos los lotes
     if nuevo_lote and (get_numero_lotes(lotes_graph) >= max_lotes or prioridad_envio == 1):
         transportista = negociar(codigo_postal, prioridad_envio)
-        transportar(transportista, lotes_graph, prioridad_envio)
+        if transportista:
+            transportar(transportista, lotes_graph, prioridad_envio)
     lotes_graph.serialize('./data/lotes.owl')
     return Graph().serialize(format='xml')
 
@@ -206,33 +212,23 @@ def negociar(codigo_postal, prioridad_envio):
         msgcnt=mss_cnt,
         content=negociar
     )
-    transportista_a_enviar = None
-    ofertaT1 = sys.maxsize
-    ofertaT2 = sys.maxsize
-    try:
-        transportista = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista)
+    min_oferta = sys.maxsize
+    transportista_min_oferta = None
+    transportistas = CentroLogistico.directory_multi_search(TransportistaDirAgent, agn.Transportista)
+    for transportista in transportistas:
         response = send_message(message, transportista.address)
-        for item in response.subjects(RDF.type, Literal('Oferta_Transportista')):
-            for oferta in response.objects(item, agn.oferta):
-                ofertaT1 = int(oferta)
-                logging.info('Oferta1: ' + str(ofertaT1))
-    except:
-        pass
-    try:
-        transportista2 = CentroLogistico.directory_search(DirectoryAgent, agn.Transportista2)
-        response2 = send_message(message, transportista2.address)
-        for item in response2.subjects(RDF.type, Literal('Oferta_Transportista')):
-            for oferta in response2.objects(item, agn.oferta):
-                ofertaT2 = int(oferta)
-                logging.info('Oferta2: ' + str(ofertaT2))
-    except:
-        pass
-    if (ofertaT2 < ofertaT1) :
-            transportista_a_enviar = transportista2
+        subject = next(response.subjects(RDF.type, Literal('Oferta_Transportista')))
+        oferta = int(response.value(subject, agn.oferta))
+        logging.info('oferta: ' + str(oferta))
+        if (oferta < min_oferta):
+            min_oferta = oferta
+            transportista_min_oferta = transportista
+    if transportista_min_oferta:
+        logging.info('Escogemos transportista ' + transportista_min_oferta.name)
+        logging.info('Oferta minima: ' + str(min_oferta))
     else:
-        transportista_a_enviar = transportista
-    logging.info("Escogemos transportista " + str(transportista_a_enviar.address))
-    return transportista_a_enviar
+        logging.info('No hay ningun transportista disponible en este momento')
+    return transportista_min_oferta
 
 
 def transportar(transportista, lotes_graph, prioridad_envio):
@@ -289,16 +285,16 @@ def informar_envio_iniciado(compras_enviadas, transportista, fecha_recepcion):
         graph.add((predicado, agn.id_compra, Literal(id_compra)))
         graph.add((predicado, agn.transportista, Literal(transportista.name)))
         graph.add((predicado, agn.fecha_recepcion, Literal(fecha_recepcion)))
-        atencion_al_cliente = CentroLogistico.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+        asistente_compra = CentroLogistico.directory_search(DirectoryAgent, agn.AsistenteCompra)
         message = build_message(
             graph,
             perf=Literal('request'),
             sender=CentroLogistico.uri,
-            receiver=atencion_al_cliente.uri,
+            receiver=asistente_compra.uri,
             msgcnt=mss_cnt,
             content=predicado
         )
-        send_message(message, atencion_al_cliente.address)
+        send_message(message, asistente_compra.address)
 
 
 def borrar_productos_enviados(lotes_graph, id_compra):

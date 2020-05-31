@@ -66,6 +66,32 @@ class Agent():
 
     return gr
 
+
+  def unregister_agent(self, DirectoryAgent):
+
+    logging.info('Nos desregistramos')
+
+    global mss_cnt
+
+    gmess = Graph()
+
+    # Construimos el mensaje
+    gmess.bind('foaf', FOAF)
+    gmess.bind('dso', DSO)
+    reg_obj = agn[self.name + '-Unregister']
+    gmess.add((reg_obj, RDF.type, DSO.Unregister))
+    gmess.add((reg_obj, DSO.Address, Literal(self.address)))
+
+    # Lo metemos en un envoltorio FIPA-ACL y lo enviamos
+    gr = send_message(
+        build_message(gmess, perf=ACL.request,
+                      sender=self.uri,
+                      receiver=DirectoryAgent.uri,
+                      content=reg_obj,
+                      msgcnt=mss_cnt),
+        DirectoryAgent.address)
+    mss_cnt += 1
+
   def directory_search(self, DirectoryAgent, type):
     global mss_cnt
     logging.info('Buscamos en el servicio de registro')
@@ -89,6 +115,34 @@ class Agent():
     content = get_message_properties(gr)['content']
     address = gr.value(subject=content, predicate=DSO.Address)
     uri = gr.value(subject=content, predicate=DSO.Uri)
-    logging.info('uri: ' + uri)
     name = gr.value(subject=content, predicate=DSO.Name)
     return Agent(name, uri, address, None)
+
+  def directory_multi_search(self, DirectoryAgent, type):
+    global mss_cnt
+    logging.info('Buscamos en el servicio de registro multiples agentes')
+
+    gmess = Graph()
+
+    gmess.bind('foaf', FOAF)
+    gmess.bind('dso', DSO)
+    reg_obj = agn[self.name + '-search']
+    gmess.add((reg_obj, RDF.type, DSO.Search))
+    gmess.add((reg_obj, DSO.AgentType, type))
+
+    msg = build_message(gmess, perf=ACL.request,
+                        sender=self.uri,
+                        receiver=DirectoryAgent.uri,
+                        content=reg_obj,
+                        msgcnt=mss_cnt)
+    gr = send_message(msg, DirectoryAgent.address)
+    mss_cnt += 1
+    logging.info('Recibimos informacion de multiples agentes')    
+    content = get_message_properties(gr)['content']
+    agent_list = []
+    for subject in gr.subjects(RDF.type, FOAF.Agent):
+      address = gr.value(subject, DSO.Address)
+      uri = gr.value(subject, DSO.Uri)
+      name = gr.value(subject, DSO.Name)
+      agent_list.append(Agent(name, uri, address, None))
+    return agent_list

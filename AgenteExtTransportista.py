@@ -6,6 +6,7 @@ import socket
 import random
 import uuid
 import datetime
+import argparse
 
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
@@ -21,10 +22,19 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 import Constants.Constants as Constants
 
+# Definimos los parametros de la linea de comandos
+parser = argparse.ArgumentParser()
+parser.add_argument('--port', type=int, help="Puerto de comunicacion del agente")
+
+# parsing de los parametros de la linea de comandos
+args = parser.parse_args()
 
 # Configuration stuff
 hostname = '127.0.1.1'
-port = 9101
+if args.port is None:
+    port = random.randint(9101, 9999)
+else:
+    port = args.port
 
 agn = Namespace(Constants.ONTOLOGY)
 
@@ -35,16 +45,16 @@ precio_oferta = 0
 
 # Datos del Agente
 
-AgentExtTransportista2 = Agent('Transportista2',
-                       agn.Transportista2,
+AgenteExtTransportista = Agent('Transportista_' + str(port),
+                       agn.Transportista,
                        'http://%s:%d/comm' % (hostname, port),
                        'http://%s:%d/Stop' % (hostname, port))
 
 # Directory agent address
-DirectoryAgent = Agent('DirectoryAgent',
+TransportistaDirAgent = Agent('TransportistaDirAgent',
                        agn.Directory,
-                       'http://%s:9000/Register' % hostname,
-                       'http://%s:9000/Stop' % hostname)
+                       'http://%s:9100/Register' % hostname,
+                       'http://%s:9100/Stop' % hostname)
 
 
 # Global triplestore graph
@@ -138,7 +148,7 @@ def tidyup():
     Acciones previas a parar el agente
 
     """
-    pass
+    AgenteExtTransportista.unregister_agent(TransportistaDirAgent)
 
 
 def agentbehavior1(cola):
@@ -147,7 +157,7 @@ def agentbehavior1(cola):
 
     :return:
     """
-    AgentExtTransportista2.register_agent(DirectoryAgent)
+    AgenteExtTransportista.register_agent(TransportistaDirAgent)
     pass
 
 
@@ -161,4 +171,5 @@ if __name__ == '__main__':
 
     # Esperamos a que acaben los behaviors
     ab1.join()
+    tidyup()
     print('The End')

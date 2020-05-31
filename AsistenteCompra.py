@@ -35,8 +35,8 @@ mss_cnt = 0
 
 # Datos del Agente
 
-AtencionAlCliente = Agent('AtencionAlCliente',
-                       agn.AtencionAlCliente,
+AsistenteCompra = Agent('AsistenteCompra',
+                       agn.AsistenteCompra,
                        'http://%s:%d/comm' % (hostname, port),
                        'http://%s:%d/Stop' % (hostname, port))
 
@@ -151,11 +151,11 @@ def comprar(req, content):
     historial_compras.add((compra, agn.precio, Literal(total_precio)))
     historial_compras.serialize('./data/historial_compras.owl')
     # Enviar mensaje
-    centro_logistico = AtencionAlCliente.directory_search(DirectoryAgent, agn.CentroLogistico)
+    centro_logistico = AsistenteCompra.directory_search(DirectoryAgent, agn.CentroLogistico)
     message = build_message(
         cl_graph,
         perf=Literal('request'),
-        sender=AtencionAlCliente.uri,
+        sender=AsistenteCompra.uri,
         receiver=centro_logistico.uri,
         msgcnt=mss_cnt,
         content=content
@@ -319,7 +319,7 @@ def informar_envio_iniciado(req, content):
     logging.info("Abans del caos")
     tarjeta_bancaria = int(historial_compras.value(subject, agn.tarjeta_bancaria))
     logging.info("C mamó")
-    Pagador = AtencionAlCliente.directory_search(DirectoryAgent, agn.Pagador)
+    Pagador = AsistenteCompra.directory_search(DirectoryAgent, agn.Pagador)
     logging.info("Estamos chill")
     gCobrar = Graph()
     cobrar = agn['cobrar_' + str(mss_cnt)]
@@ -329,7 +329,7 @@ def informar_envio_iniciado(req, content):
     message = build_message(
         gCobrar,
         perf=Literal('request'),
-        sender=AtencionAlCliente.uri,
+        sender=AsistenteCompra.uri,
         receiver=Pagador.uri,
         msgcnt=mss_cnt,
         content=cobrar
@@ -343,11 +343,11 @@ def informar_envio_iniciado(req, content):
     #afegir factura
     graph.add((factura, agn.precio_total, Literal(precio_total)))
     # Enviar mensaje
-    agente_ext_usuario = AtencionAlCliente.directory_search(DirectoryAgent, agn.AgentExtUser)
+    agente_ext_usuario = AsistenteCompra.directory_search(DirectoryAgent, agn.AgenteExtUsuario)
     message = build_message(
         graph,
         perf=Literal('request'),
-        sender=AtencionAlCliente.uri,
+        sender=AsistenteCompra.uri,
         receiver=agente_ext_usuario.uri,
         msgcnt=mss_cnt,
         content=factura
@@ -470,7 +470,7 @@ def agentbehavior1(cola):
 
     :return:
     """
-    AtencionAlCliente.register_agent(DirectoryAgent)
+    AsistenteCompra.register_agent(DirectoryAgent)
     pass
 
 

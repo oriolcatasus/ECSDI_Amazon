@@ -34,8 +34,8 @@ facturas = []
 
 # Datos del Agente
 
-AgentExtUser = Agent('AgentExtUser',
-                       agn.AgentExtUser,
+AgenteExtUsuario = Agent('AgenteExtUsuario',
+                       agn.AgenteExtUsuario,
                        'http://%s:%d/comm' % (hostname, port),
                        'http://%s:%d/Stop' % (hostname, port))
 
@@ -80,16 +80,16 @@ def comunicacion():
         message.add((search, agn.tieneMarca, Literal(request.form['marca'].lower())))
     if request.form['tipo']:
         message.add((search, agn.tipo, Literal(request.form['tipo'].lower())))    
-    atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)    
+    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.AsistenteCompra)    
     msg = build_message(
         message,
         perf=Literal('request'),
-        sender=AgentExtUser.uri,
-        receiver=atencion_al_cliente.uri,
+        sender=AgenteExtUsuario.uri,
+        receiver=asistente_compra.uri,
         msgcnt=mss_cnt,
         content=search
     )
-    response = send_message(msg, atencion_al_cliente.address)
+    response = send_message(msg, asistente_compra.address)
     # Respuesta
     productos = []
     for item in response.subjects(RDF.type, None):
@@ -133,16 +133,16 @@ def comprar():
         producto = agn[nombre]
         graph.add((producto, RDF.type, agn.product))
         graph.add((producto, agn.nombre, Literal(nombre)))            
-    atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.AsistenteCompra)
     message = build_message(
         graph,
         perf=Literal('request'),
-        sender=AgentExtUser.uri,
-        receiver=atencion_al_cliente.uri,
+        sender=AgenteExtUsuario.uri,
+        receiver=asistente_compra.uri,
         msgcnt=mss_cnt,
         content=compra
     )
-    send_message(message, atencion_al_cliente.address)
+    send_message(message, asistente_compra.address)
     return render_template('search_product.html')
 
 @app.route("/factura", methods=['GET', 'POST'])
@@ -193,16 +193,16 @@ def buscarProductosUsuario():
     id_usuario = request.form['id_usuario']
     message.add((search, agn['id_usuario'], Literal(id_usuario)))
     message.add((search, RDF.type, Literal('Buscar_Productos_Usuario')))    
-    AtencionAlCliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)    
+    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.AsistenteCompra)    
     msg = build_message(
         message,
         perf=Literal('request'),
-        sender=AgentExtUser.uri,
-        receiver=AtencionAlCliente.uri,
+        sender=AgenteExtUsuario.uri,
+        receiver=asistente_compra.uri,
         msgcnt=mss_cnt,
         content=search
     )
-    response = send_message(msg, AtencionAlCliente.address)
+    response = send_message(msg, asistente_compra.address)
 
     logging.info('Productos del usuario:')
 
@@ -242,16 +242,16 @@ def devolver():
         graph.add((devolucion, agn.producto, Literal(nombre)))
         graph.add((devolucion, agn.id_compra, Literal(request.form.getlist('id_compra')[i])))
         i += 1    
-    atencion_al_cliente = AgentExtUser.directory_search(DirectoryAgent, agn.AtencionAlCliente)
+    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.asistente_compra)
     message = build_message(
         graph,
         perf=Literal('request'),
-        sender=AgentExtUser.uri,
-        receiver=atencion_al_cliente.uri,
+        sender=AgenteExtUsuario.uri,
+        receiver=asistente_compra.uri,
         msgcnt=mss_cnt,
         content=devolucion
     )
-    result = send_message(message, atencion_al_cliente.address)
+    result = send_message(message, asistente_compra.address)
 
     for item in result.subjects(RDF.type, agn.respuesta):
         resultado=str(result.value(subject=item, predicate=agn.resultado))
@@ -286,7 +286,7 @@ def agentbehavior1(cola):
 
     :return:
     """
-    AgentExtUser.register_agent(DirectoryAgent)
+    AgenteExtUsuario.register_agent(DirectoryAgent)
     #comunicacion()
     pass
 

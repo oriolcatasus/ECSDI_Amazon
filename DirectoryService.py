@@ -1,22 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-filename: SimpleDirectoryAgent
-
-Antes de ejecutar hay que añadir la raiz del proyecto a la variable PYTHONPATH
-
-Agente que lleva un registro de otros agentes
-
-Utiliza un registro simple que guarda en un grafo RDF
-
-El registro no es persistente y se mantiene mientras el agente funciona
-
-Las acciones que se pueden usar estan definidas en la ontología
-directory-service-ontology.owl
-
-
-@author: javier
-"""
-
 from multiprocessing import Process, Queue
 import socket
 import argparse
@@ -31,8 +13,6 @@ from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
 from AgentUtil.ACLMessages import build_message, get_message_properties
 from AgentUtil.Logging import config_logger
-
-__author__ = 'javier'
 
 # Definimos los parametros de la linea de comandos
 parser = argparse.ArgumentParser()
