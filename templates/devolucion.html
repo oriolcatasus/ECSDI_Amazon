@@ -19,7 +19,8 @@
         <br>
         <div>
             <form method="POST" action="/devolver">
-                </div>
+                </div> 
+                <b>Seleccione solamente un producto</b>
                 <table border="1px">
                     <tr>
                         <th><b>Nombre</b></th>
@@ -42,6 +43,11 @@
                 <input type="radio" id="no_satisface" name="motivo" value="no_satisface">
                 <label for="no_satisface">Producto no satisface las expectativas</label>
                 <input name="id_usuario" type="hidden" value="{{ id_usuario }}">
+                <br><br>
+                <label>
+                    Targeta bancaria:<br>
+                    <input name="tarjeta_bancaria" type="text" required>
+                </label>
                 <br><br>
                 <input type="submit" value="Devolver">
             </form>

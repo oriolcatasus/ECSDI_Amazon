@@ -233,7 +233,7 @@ def get_producto(nombre):
             ?producto pontp:nombre ?nombre .
             ?producto pontp:precio ?precio .
             ?producto pontp:peso ?peso .
-            ?producto pontp:tieneMarca ?tieneMarca
+            ?producto pontp:tieneMarca ?tieneMarca .
             FILTER (
                 ?nombre = '$nombre' 
             )
@@ -249,6 +249,7 @@ def get_producto(nombre):
         )
     )
     producto = next(iter(result))
+    logging.info(producto)
     return dict(
         precio=producto.precio,
         peso=producto.peso,
@@ -406,9 +407,11 @@ def devolver(req, content):
     motivo = str(req.value(subject=content, predicate=agn.motivo))
     logging.info('Motivo devolucion = ' + motivo)
     nombre = req.value(subject=content, predicate=agn.producto)
-    logging.info('Nombre producto de devolucion = ' + nombre)
+    logging.info('Nombre producto de devolucion = ' + str(nombre))
     id_compra = req.value(subject=content, predicate=agn.id_compra)
-    logging.info('ID Compra de producto de devolucion = ' + id_compra)
+    logging.info('ID Compra de producto de devolucion = ' + str(id_compra))
+    tarjeta = req.value(subject=content, predicate=agn.tarjeta)
+    logging.info('Tarjeta del cliente = ' + str(tarjeta))
 
     resultado = 'null'
     precio = 0
@@ -443,7 +446,26 @@ def devolver(req, content):
         historial_compras = Graph().parse('./data/historial_compras.owl')
         historial_compras.remove((id_compra_elim, agn.product, Literal(nombre)))
         historial_compras.serialize('./data/historial_compras.owl')
-        #mensaje a pagador
+
+        Pagador = AsistenteCompra.directory_search(DirectoryAgent, agn.Pagador)
+        gCobrar = Graph()
+        cobrar = agn['pagar_' + str(mss_cnt)]
+        gCobrar.add((cobrar, RDF.type, Literal('Pagar')))
+        gCobrar.add((cobrar, agn.tarjeta_bancaria, Literal(tarjeta)))
+        gCobrar.add((cobrar, agn.precio_total, Literal(precio)))
+        message = build_message(
+            gCobrar,
+            perf=Literal('request'),
+            sender=AsistenteCompra.uri,
+            receiver=Pagador.uri,
+            msgcnt=mss_cnt,
+            content=cobrar
+        )
+        Pagado_correctamente = send_message(message, Pagador.address)
+        for item in Pagado_correctamente.subjects(RDF.type, Literal('RespuestaPago')):
+            for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
+                logging.info(str(RespuestaCobro))
+        logging.info("pago realizado")
 
     return result_message.serialize(format='xml')
 

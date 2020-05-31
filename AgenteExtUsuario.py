@@ -228,6 +228,7 @@ def devolver():
     logging.info('Devolver')
     logging.info(request.form['id_usuario'])
     logging.info(request.form['motivo'])
+    logging.info(request.form['tarjeta_bancaria'])
 
     graph = Graph()
     devolucion = agn['devolucion_' + str(mss_cnt)]
@@ -236,14 +237,18 @@ def devolver():
     graph.add((devolucion, agn.id_usuario, Literal(id_usuario)))
     motivo = request.form['motivo']
     graph.add((devolucion, agn.motivo, Literal(motivo)))
+    tarjeta = request.form['tarjeta_bancaria']
+    graph.add((devolucion, agn.tarjeta, Literal(tarjeta)))
 
     i = 0
     for nombre in request.form.getlist('nombre'):
         producto = agn[nombre]
+        logging.info(Literal(nombre))
+        logging.info(Literal(request.form.getlist('id_compra')[i]))
         graph.add((devolucion, agn.producto, Literal(nombre)))
         graph.add((devolucion, agn.id_compra, Literal(request.form.getlist('id_compra')[i])))
         i += 1    
-    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.asistente_compra)
+    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.AsistenteCompra) 
     message = build_message(
         graph,
         perf=Literal('request'),

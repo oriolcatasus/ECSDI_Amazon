@@ -68,6 +68,8 @@ def comunicacion():
     logging.info('Accion: ' + accion)
     if accion == 'Cobrar':        
         return cobrar(req, content)
+    elif accion == 'Pagar':
+        return pagar(req, content)
 
 def cobrar(req, content):
     global mss_cnt
@@ -99,6 +101,39 @@ def cobrar(req, content):
     gRespuestaCobro = Graph()
     RespuestaCobro = agn['RespuestaCobro_' + str(mss_cnt)]
     gRespuestaCobro.add((RespuestaCobro, RDF.type, Literal('RespuestaCobro')))
+    gRespuestaCobro.add((RespuestaCobro, agn.respuesta_cobro, Literal(respuesta_cobro)))
+    return gRespuestaCobro.serialize(format='xml')
+
+def pagar(req, content):
+    global mss_cnt
+
+    mss_cnt = mss_cnt + 1
+    logging.info("Se empezará a realizar el pago")
+    tarjeta_bancaria = req.value(content, agn.tarjeta_bancaria)
+    precio_total = req.value(content, agn.precio_total)
+    AgenteExtEntidadBancaria = Pagador.directory_search(DirectoryAgent, agn.AgenteExtEntidadBancaria)
+    gCobrarP = Graph()
+    cobrarP = agn['pagar_' + str(mss_cnt)]
+    gCobrarP.add((cobrarP, RDF.type, Literal('Pagar')))
+    gCobrarP.add((cobrarP, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))
+    gCobrarP.add((cobrarP, agn.precio_total, Literal(precio_total)))
+    message = build_message(
+        gCobrarP,
+        perf=Literal('request'),
+        sender=Pagador.uri,
+        receiver=AgenteExtEntidadBancaria.uri,
+        msgcnt=mss_cnt,
+        content=cobrarP
+    )
+    response = send_message(message, AgenteExtEntidadBancaria.address)
+    respuesta_cobro = ""
+    for item in response.subjects(RDF.type, Literal('PagoRealizado')):
+        for cobroRelalizado in response.objects(item, agn.respuesta):
+            respuesta_cobro = str(cobroRelalizado)
+            logging.info(respuesta_cobro)
+    gRespuestaCobro = Graph()
+    RespuestaCobro = agn['RespuestaPago' + str(mss_cnt)]
+    gRespuestaCobro.add((RespuestaCobro, RDF.type, Literal('RespuestaPago')))
     gRespuestaCobro.add((RespuestaCobro, agn.respuesta_cobro, Literal(respuesta_cobro)))
     return gRespuestaCobro.serialize(format='xml')
 

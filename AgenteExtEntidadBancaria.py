@@ -68,6 +68,8 @@ def comunicacion():
     logging.info('Accion: ' + accion)
     if accion == 'CobrarP':        
         return cobrarP(req, content)
+    elif accion == 'Pagar':
+        return pagar(req, content)
 
 def cobrarP(req, content):
     global mss_cnt
@@ -81,6 +83,21 @@ def cobrarP(req, content):
     gCobroRealizado = Graph()
     cobroRealizado = agn['cobroRealizado_' + str(mss_cnt)]
     gCobroRealizado.add((cobroRealizado, RDF.type, Literal('CobroRealizado')))
+    gCobroRealizado.add((cobroRealizado, agn.respuesta, Literal(respuesta)))
+    return gCobroRealizado.serialize(format='xml')
+
+def pagar(req, content):
+    global mss_cnt
+    
+    mss_cnt = mss_cnt + 1
+    tarjeta_bancaria = req.value(content, agn.tarjeta_bancaria)
+    precio_total = req.value(content, agn.precio_total)
+    logging.info("Se ha realizado el pago a la tarjeta bancaria " + str(tarjeta_bancaria) +
+                " de un importe de " + str(precio_total))
+    respuesta = str("Pago realizado correctamente")
+    gCobroRealizado = Graph()
+    cobroRealizado = agn['pagoRealizado_' + str(mss_cnt)]
+    gCobroRealizado.add((cobroRealizado, RDF.type, Literal('PagoRealizado')))
     gCobroRealizado.add((cobroRealizado, agn.respuesta, Literal(respuesta)))
     return gCobroRealizado.serialize(format='xml')
 
