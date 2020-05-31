@@ -291,6 +291,10 @@ def informar_envio_iniciado(req, content):
     direccion = historial_compras.value(subject, agn.direccion)
     logging.info('direccion: ' + direccion)
     graph.add((factura, agn.direccion, direccion))
+    # Codigo postal
+    cp = historial_compras.value(subject, agn.codigo_postal)
+    logging.info('codigo postal: ' + cp)
+    graph.add((factura, agn.codigo_postal, cp))
     # Fecha de compra
     fecha_compra = historial_compras.value(subject, agn.fecha_compra)
     logging.info('fecha de compra: ' + str(fecha_compra))

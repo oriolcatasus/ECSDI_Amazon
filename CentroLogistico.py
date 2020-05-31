@@ -130,9 +130,7 @@ def empezar_envio_compra(req, content):
         nuevo_lote = distribuir_lotes(lotes_graph, codigo_postal)
     # Si podemos, enviamos los lotes
     if nuevo_lote and (get_numero_lotes(lotes_graph) >= max_lotes or prioridad_envio == 1):
-        transportista = negociar(codigo_postal, prioridad_envio)
-        if transportista:
-            transportar(transportista, lotes_graph, prioridad_envio)
+        enviar_por_codigo_postal(lotes_graph, prioridad_envio)
     lotes_graph.serialize('./data/lotes.owl')
     return Graph().serialize(format='xml')
 
@@ -196,7 +194,41 @@ def get_numero_lotes(lotes_graph):
     logging.info('num_lotes: ' + str(num_lotes))
     return num_lotes
 
-def negociar(codigo_postal, prioridad_envio):
+def enviar_por_codigo_postal(lotes_graph, prioridad_envio):
+    sparql_query = Template('''
+        SELECT ?codigo_postal (SUM(?total_peso) as ?sum_peso)
+        WHERE {
+            ?compra rdf:type ?type_compra .
+            ?compra ns:codigo_postal ?codigo_postal .
+            ?compra ns:lote ?lote .
+            ?compra ns:prioridad_envio ?prioridad_envio .
+            ?compra ns:total_peso ?total_peso .
+            FILTER ( 
+                ?lote != -1 &&
+                ?prioridad_envio = $prioridad_envio
+            )
+        }
+        GROUP BY ?codigo_postal
+    ''').substitute(dict(
+        prioridad_envio=prioridad_envio
+    ))
+    result = lotes_graph.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            ns=agn
+        )
+    )
+    for item in result:
+        cp = str(item.codigo_postal)
+        peso = float(item.sum_peso)
+        logging.info('CP: ' + cp)
+        logging.info('Total peso: ' + str(peso))
+        transportista = negociar(cp, peso, prioridad_envio)
+        if transportista:
+            transportar(transportista, lotes_graph, cp, prioridad_envio, peso)
+
+def negociar(codigo_postal, total_peso_envio, prioridad_envio):
     global mss_cnt
 
     mss_cnt = mss_cnt + 1    
@@ -204,6 +236,7 @@ def negociar(codigo_postal, prioridad_envio):
     negociar = agn['negociar_' + str(mss_cnt)]
     gNegociar.add((negociar, RDF.type, Literal('Negociar')))
     gNegociar.add((negociar, agn.codigo_postal, Literal(codigo_postal)))
+    gNegociar.add((negociar, agn.total_peso, Literal(total_peso_envio)))
     gNegociar.add((negociar, agn.prioridad_envio, Literal(prioridad_envio)))
     message = build_message(
         gNegociar,
@@ -231,7 +264,7 @@ def negociar(codigo_postal, prioridad_envio):
     return transportista_min_oferta
 
 
-def transportar(transportista, lotes_graph, prioridad_envio):
+def transportar(transportista, lotes_graph, codigo_postal, prioridad_envio, sum_peso):
     global mss_cnt
     
     mss_cnt = mss_cnt + 1
@@ -240,18 +273,17 @@ def transportar(transportista, lotes_graph, prioridad_envio):
     transportar = agn['transportar_' + str(mss_cnt)]
     gTransportar.add((transportar, RDF.type, Literal('Transportar')))
     gTransportar.add((transportar, agn.prioridad_envio, Literal(prioridad_envio)))
+    gTransportar.add((transportar, agn.total_peso, Literal(sum_peso)))
     compras_enviadas = []
     for compra in lotes_graph.subjects(RDF.type, agn.compra):
         lote = int(lotes_graph.value(compra, agn.lote))
+        cp_compra = str(lotes_graph.value(compra, agn.codigo_postal))
         prioridad_envio_compra = int(lotes_graph.value(compra, agn.prioridad_envio))
-        if lote != -1 and prioridad_envio == prioridad_envio_compra:
+        if lote != -1 and cp_compra == codigo_postal and prioridad_envio == prioridad_envio_compra:
             # Enviar compra
             gTransportar.add((compra, RDF.type, agn.compra))
             gTransportar.add((compra, agn.lote, Literal(lote)))
-            codigo_postal = str(lotes_graph.value(compra, agn.codigo_postal))
-            gTransportar.add((compra, agn.codigo_postal, Literal(codigo_postal)))            
-            total_peso = float(lotes_graph.value(compra, agn.total_peso))
-            gTransportar.add((compra, agn.total_peso, Literal(total_peso)))
+            gTransportar.add((compra, agn.codigo_postal, Literal(cp_compra)))
             direccion = str(lotes_graph.value(compra, agn.direccion))
             gTransportar.add((compra, agn.direccion, Literal(direccion)))
             # Borrar compra de los productos para enviar

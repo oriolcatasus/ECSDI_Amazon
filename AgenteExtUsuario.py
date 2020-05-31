@@ -168,6 +168,7 @@ def comm():
         id_compra = int(req.value(content, agn.id_compra)),
         id_usuario = req.value(content, agn.id_usuario),
         direccion = req.value(content, agn.direccion),
+        codigo_postal = req.value(content, agn.codigo_postal),
         fecha_compra = req.value(content, agn.fecha_compra),
         prioridad_envio = int(req.value(content, agn.prioridad_envio)),
         transportista = req.value(content, agn.transportista),
