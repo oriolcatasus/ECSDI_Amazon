@@ -64,7 +64,7 @@ if __name__ == '__main__':
     PrOntRes = Namespace("http://www.products.org/ontology/resource/")
 
     # lista de tipos XSD datatypes para los rangos de las propiedades
-    xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float}
+    xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float, 'v': XSD.int, 'n': XSD.int, 't': XSD.string}
 
     # Creamos instancias de la clase PrOnt.ElectronicDevice asumiendo que esta clase ya existe en nuestra ontologia
     # nos hace falta a�adirla al fichero de instancias si queremos usarla para hacer consultas sobre sus subclases
@@ -79,21 +79,33 @@ if __name__ == '__main__':
     product_properties = {'tieneMarca': 'Marca',
                           'precio': 'i',
                           'peso': 'f',
-                          'nombre': 's'}
+                          'nombre': 's',
+                          'valoracionTotal': 'v',
+                          'numeroValoraciones': 'n',
+                          'tienda': 't'}
 
     # Diccionario con clases, cada clase tiene una lista con los atributos y en el caso de necesitarlo, su rango min/max
     product_classes = {'Phone': [['tieneMarca'],
                                  ['precio', 50, 600],
                                  ['peso', 200,400],
-                                 ['nombre']],
+                                 ['nombre'],
+                                 ['valoracionTotal'],
+                                 ['numeroValoraciones'],
+                                 ['tienda']],
                        'Blender': [['tieneMarca'],
                                  ['precio', 25, 100],
                                  ['peso', 500, 1000],
-                                 ['nombre']],
+                                 ['nombre'],
+                                 ['valoracionTotal'],
+                                 ['numeroValoraciones'],
+                                 ['tienda']],
                        'Computer': [['tieneMarca'],
                                  ['precio', 450, 3000],
                                  ['peso', 1000, 2500],
-                                 ['nombre']],
+                                 ['nombre'],
+                                 ['valoracionTotal'],
+                                 ['numeroValoraciones'],
+                                 ['tienda']],
                        }
 
     products_graph = Graph()
@@ -108,7 +120,7 @@ if __name__ == '__main__':
 
     # A�adimos los atributos al grafo con sus rangos (los dominios los a�adimos despues con cada clase)
     for prop in product_properties:
-        if product_properties[prop] in ['s', 'i', 'f']:
+        if product_properties[prop] in ['s', 'i', 'f', 'v', 'n', 't']:
             products_graph.add((PrOntPr[prop], RDF.type, OWL.DatatypeProperty))
             products_graph.add((PrOntPr[prop], RDFS.range, xsddatatypes[product_properties[prop]]))
         else:
@@ -159,6 +171,12 @@ if __name__ == '__main__':
                 # el atributo es string
                 elif prop == 's':
                     val = Literal(random_name(attr[0]))
+                elif prop == 'n':
+                    val = Literal(0)
+                elif prop == 'v':
+                    val = Literal(0)
+                elif prop == 't':
+                    val = Literal('ALIEXPLESS')
                 else:
                     val = PrOntRes[random.choice(dclases[prop])]
                 products_graph.add((PrOntRes[rproduct], PrOntPr[attr[0]], val))
