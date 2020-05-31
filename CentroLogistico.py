@@ -128,9 +128,11 @@ def empezar_envio_compra(req, content):
     else:
         lotes_graph.add((compra, agn.lote, Literal(-1)))
         nuevo_lote = distribuir_lotes(lotes_graph, codigo_postal)
-    # Si podemos, enviamos los lotes
-    if nuevo_lote and (get_numero_lotes(lotes_graph) >= max_lotes or prioridad_envio == 1):
-        enviar_por_codigo_postal(lotes_graph, prioridad_envio)
+    # Enviamos lotes con prioridad de envio, si hay
+    enviar_por_codigo_postal(lotes_graph, 1)
+    # Enviamos lotes sin prioridad de envio, si toca
+    if get_num_lotes(lotes_graph, 0) >= max_lotes:
+        enviar_por_codigo_postal(lotes_graph, 0)
     lotes_graph.serialize('./data/lotes.owl')
     return Graph().serialize(format='xml')
 
@@ -172,17 +174,21 @@ def distribuir_lotes(lotes_graph, codigo_postal):
                 lotes_graph.add((compra, agn.lote, id_lote))
     return nuevo_lote
 
-def get_numero_lotes(lotes_graph):
-    sparql_query = '''
+def get_num_lotes(lotes_graph, prioridad_envio):
+    sparql_query = Template('''
         SELECT (COUNT(DISTINCT ?lote) as ?cnt) ?compra ?lote
         WHERE {
             ?compra rdf:type ?type_compra .
             ?compra ns:lote ?lote .
+            ?compra ns:prioridad_envio ?prioridad_envio
             FILTER ( 
-                ?lote != -1
+                ?lote != -1 &&
+                ?prioridad_envio = $prioridad_envio
             )
         }
-    '''
+    ''').substitute(dict(
+        prioridad_envio=prioridad_envio
+    ))
     result = lotes_graph.query(
         sparql_query,
         initNs=dict(
@@ -193,6 +199,7 @@ def get_numero_lotes(lotes_graph):
     num_lotes = int(next(iter(result)).cnt)
     logging.info('num_lotes: ' + str(num_lotes))
     return num_lotes
+
 
 def enviar_por_codigo_postal(lotes_graph, prioridad_envio):
     sparql_query = Template('''
