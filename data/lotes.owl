@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
+   xmlns:ns1="http://ALIEXPLESS.ECSDI/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_158181640083795229024813763803235890334">
+    <ns1:direccion>mikasa</ns1:direccion>
+    <ns1:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns1:prioridad_envio>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89108423685968660172688557236531997861</ns1:lote>
+    <ns1:codigo_postal>258</ns1:codigo_postal>
+    <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">158181640083795229024813763803235890334</ns1:id_compra>
+    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1876.0842769634655</ns1:total_peso>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_C093SK_320769741265763319014602407126966018975">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/product"/>
+    <ns1:nombre>nombre_C093SK</ns1:nombre>
+    <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">158181640083795229024813763803235890334</ns1:id_compra>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_BQKC3M_223196104843216071255099365368291394027">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/product"/>
+    <ns1:nombre>nombre_BQKC3M</ns1:nombre>
+    <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">158181640083795229024813763803235890334</ns1:id_compra>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/nombre_4C94DR_121638413042624476641956463206960758297">
+    <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">158181640083795229024813763803235890334</ns1:id_compra>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/product"/>
+    <ns1:nombre>nombre_4C94DR</ns1:nombre>
+  </rdf:Description>
 </rdf:RDF>
