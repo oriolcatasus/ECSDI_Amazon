@@ -70,6 +70,8 @@ def comunicacion():
         return cobrar(req, content)
     elif accion == 'Pagar':
         return pagar(req, content)
+    elif accion == 'PagarTiendaExterna':
+        return pagarTiendaExterna(req, content)
 
 def cobrar(req, content):
     global mss_cnt
@@ -117,6 +119,41 @@ def pagar(req, content):
     gCobrarP.add((cobrarP, RDF.type, Literal('Pagar')))
     gCobrarP.add((cobrarP, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))
     gCobrarP.add((cobrarP, agn.precio_total, Literal(precio_total)))
+    message = build_message(
+        gCobrarP,
+        perf=Literal('request'),
+        sender=Pagador.uri,
+        receiver=AgenteExtEntidadBancaria.uri,
+        msgcnt=mss_cnt,
+        content=cobrarP
+    )
+    response = send_message(message, AgenteExtEntidadBancaria.address)
+    respuesta_cobro = ""
+    for item in response.subjects(RDF.type, Literal('PagoRealizado')):
+        for cobroRelalizado in response.objects(item, agn.respuesta):
+            respuesta_cobro = str(cobroRelalizado)
+            logging.info(respuesta_cobro)
+    gRespuestaCobro = Graph()
+    RespuestaCobro = agn['RespuestaPago' + str(mss_cnt)]
+    gRespuestaCobro.add((RespuestaCobro, RDF.type, Literal('RespuestaPago')))
+    gRespuestaCobro.add((RespuestaCobro, agn.respuesta_cobro, Literal(respuesta_cobro)))
+    return gRespuestaCobro.serialize(format='xml')
+
+def pagarTiendaExterna(req, content):
+    global mss_cnt
+
+    mss_cnt = mss_cnt + 1
+    logging.info("Se empezará a realizar el pago a la tienda externa")
+    cuenta_bancaria = req.value(content, agn.cuenta_bancaria)
+    precio = req.value(content, agn.precio)
+    nombreProd = req.value(content, agn.nombre_prod)
+    AgenteExtEntidadBancaria = Pagador.directory_search(DirectoryAgent, agn.AgenteExtEntidadBancaria)
+    gCobrarP = Graph()
+    cobrarP = agn['pagar_tienda_externa' + str(mss_cnt)]
+    gCobrarP.add((cobrarP, RDF.type, Literal('PagarTiendaExterna')))
+    gCobrarP.add((cobrarP, agn.cuenta_bancaria, Literal(cuenta_bancaria)))
+    gCobrarP.add((cobrarP, agn.precio, Literal(precio)))
+    gCobrarP.add((cobrarP, agn.nombre_prod, Literal(nombreProd)))
     message = build_message(
         gCobrarP,
         perf=Literal('request'),

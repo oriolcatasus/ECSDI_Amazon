@@ -131,9 +131,13 @@ def comprar(req, content):
     for item in req.subjects(RDF.type, agn.product):
         nombre = str(req.value(subject=item, predicate=agn.nombre))
         producto = get_producto(nombre)
-        total_precio += int(producto['precio'])
-        total_peso += float(producto['peso'])
+        if(str(producto['tienda']) != "ALIEXPLESS"):
+            pagar_producto(nombre, producto['tienda'], producto['precio'], tarjeta_bancaria)
+        else:
+            total_precio += int(producto['precio'])
+            total_peso += float(producto['peso'])
         logging.info(nombre)
+        logging.info("la tienda externa es " + str(producto['tienda']))
         producto_compra = agn[nombre + '_' + str(uuid.uuid4().int)]
         #historial_compras.add((producto_compra, RDF.type, agn.product))
         #historial_compras.add((producto_compra, agn.nombre, Literal(nombre)))
@@ -227,13 +231,14 @@ def build_response(tieneMarca='', min_precio=0, max_precio=sys.float_info.max, t
 def get_producto(nombre):
     productos = Graph().parse('./data/product.owl')
     sparql_query = Template('''
-        SELECT ?producto ?nombre ?precio ?peso ?tieneMarca
+        SELECT ?producto ?nombre ?precio ?peso ?tieneMarca ?tienda
         WHERE {
             ?producto rdf:type ?type_prod .
             ?producto pontp:nombre ?nombre .
             ?producto pontp:precio ?precio .
             ?producto pontp:peso ?peso .
             ?producto pontp:tieneMarca ?tieneMarca .
+            ?producto pontp:tienda ?tienda .
             FILTER (
                 ?nombre = '$nombre' 
             )
@@ -253,7 +258,8 @@ def get_producto(nombre):
     return dict(
         precio=producto.precio,
         peso=producto.peso,
-        tieneMarca=producto.tieneMarca
+        tieneMarca=producto.tieneMarca,
+        tienda=producto.tienda
     )
 
 
@@ -360,6 +366,80 @@ def informar_envio_iniciado(req, content):
     )
     send_message(message, agente_ext_usuario.address) 
     return Graph().serialize(format='xml')
+
+def pagar_producto(nombre, tienda, precio, tarjeta_bancaria):
+    global mss_cnt
+    tiendas_externas = Graph()
+    tiendas_externas.parse('./data/tiendas_externas.owl')
+    sparql_query = Template('''
+    SELECT ?tienda ?nombre_tienda ?cuenta_bancaria
+    WHERE {
+        ?tienda rdf:type ?type_tienda .
+        ?compra ns:nombre_tienda ?nombre_tienda .
+        ?compra ns:cuenta_bancaria ?cuenta_bancaria .
+        FILTER (
+            ?nombre_tienda = '$nombre_tienda'
+        )
+    }
+    ''').substitute(dict(
+        nombre_tienda=tienda       
+        ))
+    result = tiendas_externas.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            ns=agn
+        )
+    )
+    cuenta_bancaria = ""
+    for x in result:
+        cuenta_bancaria = x.cuenta_bancaria
+    #cobrar porducto tienda externa
+    mss_cnt = mss_cnt + 1
+    gCobrarProdExt = Graph()
+    cobrarProdExt = agn['cobrar_' + str(mss_cnt)]
+    gCobrarProdExt.add((cobrarProdExt, RDF.type, Literal('Cobrar')))
+    gCobrarProdExt.add((cobrarProdExt, agn.precio_total, Literal(precio)))
+    gCobrarProdExt.add((cobrarProdExt, agn.tarjeta_bancaria, Literal(tarjeta_bancaria)))
+    Pagador = AsistenteCompra.directory_search(DirectoryAgent, agn.Pagador)
+    message = build_message(
+        gCobrarProdExt,
+        perf=Literal('request'),
+        sender=AsistenteCompra.uri,
+        receiver=Pagador.uri,
+        msgcnt=mss_cnt,
+        content=cobrarProdExt
+    )
+    Pagado_correctamente = send_message(message, Pagador.address)
+    for item in Pagado_correctamente.subjects(RDF.type, Literal('RespuestaCobro')):
+        for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
+            logging.info(str(RespuestaCobro))
+    logging.info("cobro rebut")
+    
+    #pagar tienda externa
+    mss_cnt = mss_cnt + 1
+    gPagarTiendaExterna = Graph()
+    pagarTiendaExterna = agn['pagar_tienda_externa_' + str(mss_cnt)]
+    gPagarTiendaExterna.add((pagarTiendaExterna, RDF.type, Literal('PagarTiendaExterna')))
+    gPagarTiendaExterna.add((pagarTiendaExterna, agn.nombre_prod, Literal(nombre)))
+    gPagarTiendaExterna.add((pagarTiendaExterna, agn.precio, Literal(precio)))
+    gPagarTiendaExterna.add((pagarTiendaExterna, agn.cuenta_bancaria, Literal(cuenta_bancaria)))
+    Pagador = AsistenteCompra.directory_search(DirectoryAgent, agn.Pagador)
+    message = build_message(
+        gPagarTiendaExterna,
+        perf=Literal('request'),
+        sender=AsistenteCompra.uri,
+        receiver=Pagador.uri,
+        msgcnt=mss_cnt,
+        content=pagarTiendaExterna
+    )
+    Pagado_correctamente = send_message(message, Pagador.address)
+    for item in Pagado_correctamente.subjects(RDF.type, Literal('RespuestaCobro')):
+        for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
+            logging.info(str(RespuestaCobro))
+    logging.info("pago realizado a " + str(tienda))
+
+    #afegir factura???
 
 
 @app.route("/Stop")

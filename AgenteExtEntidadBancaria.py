@@ -70,6 +70,8 @@ def comunicacion():
         return cobrarP(req, content)
     elif accion == 'Pagar':
         return pagar(req, content)
+    elif accion == 'PagarTiendaExterna':
+        return pagarTiendaExterna(req, content)
 
 def cobrarP(req, content):
     global mss_cnt
@@ -78,7 +80,7 @@ def cobrarP(req, content):
     tarjeta_bancaria = req.value(content, agn.tarjeta_bancaria)
     precio_total = req.value(content, agn.precio_total)
     logging.info("Se ha realizado el cobro en la tarjeta bancaria " + str(tarjeta_bancaria) +
-                " de un importe de " + str(precio_total))
+                " de un importe de " + str(precio_total)+ "€")
     respuesta = str("Cobro realizado correctamente")
     gCobroRealizado = Graph()
     cobroRealizado = agn['cobroRealizado_' + str(mss_cnt)]
@@ -93,7 +95,23 @@ def pagar(req, content):
     tarjeta_bancaria = req.value(content, agn.tarjeta_bancaria)
     precio_total = req.value(content, agn.precio_total)
     logging.info("Se ha realizado el pago a la tarjeta bancaria " + str(tarjeta_bancaria) +
-                " de un importe de " + str(precio_total))
+                " de un importe de " + str(precio_total)+ "€")
+    respuesta = str("Pago realizado correctamente")
+    gCobroRealizado = Graph()
+    cobroRealizado = agn['pagoRealizado_' + str(mss_cnt)]
+    gCobroRealizado.add((cobroRealizado, RDF.type, Literal('PagoRealizado')))
+    gCobroRealizado.add((cobroRealizado, agn.respuesta, Literal(respuesta)))
+    return gCobroRealizado.serialize(format='xml')
+
+def pagarTiendaExterna(req, content):
+    global mss_cnt
+    
+    mss_cnt = mss_cnt + 1
+    cuenta_bancaria = req.value(content, agn.cuenta_bancaria)
+    precio = req.value(content, agn.precio)
+    nombreProd = req.value(content, agn.nombre_prod)
+    logging.info("Se ha realizado el pago del producto externo " + str(nombreProd) +
+    "a la cuenta bancaria " + str(cuenta_bancaria) + " de un importe de " + str(precio) + "€")
     respuesta = str("Pago realizado correctamente")
     gCobroRealizado = Graph()
     cobroRealizado = agn['pagoRealizado_' + str(mss_cnt)]
