@@ -91,6 +91,10 @@ def comunicacion():
     )
     logging.info("Arriba")
     response = send_message(msg, comunicadorExterno.address)
+    for item in response.subjects(RDF.type, Literal('RespuestaPeticion')):
+        for RespuestaPeticion in response.objects(item, agn.respuesta_peticion):
+            respuesta_peticion= str(RespuestaPeticion)
+            logging.info(respuesta_peticion)
     return render_template('vendedor_externo.html')
 
 

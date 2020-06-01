@@ -90,7 +90,58 @@ def recibir_peticion(req, content):
     logging.info('tipo: ' + tipo)
     cuenta_bancaria = str(req.value(content, agn.cuenta_bancaria))
     logging.info('cuenta_bancaria: ' + cuenta_bancaria)
+
+    productos = Graph().parse('./data/product.owl')
+    sparql_query = Template('''
+        SELECT ?producto ?nombre
+        WHERE {
+            ?producto rdf:type ?type_prod .
+            ?producto pontp:nombre ?nombre .
+            FILTER (
+                ?nombre = '$nombre' 
+            )
+        }
+    ''').substitute(dict(
+        nombre = nombre
+    ))
+    result = productos.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            pontp=Namespace("http://www.products.org/ontology/property/")
+        )
+    )
+    for x in result:
+        if((str(x.nombre) == str(nombre))):
+            return rechazar_pedido()
+    rechazar = int(random.uniform(1, 100))
+    if rechazar < 75:
+        return aceptar_pedido(nombre, nombre_tienda, peso, precio, marca, tipo)
+    else:
+        return rechazar_pedido()
+
     return Graph().serialize(format='xml')
+
+def aceptar_pedido(nombre, nombre_tienda, peso, precio, marca, tipo):
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+    respuesta = "Producto aceptado"
+    gRespuestaPeticion = Graph()
+    RespuestaPeticion = agn['RespuestaPeticion' + str(mss_cnt)]
+    gRespuestaPeticion.add((RespuestaPeticion, RDF.type, Literal('RespuestaPeticion')))
+    gRespuestaPeticion.add((RespuestaPeticion, agn.respuesta_peticion, Literal(respuesta)))
+    return gRespuestaPeticion.serialize(format = 'xml')
+
+def rechazar_pedido():
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+    respuesta = "Producto no aceptado"
+    gRespuestaPeticion = Graph()
+    RespuestaPeticion = agn['RespuestaPeticion' + str(mss_cnt)]
+    gRespuestaPeticion.add((RespuestaPeticion, RDF.type, Literal('RespuestaPeticion')))
+    gRespuestaPeticion.add((RespuestaPeticion, agn.respuesta_peticion, Literal(respuesta)))
+    return gRespuestaPeticion.serialize(format = 'xml')
+
 
 
 @app.route("/Stop")
