@@ -66,20 +66,13 @@ def comunicacion():
     mss_cnt = mss_cnt + 1
     peticion = agn['enviar_peticion_' + str(mss_cnt)]
     message.add((peticion, RDF.type, Literal('Enviar_Peticion')))
-    if request.form['nombre_tienda']:
-        message.add((peticion, agn.nombre_tienda, Literal((request.form['nombre_tienda']))))
-    if request.form['nombre_producto']:
-        message.add((peticion, agn.nombre, Literal((request.form['nombre_producto']))))
-    if request.form['precio_producto']:
-        message.add((peticion, agn.precio, Literal(int(request.form['precio_producto']))))
-    if request.form['peso_producto']:
-        message.add((peticion, agn.peso, Literal(int(request.form['peso_producto']))))
-    if request.form['marca']:
-        message.add((peticion, agn.tieneMarca, Literal(request.form['marca'].lower())))
-    if request.form['tipo']:
-        message.add((peticion, agn.tipo, Literal(request.form['tipo'].lower())))
-    if request.form['cuenta_bancaria']:
-        message.add((peticion, agn.cuenta_bancaria, Literal(int(request.form['cuenta_bancaria']))))    
+    message.add((peticion, agn.nombre_tienda, Literal((request.form['nombre_tienda']))))
+    message.add((peticion, agn.nombre, Literal((request.form['nombre_producto']))))
+    message.add((peticion, agn.precio, Literal(int(request.form['precio_producto']))))
+    message.add((peticion, agn.peso, Literal(int(request.form['peso_producto']))))
+    message.add((peticion, agn.tieneMarca, Literal(request.form['marca'].lower())))
+    message.add((peticion, agn.tipo, Literal(request.form['tipo'].lower())))
+    message.add((peticion, agn.cuenta_bancaria, Literal(int(request.form['cuenta_bancaria']))))    
     comunicadorExterno = AgenteExtTiendaExterna.directory_search(DirectoryAgent, agn.ComunicadorExterno)    
     msg = build_message(
         message,
