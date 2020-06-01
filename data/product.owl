@@ -4,788 +4,807 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 >
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_49XDY6">
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</pontp:precio>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">938.0003112815251</pontp:peso>
-    <pontp:nombre>nombre_CZB2UW</pontp:nombre>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+  <rdf:Description rdf:about="http://www.products.org/ontology/property/precio">
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_99S3QB">
-    <pontp:nombre>nombre_2YOJWA</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</pontp:precio>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_LRZ5RO"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">925.9862881661295</pontp:peso>
+  <rdf:Description rdf:about="http://www.products.org/ontology/property/numeroValoraciones">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_AZTSHH">
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_77R0OL">
     <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:nombre>nombre_8RKW3K</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">272.1579595786251</pontp:peso>
+    <pontp:nombre>nombre_NJVSKN</pontp:nombre>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_XNT2TV"/>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
     <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">105</pontp:precio>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">118</pontp:precio>
     <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">204.08108552934618</pontp:peso>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_I92MBG">
-    <pontp:nombre>nombre_89B48M</pontp:nombre>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">71</pontp:precio>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_ZQ4VMK">
+    <pontp:nombre>nombre_9WX1BS</pontp:nombre>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1373</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2128.5162610563216</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YGL55M"/>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">701.7140288373804</pontp:peso>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_YGJ6HS">
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
     <pontp:nombre>nombre_6RJFJC</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">88</pontp:precio>
     <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">517.7597520711884</pontp:peso>
     <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">88</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_IRAUMT">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
     <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1804.432829968706</pontp:peso>
-    <pontp:nombre>nombre_L7NOAD</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_HGG787"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1732</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_5XJTXU">
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_VXZXMF">
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:nombre>nombre_AAK5TU</pontp:nombre>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:nombre>nombre_NUDNE3</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">317.7355362389579</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">224</pontp:precio>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_WLO7HJ">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2260</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1259.4398457859809</pontp:peso>
+    <pontp:nombre>nombre_FFN281</pontp:nombre>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR">
+    <pontp:nombre>Marca_Blender_WFDBUR</pontp:nombre>
+    <pontp:nombre>Marca_Computer_YGL55M</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_YDW3MU">
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">920.0100312888546</pontp:peso>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
     <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_CRBQMR</pontp:nombre>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">397.9625492984751</pontp:peso>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">314</pontp:precio>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:nombre>nombre_T8K1Z4</pontp:nombre>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_FCOTTO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_C19P45">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:nombre>nombre_HBNUC5</pontp:nombre>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">601.4326471319994</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">37</pontp:precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_AZTSHH">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">105</pontp:precio>
+    <pontp:nombre>nombre_8RKW3K</pontp:nombre>
     <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
     <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_5VCWEP"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">204.08108552934618</pontp:peso>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_BD8K7A">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:nombre>nombre_LD44GB</pontp:nombre>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR"/>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_2MS1HD">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">271.5458783134362</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_9SFHKP</pontp:nombre>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">267</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_U6P8KU"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_Q04VPN">
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_O7XLBZ</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1763.0409025411209</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_R664M7"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">580</pontp:precio>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_DOP9CC">
+    <pontp:nombre>nombre_2UYI7C</pontp:nombre>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1293</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2451.489391269796</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_2ZO8MQ">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">458</pontp:precio>
+    <pontp:nombre>nombre_3ESHGA</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">212.14778635709362</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_XNT2TV"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
     <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
     <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">42</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">720.0329274707601</pontp:peso>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_Z9NJ8Y">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Phone_5VCWEP</pontp:nombre>
+    <pontp:nombre>Marca_Computer_Z9NJ8Y</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_D1LU27">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">375</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">269.26686374459996</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_X86FAH</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_5VCWEP"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_EMZ4C3">
     <pontp:nombre>nombre_70D3AM</pontp:nombre>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
     <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
     <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">944.6848137512424</pontp:peso>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">82</pontp:precio>
     <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">82</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">944.6848137512424</pontp:peso>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8">
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_P7XALM">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_5VCWEP"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">268</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">313.36930913023855</pontp:peso>
+    <pontp:nombre>nombre_I0H0HT</pontp:nombre>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_DEGK01">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8"/>
+    <pontp:nombre>nombre_DTP59X</pontp:nombre>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">370.54347993093955</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">570</pontp:precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_QD3OOL">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1818.5517792055566</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:nombre>nombre_IDHTCY</pontp:nombre>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1845</pontp:precio>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_Z9NJ8Y"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_0NDRZR">
+    <pontp:nombre>Marca_Phone_0NDRZR</pontp:nombre>
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Phone_0SGKA8</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_GIO61U">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">331.6653111719141</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:nombre>nombre_6V6JB9</pontp:nombre>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">325</pontp:precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_7PQ720">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1117</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_41AVPD</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2264.555777739607</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_F565OX"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_FJHFDU">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2129</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_X50ERO"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1014.8459591340297</pontp:peso>
+    <pontp:nombre>nombre_4XJ45X</pontp:nombre>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_99S3QB">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">925.9862881661295</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_LRZ5RO"/>
+    <pontp:nombre>nombre_2YOJWA</pontp:nombre>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_H6W5IW">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</pontp:precio>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:nombre>nombre_IW0TVS</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">571.8200452529994</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_Q5WDD6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/property/tieneMarca">
+    <rdfs:range rdf:resource="http://www.products.org/ontology/Marca"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/property/nombre">
     <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_ZQ4VMK">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1373</pontp:precio>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2128.5162610563216</pontp:peso>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YGL55M"/>
-    <pontp:nombre>nombre_9WX1BS</pontp:nombre>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_T6JST3">
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2.5</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">46</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR"/>
+    <pontp:nombre>nombre_D4RMQ7</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">980.4089154535841</pontp:peso>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</pontp:numeroValoraciones>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_CDOWY0">
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">834</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1495.6519357883465</pontp:peso>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:nombre>nombre_9E6K3W</pontp:nombre>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_TLC9N6">
     <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:nombre>nombre_0OMZIS</pontp:nombre>
     <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2689</pontp:precio>
     <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_X50ERO"/>
     <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1336.7978692315335</pontp:peso>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_0OMZIS</pontp:nombre>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
     <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_GQK88B">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1323</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1668.1033034202355</pontp:peso>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:nombre>nombre_D28VCS</pontp:nombre>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_JUYNRN">
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_R664M7">
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Blender_JUYNRN</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ">
-    <pontp:nombre>Marca_Computer_9TC2KZ</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_IY4DD6">
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</pontp:precio>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">500.07664236547566</pontp:peso>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:nombre>nombre_MDPIBI</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_P7XALM">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">268</pontp:precio>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_I0H0HT</pontp:nombre>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">313.36930913023855</pontp:peso>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_5VCWEP"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_VXZXMF">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">317.7355362389579</pontp:peso>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_NUDNE3</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">224</pontp:precio>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_MZ3NYP">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">421</pontp:precio>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_QU4AI1"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">310.07459805113297</pontp:peso>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:nombre>nombre_2GH1YC</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_DOP9CC">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2451.489391269796</pontp:peso>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_2UYI7C</pontp:nombre>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1293</pontp:precio>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
+    <pontp:nombre>Marca_Computer_R664M7</pontp:nombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_9YNLRH">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">243.24015498786306</pontp:peso>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
     <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_XNT2TV"/>
     <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
     <pontp:nombre>nombre_RJ3AWF</pontp:nombre>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">243.24015498786306</pontp:peso>
     <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">123</pontp:precio>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_LRZ5RO">
-    <pontp:nombre>Marca_Blender_LRZ5RO</pontp:nombre>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_A2LTX0">
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_Q5WDD6"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:nombre>nombre_UP74MS</pontp:nombre>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">891.1081908265886</pontp:peso>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_C4WCRL">
+    <pontp:nombre>nombre_OSH4O9</pontp:nombre>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_X50ERO"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1770</pontp:precio>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1247.5360569339227</pontp:peso>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_YC3AMG">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">328</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_KX3N1U"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">363.5458205752578</pontp:peso>
+    <pontp:nombre>nombre_OIBR77</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_VP9VW8">
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Computer_VP9VW8</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_RM6B6T">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YGL55M"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2084</pontp:precio>
+    <pontp:nombre>nombre_OSH4O9</pontp:nombre>
+    <pontp:nombre>nombre_49Q3I6</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2495.776383162832</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_0B8A6T">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Phone_0B8A6T</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_BD8K7A">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">42</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">720.0329274707601</pontp:peso>
+    <pontp:nombre>nombre_LD44GB</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_YGL55M">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Computer_YGL55M</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_05HKL9">
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0NDRZR"/>
+    <pontp:nombre>nombre_OK9IUK</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">288.01956883596677</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">276</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_UJ1S1B">
+    <pontp:nombre>nombre_5O3N6D</pontp:nombre>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0NDRZR"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">252.39821650318487</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</pontp:precio>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_8Z6O4Z">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:nombre>nombre_1BCNYP</pontp:nombre>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">465</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">267.3818103885297</pontp:peso>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_CXR4DG">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">897.6864342345357</pontp:peso>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:nombre>nombre_AAK5TU</pontp:nombre>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_U84DQ2">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">447</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0B8A6T"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">212.47463252062323</pontp:peso>
+    <pontp:nombre>nombre_W0B7F8</pontp:nombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_NJ26IS">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YACGAE"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2283.2516903152045</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</pontp:precio>
     <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1946</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_LYUXXR</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
     <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_FJHFDU">
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2129</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1014.8459591340297</pontp:peso>
+    <pontp:nombre>nombre_LYUXXR</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">985.8970624590706</pontp:peso>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2283.2516903152045</pontp:peso>
+    <pontp:nombre>nombre_JUG0JH</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YACGAE"/>
     <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_X50ERO"/>
-    <pontp:nombre>nombre_4XJ45X</pontp:nombre>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_TMO66A">
-    <pontp:nombre>Marca_Blender_TMO66A</pontp:nombre>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_GQK88B">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1323</pontp:precio>
+    <pontp:nombre>nombre_D28VCS</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1668.1033034202355</pontp:peso>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_E9J0C5">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">314.995092647796</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_H3ZWI6</pontp:nombre>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">342</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_HGG787">
+    <pontp:nombre>Marca_Computer_HGG787</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_UTI8BB">
+    <pontp:nombre>Marca_Computer_UTI8BB</pontp:nombre>
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_U6P8KU">
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
     <pontp:nombre>Marca_Phone_U6P8KU</pontp:nombre>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/property/valoracionTotal">
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_WLO7HJ">
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1259.4398457859809</pontp:peso>
-    <pontp:nombre>nombre_FFN281</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2260</pontp:precio>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_3B4KOA">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1467</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:nombre>nombre_8PSA5I</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_R664M7"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1944.891529313362</pontp:peso>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_CXR4DG">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
-    <pontp:nombre>nombre_AAK5TU</pontp:nombre>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">897.6864342345357</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_GIO61U">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">331.6653111719141</pontp:peso>
-    <pontp:nombre>nombre_6V6JB9</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">325</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_EVLSB0">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">520.254566870599</pontp:peso>
-    <pontp:nombre>nombre_OJ6K6S</pontp:nombre>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TL5CNJ"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_QD3OOL">
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1845</pontp:precio>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1818.5517792055566</pontp:peso>
-    <pontp:nombre>nombre_IDHTCY</pontp:nombre>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_Z9NJ8Y"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_2ZO8MQ">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_XNT2TV"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_3ESHGA</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">458</pontp:precio>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">212.14778635709362</pontp:peso>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_V6Z0YM">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_JUG0JH</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">985.8970624590706</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9">
-    <pontp:nombre>Marca_Phone_RPFDX9</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR">
-    <pontp:nombre>Marca_Blender_WFDBUR</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_05HKL9">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0NDRZR"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_OK9IUK</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">276</pontp:precio>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">288.01956883596677</pontp:peso>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_T6JST3">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">46</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">980.4089154535841</pontp:peso>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:nombre>nombre_D4RMQ7</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_89H41J">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:nombre>nombre_JBIPN8</pontp:nombre>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">619.3769084004986</pontp:peso>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">46</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_ZF38D8">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_VP9VW8"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2199</pontp:precio>
-    <pontp:nombre>nombre_A1R8FN</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1519.6745757045612</pontp:peso>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_QU4AI1">
-    <pontp:nombre>Marca_Phone_QU4AI1</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_2MS1HD">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">271.5458783134362</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_U6P8KU"/>
-    <pontp:nombre>nombre_9SFHKP</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">267</pontp:precio>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_0NDRZR">
-    <pontp:nombre>Marca_Phone_0NDRZR</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_8S306G">
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_F4KTYQ"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">846.022553217411</pontp:peso>
-    <pontp:nombre>nombre_A0S5JU</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">64</pontp:precio>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_HGG787">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Computer_HGG787</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_D1LU27">
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">269.26686374459996</pontp:peso>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">375</pontp:precio>
-    <pontp:nombre>nombre_X86FAH</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_5VCWEP"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_IDONU7">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1376.1058344805265</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_HHDQPV</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_X50ERO"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2586</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/property/peso">
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_YC3AMG">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">363.5458205752578</pontp:peso>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">328</pontp:precio>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_KX3N1U"/>
-    <pontp:nombre>nombre_OIBR77</pontp:nombre>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_FCOTTO">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Blender_FCOTTO</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/Blender">
-    <rdfs:subClassOf rdf:resource="http://www.products.org/ontology/ElectronicDevice"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_DEGK01">
-    <pontp:nombre>nombre_DTP59X</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">570</pontp:precio>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">370.54347993093955</pontp:peso>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_U0VQQM">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">82</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">242.10095705475018</pontp:peso>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
-    <pontp:nombre>nombre_J462CS</pontp:nombre>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/property/precio">
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_8Z6O4Z">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">267.3818103885297</pontp:peso>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:nombre>nombre_1BCNYP</pontp:nombre>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">465</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_VP9VW8">
-    <pontp:nombre>Marca_Computer_VP9VW8</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_A2LTX0">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">891.1081908265886</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_UP74MS</pontp:nombre>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_Q5WDD6"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_E9J0C5">
-    <pontp:nombre>nombre_H3ZWI6</pontp:nombre>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">342</pontp:precio>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">314.995092647796</pontp:peso>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_SWQZLA">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">613.1646974966623</pontp:peso>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TL5CNJ"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:nombre>nombre_PQ2CPL</pontp:nombre>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_77R0OL">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_XNT2TV"/>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">272.1579595786251</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">118</pontp:precio>
-    <pontp:nombre>nombre_NJVSKN</pontp:nombre>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_E6OXOH">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YACGAE"/>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2812</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1125.4859943979948</pontp:peso>
-    <pontp:nombre>nombre_MZAXCT</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_RM6B6T">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_49Q3I6</pontp:nombre>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YGL55M"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2495.776383162832</pontp:peso>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2084</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_UTI8BB">
-    <pontp:nombre>Marca_Computer_UTI8BB</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_YDW3MU">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_FCOTTO"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">920.0100312888546</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_T8K1Z4</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_7PQ720">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2264.555777739607</pontp:peso>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_F565OX"/>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_41AVPD</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1117</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_DEJ8M2">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_UTI8BB"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1600.4171982469534</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:nombre>nombre_7T1YX4</pontp:nombre>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2278</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_UJ1S1B">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0NDRZR"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">252.39821650318487</pontp:peso>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_5O3N6D</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">427</pontp:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_0B8A6T">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Phone_0B8A6T</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/property/numeroValoraciones">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_L4KEL8">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">203.85316886574535</pontp:peso>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
     <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">239</pontp:precio>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:nombre>nombre_BT88IN</pontp:nombre>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
     <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_XNT2TV"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_C4WCRL">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1247.5360569339227</pontp:peso>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_X50ERO"/>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1770</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:nombre>nombre_OSH4O9</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_U84DQ2">
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">212.47463252062323</pontp:peso>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_0B8A6T"/>
-    <pontp:nombre>nombre_W0B7F8</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">203.85316886574535</pontp:peso>
     <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">447</pontp:precio>
     <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_BT88IN</pontp:nombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_3NIBWA">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_ONDO1C</pontp:nombre>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">540.4720346140239</pontp:peso>
     <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">38</pontp:precio>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_C19P45">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">601.4326471319994</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
     <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">37</pontp:precio>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:nombre>nombre_HBNUC5</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_GIKMOS">
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_LRZ5RO"/>
+    <pontp:nombre>nombre_ONDO1C</pontp:nombre>
     <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">988.8138972806457</pontp:peso>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</pontp:precio>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:nombre>nombre_QQDK5F</pontp:nombre>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_H6W5IW">
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">571.8200452529994</pontp:peso>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</pontp:precio>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_Q5WDD6"/>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
-    <pontp:nombre>nombre_IW0TVS</pontp:nombre>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/property/tienda">
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_F565OX">
-    <pontp:nombre>Marca_Computer_F565OX</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_Q5WDD6">
-    <pontp:nombre>Marca_Blender_Q5WDD6</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_TL5CNJ">
-    <pontp:nombre>Marca_Blender_TL5CNJ</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/Phone">
-    <rdfs:subClassOf rdf:resource="http://www.products.org/ontology/ElectronicDevice"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_Q04VPN">
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">580</pontp:precio>
-    <pontp:nombre>nombre_O7XLBZ</pontp:nombre>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_R664M7"/>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1763.0409025411209</pontp:peso>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_6J33SH">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
-    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">791</pontp:precio>
-    <pontp:nombre>nombre_PB5PG8</pontp:nombre>
-    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2426.361671992224</pontp:peso>
-    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
-    <pontp:tienda>ALIEXPLESS</pontp:tienda>
-    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_F565OX"/>
-    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_R664M7">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Computer_R664M7</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_PPUSKR">
-    <pontp:nombre>Marca_Blender_PPUSKR</pontp:nombre>
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/property/tieneMarca">
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
-    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
-    <rdfs:range rdf:resource="http://www.products.org/ontology/Marca"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Blender_AVOTQG</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_X50ERO">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Computer_X50ERO</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_KX3N1U">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Phone_KX3N1U</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_YGL55M">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
-    <pontp:nombre>Marca_Computer_YGL55M</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">540.4720346140239</pontp:peso>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_5VCWEP">
-    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
     <pontp:nombre>Marca_Phone_5VCWEP</pontp:nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/ElectronicDevice">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/Marca">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_O8E0S1">
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
     <pontp:nombre>Marca_Phone_O8E0S1</pontp:nombre>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_F4KTYQ">
-    <pontp:nombre>Marca_Blender_F4KTYQ</pontp:nombre>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_0SGKA8">
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Phone_0SGKA8</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_I92MBG">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">701.7140288373804</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
+    <pontp:nombre>nombre_89B48M</pontp:nombre>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">71</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_89H41J">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_WFDBUR"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2.5</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">619.3769084004986</pontp:peso>
+    <pontp:nombre>nombre_JBIPN8</pontp:nombre>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">46</pontp:precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_DEJ8M2">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_UTI8BB"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1600.4171982469534</pontp:peso>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2278</pontp:precio>
+    <pontp:nombre>nombre_7T1YX4</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_5XJTXU">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">314</pontp:precio>
+    <pontp:nombre>nombre_CRBQMR</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">397.9625492984751</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_5VCWEP"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_SWQZLA">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TL5CNJ"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">613.1646974966623</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_PQ2CPL</pontp:nombre>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</pontp:precio>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/property/peso">
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_XNT2TV">
     <pontp:nombre>Marca_Phone_XNT2TV</pontp:nombre>
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9">
+    <pontp:nombre>Marca_Phone_RPFDX9</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_6J33SH">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_F565OX"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">791</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_PB5PG8</pontp:nombre>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2426.361671992224</pontp:peso>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_IRAUMT">
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1804.432829968706</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_HGG787"/>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1732</pontp:precio>
+    <pontp:nombre>nombre_L7NOAD</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_V6Z0YM">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">985.8970624590706</pontp:peso>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:nombre>nombre_JUG0JH</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/property/tienda">
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_E6OXOH">
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_YACGAE"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2812</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1125.4859943979948</pontp:peso>
+    <pontp:nombre>nombre_MZAXCT</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_TL5CNJ">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Blender_TL5CNJ</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_GIKMOS">
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_QQDK5F</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">988.8138972806457</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_LRZ5RO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_49XDY6">
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">938.0003112815251</pontp:peso>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TMO66A"/>
+    <pontp:nombre>nombre_CZB2UW</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</pontp:precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_IY4DD6">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">500.07664236547566</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</pontp:precio>
+    <pontp:nombre>nombre_MDPIBI</pontp:nombre>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_MZ3NYP">
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">421</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">310.07459805113297</pontp:peso>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:nombre>nombre_2GH1YC</pontp:nombre>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_QU4AI1"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_LRZ5RO">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Blender_LRZ5RO</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_CDOWY0">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1495.6519357883465</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">834</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:nombre>nombre_9E6K3W</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/producto_nombre_Shrek">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/producto"/>
+    <pontp:tipo>pelicula</pontp:tipo>
+    <pontp:tieneMarca>marca_dreamworks</pontp:tieneMarca>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">450.0</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</pontp:precio>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:nombre>nombre_Shrek</pontp:nombre>
+    <pontp:tienda>AmazonSelvice</pontp:tienda>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_FCOTTO">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Blender_FCOTTO</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_EVLSB0">
+    <pontp:nombre>nombre_OJ6K6S</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</pontp:precio>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">520.254566870599</pontp:peso>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_TL5CNJ"/>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_JUYNRN">
+    <pontp:nombre>Marca_Blender_JUYNRN</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/ElectronicDevice">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/property/valoracionTotal">
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Phone"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Blender"/>
+    <rdfs:domain rdf:resource="http://www.products.org/ontology/Computer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_ZF38D8">
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_VP9VW8"/>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2199</pontp:precio>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1519.6745757045612</pontp:peso>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_A1R8FN</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_F565OX">
+    <pontp:nombre>Marca_Computer_F565OX</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Phone_U0VQQM">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Phone"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">82</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Phone_RPFDX9"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">242.10095705475018</pontp:peso>
+    <pontp:nombre>nombre_J462CS</pontp:nombre>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_QU4AI1">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Phone_QU4AI1</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_3B4KOA">
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1467</pontp:precio>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:nombre>nombre_8PSA5I</pontp:nombre>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1944.891529313362</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_R664M7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Blender_8S306G">
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:nombre>nombre_A0S5JU</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Blender"/>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_F4KTYQ"/>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">846.022553217411</pontp:peso>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">64</pontp:precio>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Computer_IDONU7">
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1376.1058344805265</pontp:peso>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Computer_X50ERO"/>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Computer"/>
+    <pontp:nombre>nombre_HHDQPV</pontp:nombre>
+    <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2586</pontp:precio>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
+    <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
+  </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_YACGAE">
     <pontp:nombre>Marca_Computer_YACGAE</pontp:nombre>
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_Z9NJ8Y">
-    <pontp:nombre>Marca_Computer_Z9NJ8Y</pontp:nombre>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_PPUSKR">
+    <pontp:nombre>Marca_Blender_PPUSKR</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_X50ERO">
+    <pontp:nombre>Marca_Computer_X50ERO</pontp:nombre>
     <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.products.org/ontology/Computer">
+    <rdfs:subClassOf rdf:resource="http://www.products.org/ontology/ElectronicDevice"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_Q5WDD6">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Blender_Q5WDD6</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_AVOTQG">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Blender_AVOTQG</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_F4KTYQ">
+    <pontp:nombre>Marca_Blender_F4KTYQ</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/Phone">
+    <rdfs:subClassOf rdf:resource="http://www.products.org/ontology/ElectronicDevice"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/Marca">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Computer_9TC2KZ">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Computer_9TC2KZ</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Phone_KX3N1U">
+    <pontp:nombre>Marca_Phone_KX3N1U</pontp:nombre>
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/resource/Marca_Blender_TMO66A">
+    <rdf:type rdf:resource="http://www.products.org/ontology/Marca"/>
+    <pontp:nombre>Marca_Blender_TMO66A</pontp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.products.org/ontology/Blender">
     <rdfs:subClassOf rdf:resource="http://www.products.org/ontology/ElectronicDevice"/>
   </rdf:Description>
 </rdf:RDF>

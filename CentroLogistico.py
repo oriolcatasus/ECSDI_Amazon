@@ -319,6 +319,7 @@ def informar_envio_iniciado(compras_enviadas, transportista, fecha_recepcion):
     for id_compra in compras_enviadas:
         mss_cnt = mss_cnt + 1
         graph = Graph()
+        logging.info(str(id_compra))
         predicado = agn['informar_envio_iniciado_' + str(mss_cnt)]
         graph.add((predicado, RDF.type, Literal('Informar_Envio_Iniciado')))
         graph.add((predicado, agn.id_compra, Literal(id_compra)))
