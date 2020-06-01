@@ -116,6 +116,7 @@ def recibir_peticion(req, content):
             return rechazar_pedido()
     rechazar = int(random.uniform(1, 100))
     if rechazar < 75:
+        añadir_tienda(nombre_tienda, cuenta_bancaria)
         return aceptar_pedido(nombre, nombre_tienda, peso, precio, marca, tipo)
     else:
         return rechazar_pedido()
@@ -158,6 +159,42 @@ def rechazar_pedido():
     gRespuestaPeticion.add((RespuestaPeticion, agn.respuesta_peticion, Literal(respuesta)))
     return gRespuestaPeticion.serialize(format = 'xml')
 
+def añadir_tienda(nombre_tienda, cuenta_bancaria):
+    tiendas_externas = Graph()
+    try:
+        tiendas_externas.parse('./data/tiendas_externas.owl')
+    except Exception as e:
+        logging.info('No lotes graph found')
+    sparql_query = Template('''
+        SELECT ?tienda ?nombre_tienda
+        WHERE {
+            ?producto rdf:type ?type_tienda .
+            ?producto ns:nombre_tienda ?nombre_tienda .
+            FILTER (
+                ?nombre_tienda = '$nombre_tienda' 
+            )
+        }
+    ''').substitute(dict(
+        nombre_tienda = nombre_tienda
+    ))
+    result = tiendas_externas.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            ns=agn
+        )
+    )
+    existe = False
+    for x in result:
+        if((str(x.nombre_tienda) == str(nombre_tienda))):
+            existe = True
+    if (not existe):
+        tienda_externa = agn['tienda_' + str(nombre_tienda)]
+        tiendas_externas.add((tienda_externa, RDF.type, agn.tienda_externa))
+        tiendas_externas.add((tienda_externa, agn.nombre_tienda, Literal(str(nombre_tienda))))
+        tiendas_externas.add((tienda_externa, agn.cuenta_bancaria, Literal(int(cuenta_bancaria))))
+        tiendas_externas.serialize('./data/tiendas_externas.owl')
+    return Graph().serialize(format='xml')
 
 
 @app.route("/Stop")

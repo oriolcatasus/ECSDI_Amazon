@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:ns1="http://ALIEXPLESS.ECSDI/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/tienda_AmazonSelvice">
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/tienda_externa"/>
+    <ns1:nombre_tienda>AmazonSelvice</ns1:nombre_tienda>
+    <ns1:cuenta_bancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">456</ns1:cuenta_bancaria>
+  </rdf:Description>
+</rdf:RDF>
