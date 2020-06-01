@@ -194,16 +194,16 @@ def buscarProductosUsuario():
     id_usuario = request.form['id_usuario']
     message.add((search, agn['id_usuario'], Literal(id_usuario)))
     message.add((search, RDF.type, Literal('Buscar_Productos_Usuario')))    
-    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.AsistenteCompra)    
+    gestor_devoluciones = AgenteExtUsuario.directory_search(DirectoryAgent, agn.GestorDevoluciones)    
     msg = build_message(
         message,
         perf=Literal('request'),
         sender=AgenteExtUsuario.uri,
-        receiver=asistente_compra.uri,
+        receiver=gestor_devoluciones.uri,
         msgcnt=mss_cnt,
         content=search
     )
-    response = send_message(msg, asistente_compra.address)
+    response = send_message(msg, gestor_devoluciones.address)
 
     logging.info('Productos del usuario:')
 
@@ -248,22 +248,91 @@ def devolver():
         graph.add((devolucion, agn.producto, Literal(nombre)))
         graph.add((devolucion, agn.id_compra, Literal(request.form.getlist('id_compra')[i])))
         i += 1    
-    asistente_compra = AgenteExtUsuario.directory_search(DirectoryAgent, agn.AsistenteCompra) 
+    gestor_devoluciones = AgenteExtUsuario.directory_search(DirectoryAgent, agn.GestorDevoluciones) 
     message = build_message(
         graph,
         perf=Literal('request'),
         sender=AgenteExtUsuario.uri,
-        receiver=asistente_compra.uri,
+        receiver=gestor_devoluciones.uri,
         msgcnt=mss_cnt,
         content=devolucion
     )
-    result = send_message(message, asistente_compra.address)
+    result = send_message(message, gestor_devoluciones.address)
 
     for item in result.subjects(RDF.type, agn.respuesta):
         resultado=str(result.value(subject=item, predicate=agn.resultado))
         logging.info(resultado)
 
     return render_template('devolucion.html')
+
+@app.route("/feedback", methods=['POST'])
+def feedback():
+    global mss_cnt
+
+    mss_cnt = mss_cnt + 1
+    logging.info('Pedir Feedback')
+    graph = Graph()
+    compra = agn['feedback_' + str(mss_cnt)]
+    graph.add((compra, RDF.type, Literal('Pedir_Feedback')))
+    # id usario
+    id_usuario = request.form['id_usuario']
+    graph.add((compra, agn.id_usuario, Literal(id_usuario)))
+    
+    valorador = AgenteExtUsuario.directory_search(DirectoryAgent, agn.Valorador)
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AgenteExtUsuario.uri,
+        receiver=valorador.uri,
+        msgcnt=mss_cnt,
+        content=compra
+    )
+    response = send_message(message, valorador.address)
+
+    logging.info('Productos del usuario:')
+
+    productos_usuario = []
+    for item in response.subjects(RDF.type, agn.product):
+        nombre=str(response.value(subject=item, predicate=agn.nombre))
+        logging.info(nombre)
+        productos_usuario.append(dict(
+            nombre=nombre,
+        ))
+    return render_template('search_product.html', productos_usuario=productos_usuario, id_usuario=id_usuario)
+
+
+@app.route("/enviar_feedback", methods=['POST'])
+def enviar_feedback():
+    global mss_cnt
+
+    logging.info('Enviar feedback')
+
+    graph = Graph()
+    devolucion = agn['enviar_feedback' + str(mss_cnt)]
+    graph.add((devolucion, RDF.type, Literal('Enviar_Feedback')))
+
+    i = 0
+    for nombre in request.form.getlist('nombre'):
+        logging.info(Literal(nombre))
+        logging.info(Literal(request.form.getlist('valoracion')[i]))
+
+        producto = agn[nombre]
+        graph.add((producto, RDF.type, agn.product))
+        graph.add((producto, agn.nombre, Literal(nombre)))
+        graph.add((producto, agn.valoracion, Literal(request.form.getlist('valoracion')[i])))
+        i += 1       
+
+    valorador = AgenteExtUsuario.directory_search(DirectoryAgent, agn.Valorador) 
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AgenteExtUsuario.uri,
+        receiver=valorador.uri,
+        msgcnt=mss_cnt,
+        content=devolucion
+    )
+    send_message(message, valorador.address)
+    return render_template('search_product.html')
 
 
 @app.route("/Stop")

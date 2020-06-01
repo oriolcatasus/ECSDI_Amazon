@@ -73,10 +73,6 @@ def comunicacion():
         return comprar(req, content)
     elif accion == 'Informar_Envio_Iniciado':
         return informar_envio_iniciado(req, content)
-    elif accion == 'Buscar_Productos_Usuario':
-        return buscar_productos_usuario(req, content)
-    elif accion == 'Devolver':
-        return devolver(req,content)
     
     
 def comprar(req, content):
@@ -361,114 +357,6 @@ def informar_envio_iniciado(req, content):
     send_message(message, agente_ext_usuario.address) 
     return Graph().serialize(format='xml')
 
-
-def buscar_productos_usuario(req, content):
-    id_usuario = req.value(subject=content, predicate=agn['id_usuario'])
-    logging.info(id_usuario)      
-    return build_response_devolver(id_usuario)
-
-
-def build_response_devolver(id_usuario):
-    historial_compras = Graph().parse('./data/historial_compras.owl')
-    logging.info("ID Usuario en la busqueda " + id_usuario)
-    sparql_query = Template('''
-        SELECT DISTINCT ?compra ?product ?id ?id_usuario
-        WHERE {
-            ?compra rdf:type ?type_prod .
-            ?compra ns:product ?product .
-            ?compra ns:id_usuario ?id_usuario .
-            ?compra ns:id ?id .
-            FILTER (
-                ?id_usuario = '$id_usuario'
-            )
-        }
-    ''').substitute(dict(
-        id_usuario = id_usuario
-    ))
-    result = historial_compras.query(
-        sparql_query,
-        initNs=dict(
-            rdf=RDF,
-            ns=agn,
-    ))
-    i = 0
-    result_message = Graph()
-    for x in result:
-        producto = agn[x.product + '_' + i]
-        result_message.add((producto, RDF.type, agn.product))
-        result_message.add((producto, agn.nombre, x.product))
-        result_message.add((producto, agn.id_compra, x.id))
-        i = i + 1
-    return result_message.serialize(format='xml')
-
-def devolver(req, content):
-    logging.info('Empezamos devolucion')
-    id_usuario = req.value(subject=content, predicate=agn.id_usuario)
-    logging.info('ID Usuario devolucion = ' + id_usuario)
-    motivo = str(req.value(subject=content, predicate=agn.motivo))
-    logging.info('Motivo devolucion = ' + motivo)
-    nombre = req.value(subject=content, predicate=agn.producto)
-    logging.info('Nombre producto de devolucion = ' + str(nombre))
-    id_compra = req.value(subject=content, predicate=agn.id_compra)
-    logging.info('ID Compra de producto de devolucion = ' + str(id_compra))
-    tarjeta = req.value(subject=content, predicate=agn.tarjeta)
-    logging.info('Tarjeta del cliente = ' + str(tarjeta))
-
-    resultado = 'null'
-    precio = 0
-
-    if motivo == 'equivocado':
-        resultado = 'Devolucion por equivocacion'
-        precio = int(get_producto(nombre)['precio'])
-    elif motivo == 'defectuoso':
-        prob_dev = random.randint(0, 100)
-        if prob_dev < 90:
-            resultado = 'Devolucion por producto defectuoso'
-            precio = int(get_producto(nombre)['precio'])
-        else:
-            resultado = 'Devolucion rechazada'
-    else:
-        prob_dev = random.randint(0, 100)
-        if prob_dev < 70:
-            resultado = 'Devolucion por producto que no satisface las necesidades del comprador'
-            precio = int(get_producto(nombre)['precio'])
-        else:
-            resultado = 'Devolucion rechazada'
-    logging.info('Resultado: ' + resultado)
-
-    result_message = Graph()
-    respuesta = agn['respuesta' + str(mss_cnt)]
-    result_message.add((respuesta, RDF.type, agn.respuesta))
-    result_message.add((respuesta, agn.resultado, Literal(resultado)))
-
-    if precio > 0:
-        id_compra_elim = agn['compra_' + str(id_compra)]
-        logging.info(id_compra_elim)
-        historial_compras = Graph().parse('./data/historial_compras.owl')
-        historial_compras.remove((id_compra_elim, agn.product, Literal(nombre)))
-        historial_compras.serialize('./data/historial_compras.owl')
-
-        Pagador = AsistenteCompra.directory_search(DirectoryAgent, agn.Pagador)
-        gCobrar = Graph()
-        cobrar = agn['pagar_' + str(mss_cnt)]
-        gCobrar.add((cobrar, RDF.type, Literal('Pagar')))
-        gCobrar.add((cobrar, agn.tarjeta_bancaria, Literal(tarjeta)))
-        gCobrar.add((cobrar, agn.precio_total, Literal(precio)))
-        message = build_message(
-            gCobrar,
-            perf=Literal('request'),
-            sender=AsistenteCompra.uri,
-            receiver=Pagador.uri,
-            msgcnt=mss_cnt,
-            content=cobrar
-        )
-        Pagado_correctamente = send_message(message, Pagador.address)
-        for item in Pagado_correctamente.subjects(RDF.type, Literal('RespuestaPago')):
-            for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
-                logging.info(str(RespuestaCobro))
-        logging.info("pago realizado")
-
-    return result_message.serialize(format='xml')
 
 @app.route("/Stop")
 def stop():
