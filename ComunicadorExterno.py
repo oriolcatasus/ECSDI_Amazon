@@ -124,6 +124,26 @@ def recibir_peticion(req, content):
 
 def aceptar_pedido(nombre, nombre_tienda, peso, precio, marca, tipo):
     global mss_cnt
+    str_nombre = str(nombre)
+    pontp=Namespace("http://www.products.org/ontology/property/")
+    producto = agn['producto_' + str_nombre]
+    productos = Graph()
+    productos.parse('./data/product.owl')
+    productos.add((producto, RDF.type, agn.producto))
+    productos.add((producto, RDF.type, pontp.nombre))
+    productos.add((producto, pontp.nombre, Literal(str(nombre))))
+    productos.add((producto, RDF.type, pontp.nombre_tienda))
+    productos.add((producto, pontp.nombre_tienda, Literal(str(nombre_tienda))))
+    productos.add((producto, RDF.type, pontp.peso))
+    productos.add((producto, pontp.peso, Literal(float(peso))))
+    productos.add((producto, RDF.type, pontp.precio))
+    productos.add((producto, pontp.precio, Literal(precio)))
+    productos.add((producto, RDF.type, pontp.tieneMarca))
+    productos.add((producto, pontp.tieneMarca, Literal(marca)))
+    productos.add((producto, RDF.type, pontp.tipo))
+    productos.add((producto, pontp.tipo, Literal(tipo)))
+    productos.serialize('./data/product.owl')
+
     mss_cnt = mss_cnt + 1
     respuesta = "Producto aceptado"
     gRespuestaPeticion = Graph()
