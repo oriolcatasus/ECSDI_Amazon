@@ -183,13 +183,15 @@ def buscar_productos(req, content):
 def build_response(tieneMarca='', min_precio=0, max_precio=sys.float_info.max, tipo='', nombre=''):
     productos = Graph().parse('./data/product.owl')
     sparql_query = Template('''
-        SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca ?tipo
+        SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca ?tipo ?valoracionTotal ?numeroValoraciones
         WHERE {
             ?producto rdf:type ?tipo .
             ?producto pontp:nombre ?nombre .
             ?producto pontp:precio ?precio .
             ?producto pontp:peso ?peso .
             ?producto pontp:tieneMarca ?tieneMarca .
+            ?producto pontp:valoracionTotal ?valoracionTotal .
+            ?producto pontp:numeroValoraciones ?numeroValoraciones .
             FILTER (
                 ?precio >= $min_precio && 
                 ?precio <= $max_precio
@@ -218,6 +220,8 @@ def build_response(tieneMarca='', min_precio=0, max_precio=sys.float_info.max, t
         result_message.add((x.producto, agn.peso, x.peso))
         result_message.add((x.producto, agn.precio, x.precio))
         result_message.add((x.producto, agn.tieneMarca, Literal(x.tieneMarca)))
+        result_message.add((x.producto, agn.valoracionTotal, Literal(x.valoracionTotal)))
+        result_message.add((x.producto, agn.numeroValoraciones, Literal(x.numeroValoraciones)))
     return result_message.serialize(format='xml')
 
 def get_producto(nombre):

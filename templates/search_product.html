@@ -7,7 +7,9 @@
 <body>
     <hr>
     <div>
-        <a href="http://127.0.1.1:9001/factura">Facturas</a> | <a href="http://127.0.1.1:9001/buscarProductosUsuario">Devoluciones</a>
+        <a href="http://127.0.1.1:9001/factura">Facturas</a> | 
+        <a href="http://127.0.1.1:9001/buscarProductosUsuario">Devoluciones</a> | 
+        <a href="http://127.0.1.1:9001/feedback">Feedback</a>
     </div>
     <hr>
     <div>
@@ -76,6 +78,7 @@
                     <th><b>Tipo</b></th>
                     <th><b>Precio</b></th>
                     <th><b>Peso</b></th>
+                    <th><b>Valoracion</b></th>
                     <th><b>Selección</b></th>
                 </tr>
                 {% for product in productos %}
@@ -85,40 +88,13 @@
                     <td>{{ product.tipo }}</td>
                     <td>{{ product.precio }}€</td>
                     <td>{{ product.peso }}g</td>
+                    <td>{{ product.valoracion }}</td>
                     <td><input type="checkbox" name="nombre" value="{{ product.nombre }}"></td>
                 </tr>
                 {% endfor %}
             </table>
             <div>
                 <button type="submit">Comprar</button>
-            </div>
-        </form>
-        <h2>Pedir feedback</h2>
-        <br>
-        <form method="POST" action="/feedback">
-            <label>
-                Identificador de usuario:<br>
-                <input name="id_usuario" type="text" required>
-            </label><br>
-            <button type="submit">Feedback</button>
-        </form>
-        <br>
-        <form method="POST" action="/enviar_feedback">
-            <table border="1px">
-                <tr>
-                    <th><b>Nombre</b></th>
-                    <th><b>Puntuacion (0-10)</b></th>
-                </tr>
-                {% for product in productos_usuario %}
-                <tr>
-                    <td>{{ product.nombre }}</td>
-                    <td><input name="valoracion" type="text" required></td>
-                    <input type="hidden" name="nombre" value="{{ product.nombre }}"></td>
-                </tr>
-                {% endfor %}
-            </table>
-            <div>
-                <button type="submit">Enviar feedback</button>
             </div>
         </form>
     </div>

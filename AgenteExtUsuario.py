@@ -98,8 +98,11 @@ def comunicacion():
             peso = float(response.value(item, agn.peso)),
             precio = int(response.value(item, agn.precio)),
             tieneMarca = response.value(item, agn.tieneMarca),
-            tipo = response.value(item, RDF.type)
+            tipo = response.value(item, RDF.type),
+            valoracion = response.value(item, agn.valoracionTotal)
         )
+        if (int(response.value(item, agn.numeroValoraciones)) == 0):
+            producto['valoracion'] = 'N/D'
         producto['peso'] = float(int(producto['peso']*100)/100)
         productos.append(producto)
     return render_template('search_product.html', productos=productos)
@@ -265,9 +268,12 @@ def devolver():
 
     return render_template('devolucion.html')
 
-@app.route("/feedback", methods=['POST'])
+@app.route("/feedback", methods=['POST', 'GET'])
 def feedback():
     global mss_cnt
+
+    if request.method == 'GET':
+        return render_template('feedback.html')
 
     mss_cnt = mss_cnt + 1
     logging.info('Pedir Feedback')
@@ -298,7 +304,7 @@ def feedback():
         productos_usuario.append(dict(
             nombre=nombre,
         ))
-    return render_template('search_product.html', productos_usuario=productos_usuario, id_usuario=id_usuario)
+    return render_template('feedback.html', productos_usuario=productos_usuario, id_usuario=id_usuario)
 
 
 @app.route("/enviar_feedback", methods=['POST'])

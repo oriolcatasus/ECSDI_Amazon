@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ECSDI Amazon</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div>
+        <h2>Pedir feedback</h2>
+        <br>
+        <form method="POST" action="/feedback">
+            <label>
+                Identificador de usuario:<br>
+                <input name="id_usuario" type="text" required>
+            </label><br>
+            <button type="submit">Feedback</button>
+        </form>
+        <br>
+        <!--{% if productos_usuario %}-->
+        <form method="POST" action="/enviar_feedback">
+            <table border="1px">
+                <tr>
+                    <th><b>Nombre</b></th>
+                    <th><b>Puntuacion (0-10)</b></th>
+                </tr>
+                {% for product in productos_usuario %}
+                <tr>
+                    <td>{{ product.nombre }}</td>
+                    <td><input name="valoracion" type="text" required></td>
+                    <input type="hidden" name="nombre" value="{{ product.nombre }}"></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div>
+                <button type="submit">Enviar feedback</button>
+            </div>
+        </form>
+        <!--{% endif %}-->
+    </div>
+    <div>
+        <br>
+        <br>
+        <a href="http://127.0.1.1:9001">Volver</a>
+    </div>
+</body>
