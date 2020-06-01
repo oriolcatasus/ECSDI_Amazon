@@ -120,51 +120,21 @@ def enviar_feedback(req, content):
     for producto in req.subjects(RDF.type, agn.product):
         nombre = req.value(subject=producto, predicate=agn.nombre)
         logging.info(nombre)
-        valoracion = req.value(subject=producto, predicate=agn.valoracion)
+        valoracion = float(req.value(subject=producto, predicate=agn.valoracion))
         logging.info(valoracion)
-
-    for producto in req.subjects(RDF.type, agn.product):
-        nombre = req.value(subject=producto, predicate=agn.nombre)
-        valoracion = req.value(subject=producto, predicate=agn.valoracion)
-        sparql_query = Template('''
-            SELECT DISTINCT ?product ?tieneMarca ?peso ?precio ?numeroValoraciones ?valoracionTotal ?tienda ?nombre ?type_product
-            WHERE {
-                ?product rdf:type ?type_product .
-                ?product pontp:tieneMarca ?tieneMarca .
-                ?product pontp:peso ?peso .
-                ?product pontp:precio ?precio .
-                ?product pontp:numeroValoraciones ?numeroValoraciones .
-                ?product pontp:valoracionTotal ?valoracionTotal .
-                ?product pontp:tienda ?tienda .
-                ?product pontp:nombre ?nombre .
-                FILTER (
-                    ?nombre = '$nombre'
-                )
-            }
-        ''').substitute(dict(
-            nombre=nombre       
-        ))
-        result = productos.query(
-            sparql_query,
-            initNs=dict(
-                rdf=RDF,
-                ns=agn,
-                pontp=Namespace("http://www.products.org/ontology/property/")
-            )
-        )
-        pontp=Namespace("http://www.products.org/ontology/property/")
-        for compra in result:
-            logging.info(str(compra.nombre))
-            logging.info(str(compra.peso))
-            logging.info(str(compra.tienda))
-            logging.info(str(compra.type_product))
-            productos.remove((compra, pontp.numeroValoraciones, None))
-            compra.numeroValoraciones = Literal(compra.numeroValoraciones + 1)
-            logging.info(compra.numeroValoraciones)
-            productos.add((compra, pontp.numeroValoraciones, Literal(compra.numeroValoraciones)))
-
-    result_message = Graph()
-    return result_message.serialize(format='xml')
+        pontp = Namespace("http://www.products.org/ontology/property/")
+        producto = next(productos.subjects(pontp.nombre, nombre))
+        num_valoraciones = int(productos.value(producto, pontp.numeroValoraciones))
+        valoracion_total = float(productos.value(producto, pontp.valoracionTotal))
+        num_valoraciones += 1
+        valoracion_total = (valoracion_total+valoracion)/num_valoraciones
+        logging.info('Nueva valoracion total: ' + str(valoracion_total))
+        productos.remove((producto, pontp.numeroValoraciones, None))
+        productos.add((producto, pontp.numeroValoraciones, Literal(num_valoraciones)))
+        productos.remove((producto, pontp.valoracionTotal, None))
+        productos.add((producto, pontp.valoracionTotal, Literal(valoracion_total)))
+        productos.serialize('./data/product.owl')
+    return Graph().serialize(format='xml')
     
 @app.route("/Stop")
 def stop():
