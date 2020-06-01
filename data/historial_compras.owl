@@ -3,51 +3,32 @@
    xmlns:ns2="http://ALIEXPLESS.ECSDI/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_144143914129139060612904311729164163128">
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">201</ns2:precio>
-    <ns2:id_usuario>5678</ns2:id_usuario>
-    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">144143914129139060612904311729164163128</ns2:id>
-    <ns2:direccion>xd</ns2:direccion>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_103646141315420616972286135598996466154">
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">127</ns2:precio>
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
-    <ns2:product>nombre_LD44GB</ns2:product>
+    <ns2:product>nombre_ONDO1C</ns2:product>
+    <ns2:direccion>xd</ns2:direccion>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">103646141315420616972286135598996466154</ns2:id>
+    <ns2:id_usuario>5678</ns2:id_usuario>
+    <ns2:product>nombre_CZB2UW</ns2:product>
     <ns2:codigo_postal>1234</ns2:codigo_postal>
+    <ns2:product>nombre_A0S5JU</ns2:product>
     <ns2:tarjeta_bancaria>90</ns2:tarjeta_bancaria>
     <ns2:fecha_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-05-31</ns2:fecha_compra>
-    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</ns2:prioridad_envio>
+    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns2:prioridad_envio>
   </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_83287344678737519161732432347975459327">
-    <ns2:codigo_postal>1234</ns2:codigo_postal>
-    <ns2:tarjeta_bancaria>90</ns2:tarjeta_bancaria>
-    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">83287344678737519161732432347975459327</ns2:id>
-    <ns2:id_usuario>5678</ns2:id_usuario>
-    <ns2:product>nombre_KELHLL</ns2:product>
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
-    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</ns2:prioridad_envio>
-    <ns2:direccion>xd</ns2:direccion>
-    <ns2:fecha_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-05-31</ns2:fecha_compra>
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">202</ns2:precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_187951891294884056965695865991588253915">
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">202</ns2:precio>
-    <ns2:codigo_postal>1234</ns2:codigo_postal>
-    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</ns2:prioridad_envio>
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
-    <ns2:id_usuario>5678</ns2:id_usuario>
-    <ns2:tarjeta_bancaria>90</ns2:tarjeta_bancaria>
-    <ns2:direccion>xd</ns2:direccion>
-    <ns2:fecha_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-05-31</ns2:fecha_compra>
-    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">187951891294884056965695865991588253915</ns2:id>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_267479042832362689468150092406974172137">
-    <ns2:fecha_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-05-31</ns2:fecha_compra>
-    <ns2:direccion>xd</ns2:direccion>
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
-    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">267479042832362689468150092406974172137</ns2:id>
-    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</ns2:prioridad_envio>
-    <ns2:product>nombre_KELHLL</ns2:product>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_152326888596527353220719797216018007326">
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">152326888596527353220719797216018007326</ns2:id>
     <ns2:tarjeta_bancaria>90</ns2:tarjeta_bancaria>
     <ns2:id_usuario>5678</ns2:id_usuario>
-    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">202</ns2:precio>
+    <ns2:direccion>xd</ns2:direccion>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
     <ns2:codigo_postal>1234</ns2:codigo_postal>
+    <ns2:product>nombre_D4RMQ7</ns2:product>
+    <ns2:product>nombre_UP74MS</ns2:product>
+    <ns2:fecha_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-05-31</ns2:fecha_compra>
+    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns2:prioridad_envio>
+    <ns2:product>nombre_HBNUC5</ns2:product>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">145</ns2:precio>
   </rdf:Description>
 </rdf:RDF>

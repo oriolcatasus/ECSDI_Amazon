@@ -279,6 +279,7 @@ def informar_envio_iniciado(req, content):
     # Buscamos todos los productos de la compra
     historial_compras = Graph().parse('./data/historial_compras.owl')
     productos = Graph().parse('./data/product.owl')
+    logging.info(str(literal_id_compra))
     subject = next(historial_compras.subjects(agn.id, literal_id_compra))
     # id usuario
     id_usuario = historial_compras.value(subject, agn.id_usuario)
