@@ -125,11 +125,15 @@ def comprar(req, content):
     fecha_compra = datetime.date.today()
     logging.info('fecha de compra: ' + str(fecha_compra))
     historial_compras.add((compra, agn.fecha_compra, Literal(fecha_compra)))
+    #preparar factura tienda externa
+    Compra_prod_ext = False
+    productos = []
+    precio = []
+    marca = []
+    tienda = []
     # productos
     total_precio = 0
     total_peso = 0.0
-    #preparar factura tienda externa
-    Compra_prod_ext = False
     for item in req.subjects(RDF.type, agn.product):
         nombre = str(req.value(subject=item, predicate=agn.nombre))
         producto = get_producto(nombre)
@@ -137,6 +141,15 @@ def comprar(req, content):
             Compra_prod_ext = True
             pagar_producto(nombre, producto['tienda'], producto['precio'], tarjeta_bancaria)
             envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, producto['peso'], producto['tienda'])
+            productos.append(nombre)
+            precio.append(producto['precio'])
+            marca.append(producto['tieneMarca'])
+            trobat = False
+            for item in tienda:
+                if(str(item) == str(producto['tienda'])): 
+                    trobat = True
+            if(not trobat): 
+                tienda.append(producto['tienda'])
         else:
             total_precio += int(producto['precio'])
             total_peso += float(producto['peso'])
@@ -149,6 +162,8 @@ def comprar(req, content):
         historial_compras.add((compra, agn.product, Literal(nombre)))
         cl_graph.add((producto_compra, RDF.type, agn.product))
         cl_graph.add((producto_compra, agn.nombre, Literal(nombre)))
+    if(Compra_prod_ext): 
+        hacer_factura_externa(productos, precio, marca, tienda, id_compra, id_usuario, direccion, codigo_postal, fecha_compra)
     logging.info('Total precio: ' + str(total_precio))
     logging.info('Total peso: ' + str(total_peso))
     cl_graph.add((content, agn.total_peso, Literal(total_peso)))
@@ -323,7 +338,7 @@ def informar_envio_iniciado(req, content):
         precio = datos_producto['precio']
         logging.info('precio: ' + precio)
         graph.add((subject_producto, agn.precio, Literal(precio)))
-        marca = datos_producto['tieneMarca'].split('/')[5]
+        marca = datos_producto['tieneMarca']#.split('/')[5]
         logging.info('marca: ' + marca)
         graph.add((subject_producto, agn.tieneMarca, Literal(marca)))
         i += 1
@@ -443,7 +458,6 @@ def pagar_producto(nombre, tienda, precio, tarjeta_bancaria):
             logging.info(str(RespuestaCobro))
     logging.info("pago realizado a " + str(tienda))
 
-    #afegir factura???
 def envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, peso, tienda):
     global mss_cnt
     mss_cnt = mss_cnt + 1
@@ -466,6 +480,59 @@ def envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, peso
         content=enviaProd
     )
     send_message(message, comunicadorExterno.address)
+
+def hacer_factura_externa(productos, precio, marca, tienda, id_compra, id_usuario, direccion, codigo_postal, fecha_compra):
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+
+    graph = Graph()
+    factura = agn['factura_' + str(mss_cnt)]
+    graph.add((factura, RDF.type, Literal('factura')))
+    graph.add((factura, agn.id_compra, Literal(id_compra)))
+    fecha_recepcion = "Por definir"
+    graph.add((factura, agn.fecha_recepcion, Literal(fecha_recepcion)))
+    transportista = ""
+    First = True
+    for i in range(0, len(tienda), 1):
+        if(First):
+            transportista += str(tienda[i])
+            First = False
+        else:
+            transportista += ", " + str(tienda[i]) 
+    graph.add((factura, agn.transportista, Literal(transportista)))
+    # id usuario
+    graph.add((factura, agn.id_usuario, Literal(str(id_usuario))))
+    # prioridad envio
+    graph.add((factura, agn.prioridad_envio, Literal(0)))
+    # Direccion
+    graph.add((factura, agn.direccion, Literal(str(direccion))))
+    # Codigo postal
+    graph.add((factura, agn.codigo_postal, Literal(str(codigo_postal))))
+    # Fecha de compra
+    graph.add((factura, agn.fecha_compra, Literal(fecha_compra)))
+    # Productos
+    precio_total = 0
+    for i in range(0, len(productos), 1):
+        subject_producto = agn[productos[i] + '_' + str(i)]
+        graph.add((subject_producto, RDF.type, agn.product))
+        graph.add((subject_producto, agn.nombre, Literal(productos[i])))
+        graph.add((subject_producto, agn.precio, Literal(str(precio[i]))))
+        precio_total += int(precio[i])
+        graph.add((subject_producto, agn.tieneMarca, Literal(str(marca[i]))))
+    #afegir factura
+    graph.add((factura, agn.precio_total, Literal(precio_total)))
+    # Enviar mensaje
+    agente_ext_usuario = AsistenteCompra.directory_search(DirectoryAgent, agn.AgenteExtUsuario)
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AsistenteCompra.uri,
+        receiver=agente_ext_usuario.uri,
+        msgcnt=mss_cnt,
+        content=factura
+    )
+    send_message(message, agente_ext_usuario.address) 
+    return Graph().serialize(format='xml')
  
 
 @app.route("/Stop")
