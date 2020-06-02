@@ -128,11 +128,15 @@ def comprar(req, content):
     # productos
     total_precio = 0
     total_peso = 0.0
+    #preparar factura tienda externa
+    Compra_prod_ext = False
     for item in req.subjects(RDF.type, agn.product):
         nombre = str(req.value(subject=item, predicate=agn.nombre))
         producto = get_producto(nombre)
         if(str(producto['tienda']) != "ALIEXPLESS"):
+            Compra_prod_ext = True
             pagar_producto(nombre, producto['tienda'], producto['precio'], tarjeta_bancaria)
+            envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, producto['peso'], producto['tienda'])
         else:
             total_precio += int(producto['precio'])
             total_peso += float(producto['peso'])
@@ -440,7 +444,29 @@ def pagar_producto(nombre, tienda, precio, tarjeta_bancaria):
     logging.info("pago realizado a " + str(tienda))
 
     #afegir factura???
-
+def envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, peso, tienda):
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+    gEnviaProd = Graph()
+    enviaProd = agn['enviar_prod_tienda_externa_' + str(mss_cnt)]
+    gEnviaProd.add((enviaProd, RDF.type, Literal('EnviarProdTiendaExterna')))
+    gEnviaProd.add((enviaProd, agn.nombre_prod, Literal(nombre)))
+    gEnviaProd.add((enviaProd, agn.peso, Literal(peso)))
+    gEnviaProd.add((enviaProd, agn.direccion, Literal(direccion)))
+    gEnviaProd.add((enviaProd, agn.cp, Literal(codigo_postal)))
+    gEnviaProd.add((enviaProd, agn.prioridad_envio, Literal(prioridad_envio)))
+    gEnviaProd.add((enviaProd, agn.tienda, Literal(tienda)))
+    comunicadorExterno = AsistenteCompra.directory_search(DirectoryAgent, agn.ComunicadorExterno)
+    message = build_message(
+        gEnviaProd,
+        perf=Literal('request'),
+        sender=AsistenteCompra.uri,
+        receiver=comunicadorExterno.uri,
+        msgcnt=mss_cnt,
+        content=enviaProd
+    )
+    send_message(message, comunicadorExterno.address)
+ 
 
 @app.route("/Stop")
 def stop():

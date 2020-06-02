@@ -71,6 +71,8 @@ def comunicacion():
     logging.info('Accion: ' + accion)
     if accion == 'Enviar_Peticion':
         return recibir_peticion(req, content)
+    elif accion == 'EnviarProdTiendaExterna':
+        return notificar_envio_tienda_externa(req, content)
     
 def recibir_peticion(req, content):
     global mss_cnt
@@ -194,6 +196,37 @@ def añadir_tienda(nombre_tienda, cuenta_bancaria):
         tiendas_externas.add((tienda_externa, agn.nombre_tienda, Literal(str(nombre_tienda))))
         tiendas_externas.add((tienda_externa, agn.cuenta_bancaria, Literal(int(cuenta_bancaria))))
         tiendas_externas.serialize('./data/tiendas_externas.owl')
+    return Graph().serialize(format='xml')
+
+def notificar_envio_tienda_externa(req, content):
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+    tienda = req.value(content, agn.tienda)
+    nombreProd = req.value(content, agn.nombre_prod)
+    logging.info("Se informará a la tienda " + str(tienda) + 
+                " sobre el enviamento del producto " + str(nombreProd))
+    peso = req.value(content, agn.peso)
+    cp = req.value(content, agn.cp)
+    direccion = req.value(content, agn.direccion)
+    prioridad_envio = req.value(content, agn.prioridad_envio)
+    TiendaExterna = ComunicadorExterno.directory_search(DirectoryAgent, agn.AgenteExtTiendaExterna)
+    gEnvio = Graph()
+    envio = agn['envio_tienda_externa' + str(mss_cnt)]
+    gEnvio.add((envio, RDF.type, Literal('EnvioTiendaExterna')))
+    gEnvio.add((envio, agn.nombre_prod, Literal(nombreProd)))
+    gEnvio.add((envio, agn.peso, Literal(peso)))
+    gEnvio.add((envio, agn.cp, Literal(cp)))
+    gEnvio.add((envio, agn.direccion, Literal(direccion)))
+    gEnvio.add((envio, agn.prioridad_envio, Literal(prioridad_envio)))
+    message = build_message(
+        gEnvio,
+        perf=Literal('request'),
+        sender=ComunicadorExterno.uri,
+        receiver=TiendaExterna.uri,
+        msgcnt=mss_cnt,
+        content=envio
+    )
+    send_message(message, TiendaExterna.address)
     return Graph().serialize(format='xml')
 
 

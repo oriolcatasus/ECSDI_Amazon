@@ -92,7 +92,25 @@ def comunicacion():
     return render_template('vendedor_externo.html', respuesta=respuesta_peticion)
 
 
-
+@app.route("/comm")
+def comm():    
+    req = Graph().parse(data=request.args['content'])
+    message_properties = get_message_properties(req)
+    content = message_properties['content']    
+    nombreProd = req.value(content, agn.nombre_prod)
+    peso = req.value(content, agn.peso)
+    cp = req.value(content, agn.cp)
+    direccion = req.value(content, agn.direccion)
+    prioridad_envio = req.value(content, agn.prioridad_envio)
+    prioridad = ""
+    if(int(prioridad_envio) > 0):
+        prioridad = "con prioridad"
+    else: 
+        prioridad = "sin prioridad"
+    logging.info("Se ha de hacer el envio " + prioridad + " del producto " + str(nombreProd) + 
+                ", con un peso de " + str(peso) + "g, a la dirección " + str(direccion) +
+                " con codigo postal " + str(cp))
+    return Graph().serialize(format='xml')
 
 
 @app.route("/Stop")
