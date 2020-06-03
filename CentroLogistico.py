@@ -231,9 +231,9 @@ def enviar_por_codigo_postal(lotes_graph, prioridad_envio):
         peso = float(item.sum_peso)
         logging.info('CP: ' + cp)
         logging.info('Total peso: ' + str(peso))
-        transportista = negociar(cp, peso, prioridad_envio)
+        transportista,id_peticion = negociar(cp, peso, prioridad_envio)
         if transportista:
-            transportar(transportista, lotes_graph, cp, prioridad_envio, peso)
+            transportar(transportista, lotes_graph, id_peticion, cp, prioridad_envio, peso)
 
 def negociar(codigo_postal, total_peso_envio, prioridad_envio):
     global mss_cnt
@@ -242,6 +242,8 @@ def negociar(codigo_postal, total_peso_envio, prioridad_envio):
     gNegociar = Graph()
     negociar = agn['negociar_' + str(mss_cnt)]
     gNegociar.add((negociar, RDF.type, Literal('Negociar')))
+    id_peticion = uuid.uuid4().int
+    gNegociar.add((negociar, agn.id_peticion, Literal(id_peticion)))
     gNegociar.add((negociar, agn.codigo_postal, Literal(codigo_postal)))
     gNegociar.add((negociar, agn.total_peso, Literal(total_peso_envio)))
     gNegociar.add((negociar, agn.prioridad_envio, Literal(prioridad_envio)))
@@ -255,23 +257,53 @@ def negociar(codigo_postal, total_peso_envio, prioridad_envio):
     min_oferta = sys.maxsize
     transportista_min_oferta = None
     transportistas = CentroLogistico.directory_multi_search(TransportistaDirAgent, agn.Transportista)
+    # Pedimos la oferta inicial de todos los transportistas disponibles
     for transportista in transportistas:
         response = send_message(message, transportista.address)
         subject = next(response.subjects(RDF.type, Literal('Oferta_Transportista')))
         oferta = int(response.value(subject, agn.oferta))
+        logging.info('transportista: ' + transportista.name)
         logging.info('oferta: ' + str(oferta))
         if (oferta < min_oferta):
             min_oferta = oferta
             transportista_min_oferta = transportista
+    # Hacemos una contraoferta un 10% mas barato que la oferta mínima
+    mss_cnt = mss_cnt + 1
+    contraoferta = agn['contraoferta_' + str(mss_cnt)]
+    gNegociar = Graph()
+    gNegociar.add((contraoferta, RDF.type, Literal('Contraoferta')))
+    gNegociar.add((contraoferta, agn.id_peticion, Literal(id_peticion)))
+    valor_contraoferta = int(min_oferta * 0.75)
+    logging.info('Contraoferta: ' + str(valor_contraoferta))
+    gNegociar.add((contraoferta, agn.contraoferta, Literal(valor_contraoferta)))
+    message = build_message(
+        gNegociar,
+        perf=Literal('request'),
+        sender=CentroLogistico.uri,
+        msgcnt=mss_cnt,
+        content=contraoferta
+    )
+    for transportista in transportistas:
+        response = send_message(message, transportista.address)
+        subject = next(response.subjects(RDF.type, Literal('Contraoferta_Transportista')))
+        oferta = int(response.value(subject, agn.contraoferta))
+        logging.info('Transportista: ' + transportista.name)
+        if (oferta < min_oferta):
+            min_oferta = oferta
+            transportista_min_oferta = transportista
+        if (oferta == valor_contraoferta):
+            logging.info('Ha aceptado la contraoferta')
+        else:
+            logging.info('Contraoferta del transportista: ' + str(oferta))
     if transportista_min_oferta:
         logging.info('Escogemos transportista ' + transportista_min_oferta.name)
-        logging.info('Oferta minima: ' + str(min_oferta))
+        logging.info('Oferta mínima: ' + str(min_oferta))
     else:
-        logging.info('No hay ningun transportista disponible en este momento')
-    return transportista_min_oferta
+        logging.info('No hay ningún transportista disponible en este momento')
+    return transportista_min_oferta,id_peticion
 
 
-def transportar(transportista, lotes_graph, codigo_postal, prioridad_envio, sum_peso):
+def transportar(transportista, lotes_graph, id_peticion, codigo_postal, prioridad_envio, sum_peso):
     global mss_cnt
     
     mss_cnt = mss_cnt + 1
@@ -279,6 +311,7 @@ def transportar(transportista, lotes_graph, codigo_postal, prioridad_envio, sum_
     gTransportar = Graph()
     transportar = agn['transportar_' + str(mss_cnt)]
     gTransportar.add((transportar, RDF.type, Literal('Transportar')))
+    gTransportar.add((transportar, agn.id_peticion, Literal(id_peticion)))
     gTransportar.add((transportar, agn.prioridad_envio, Literal(prioridad_envio)))
     gTransportar.add((transportar, agn.total_peso, Literal(sum_peso)))
     compras_enviadas = []
