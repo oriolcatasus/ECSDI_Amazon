@@ -41,6 +41,7 @@ agn = Namespace(Constants.ONTOLOGY)
 # Contador de mensajes
 mss_cnt = 0
 
+ofertas_ini = {}
 ofertas = {}
 
 # Datos del Agente
@@ -84,6 +85,7 @@ def comunicacion():
 def negociar(req, content):
     global mss_cnt
     global ofertas
+    global ofertas_ini
 
     mss_cnt = mss_cnt + 1
     logging.info('Peticion de oferta')
@@ -96,41 +98,44 @@ def negociar(req, content):
         logging.info('Envio en 1 dia')
     else:
         logging.info('Envio sin prioridad')
-    precio_base = int(random.uniform(2, 9))
+    precio_base = int(random.uniform(5, 9))
     logging.info('Precio base: ' + str(precio_base))
-    precio_extra_peso = int(random.uniform(0.02, 0.09) * total_peso)
+    precio_extra_peso = int(random.uniform(0.05, 0.09) * total_peso)
     logging.info('Precio extra por peso: ' + str(precio_extra_peso))
-    precio_extra_prioridad = prioridad_envio * int(random.uniform(2, 9))
+    precio_extra_prioridad = prioridad_envio * int(random.uniform(5, 9))
     logging.info('Precio extra por prioridad: ' + str(precio_extra_prioridad))
-    ofertas[id_peticion] = precio_base + precio_extra_peso + precio_extra_prioridad
+    ofertas[id_peticion] = ofertas_ini[id_peticion] = precio_base + precio_extra_peso + precio_extra_prioridad
     logging.info('Precio total oferta: ' + str(ofertas[id_peticion]))
     graph = Graph()
     oferta = agn['oferta_' + str(mss_cnt)]
     graph.add((oferta, RDF.type, Literal('Oferta_Transportista')))
-    graph.add((oferta, agn.oferta, Literal(ofertas[id_peticion])))
+    graph.add((oferta, agn.oferta, Literal(ofertas_ini[id_peticion])))
     return graph.serialize(format='xml')
 
 def contraoferta(req, content):
     global mss_cnt
     global ofertas
+    global ofertas_ini
 
     mss_cnt = mss_cnt + 1
     id_peticion = int(req.value(content, agn.id_peticion))
     logging.info('id petición: ' + str(id_peticion))
     contraoferta = int(req.value(content, agn.contraoferta))
-    logging.info('contraoferta: ' + str(contraoferta))
-    logging.info('nuestra oferta inicial: ' + str(ofertas[id_peticion]))
+    logging.info('Contraoferta: ' + str(contraoferta))
+    logging.info('Nuestra oferta inicial: ' + str(ofertas_ini[id_peticion]))
     # Incremento de mi oferta inicial respecto la contraoferta (factor entre 0 y 1)
-    incr = contraoferta/ofertas[id_peticion]
+    incr = contraoferta/ofertas_ini[id_peticion]
     p = random.uniform(0, 1)
     # La posibilidad de aceptar una contraoferta sera random
     # pero será mayor cuanto más cerca de nuestra oferta inicial esté la contraoferta
     p_aceptar = incr*p
-    logging.info('p_aceptar: ' + str(p_aceptar))    
-    if p_aceptar > 0.6:
+    logging.info('p_aceptar: ' + str(p_aceptar))
+    estado_negociacion = ''
+    if p_aceptar > 0.5:
         logging.info('Aceptamos la contraoferta')
         ofertas[id_peticion] = contraoferta
-    elif p_aceptar > 0.1:
+        estado_negociacion = 'Continuar'
+    elif p_aceptar > 0.2:
         logging.info('Rechazamos la contraoferta')
         logging.info('Proponemos una nueva oferta')
         # La nueva contraoferta será random
@@ -138,13 +143,16 @@ def contraoferta(req, content):
         diff = ofertas[id_peticion] - contraoferta
         ofertas[id_peticion] -= int(diff * (p_aceptar + random.uniform(0, 0.4)))
         logging.info('Nueva contraoferta: ' + str(ofertas[id_peticion]))
+        estado_negociacion = 'Continuar'
     else:
         logging.info('Rechazamos la contraoferta')
         logging.info('NO proponemos una nueva oferta')
+        estado_negociacion = 'Rechazar'
     graph = Graph()
     oferta = agn['contraoferta_transportista' + str(mss_cnt)]
     graph.add((oferta, RDF.type, Literal('Contraoferta_Transportista')))   
     graph.add((oferta, agn.contraoferta, Literal(ofertas[id_peticion])))
+    graph.add((oferta, agn.negociacion, Literal(estado_negociacion)))
     return graph.serialize(format='xml')
 
 def transportar(req, content):

@@ -267,34 +267,40 @@ def negociar(codigo_postal, total_peso_envio, prioridad_envio):
         if (oferta < min_oferta):
             min_oferta = oferta
             transportista_min_oferta = transportista
-    # Hacemos una contraoferta un 10% mas barato que la oferta mínima
-    mss_cnt = mss_cnt + 1
-    contraoferta = agn['contraoferta_' + str(mss_cnt)]
-    gNegociar = Graph()
-    gNegociar.add((contraoferta, RDF.type, Literal('Contraoferta')))
-    gNegociar.add((contraoferta, agn.id_peticion, Literal(id_peticion)))
-    valor_contraoferta = int(min_oferta * 0.75)
-    logging.info('Contraoferta: ' + str(valor_contraoferta))
-    gNegociar.add((contraoferta, agn.contraoferta, Literal(valor_contraoferta)))
-    message = build_message(
-        gNegociar,
-        perf=Literal('request'),
-        sender=CentroLogistico.uri,
-        msgcnt=mss_cnt,
-        content=contraoferta
-    )
-    for transportista in transportistas:
-        response = send_message(message, transportista.address)
-        subject = next(response.subjects(RDF.type, Literal('Contraoferta_Transportista')))
-        oferta = int(response.value(subject, agn.contraoferta))
-        logging.info('Transportista: ' + transportista.name)
-        if (oferta < min_oferta):
-            min_oferta = oferta
-            transportista_min_oferta = transportista
-        if (oferta == valor_contraoferta):
-            logging.info('Ha aceptado la contraoferta')
-        else:
+    # Mientras queden transportistas que no rechazen la negociación, seguiremos negociando con ellos
+    while len(transportistas) > 0: 
+        mss_cnt = mss_cnt + 1
+        contraoferta = agn['contraoferta_' + str(mss_cnt)]
+        gNegociar = Graph()
+        gNegociar.add((contraoferta, RDF.type, Literal('Contraoferta')))
+        gNegociar.add((contraoferta, agn.id_peticion, Literal(id_peticion)))
+        # Hacemos una contraoferta un 10% mas barato que la oferta mínima
+        valor_contraoferta = int(min_oferta * 0.9)
+        logging.info('Contraoferta: ' + str(valor_contraoferta))
+        gNegociar.add((contraoferta, agn.contraoferta, Literal(valor_contraoferta)))
+        message = build_message(
+            gNegociar,
+            perf=Literal('request'),
+            sender=CentroLogistico.uri,
+            msgcnt=mss_cnt,
+            content=contraoferta
+        )
+        i = 0
+        for transportista in transportistas:
+            response = send_message(message, transportista.address)
+            logging.info('Transportista: ' + transportista.name)
+            subject = next(response.subjects(RDF.type, Literal('Contraoferta_Transportista')))
+            oferta = int(response.value(subject, agn.contraoferta))
             logging.info('Contraoferta del transportista: ' + str(oferta))
+            estado_negociacion = str(response.value(subject, agn.negociacion))
+            logging.info('Estado negociacion: ' + estado_negociacion)
+            if (estado_negociacion == 'Rechazar'):
+                logging.info('Sacamos este transportista de la negociación')
+                del transportistas[i]
+            if (oferta < min_oferta):
+                min_oferta = oferta
+                transportista_min_oferta = transportista
+            i += 1        
     if transportista_min_oferta:
         logging.info('Escogemos transportista ' + transportista_min_oferta.name)
         logging.info('Oferta mínima: ' + str(min_oferta))
