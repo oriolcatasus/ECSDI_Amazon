@@ -341,6 +341,56 @@ def enviar_feedback():
     return render_template('search_product.html')
 
 
+@app.route("/recibir_recomendaciones", methods=['POST'])
+def recibir_recomendaciones():
+    global mss_cnt
+    productos_usuario = []
+
+    mss_cnt = mss_cnt + 1
+    logging.info('Recibir recomendaciones')
+    graph = Graph()
+    recomendacion = agn['recomendacion_' + str(mss_cnt)]
+    graph.add((recomendacion, RDF.type, Literal('Recibir_Recomendaciones')))
+    # id usario
+    id_usuario = request.form['id_usuario']
+    graph.add((recomendacion, agn.id_usuario, Literal(id_usuario)))
+    logging.info(id_usuario)
+    
+    valorador = AgenteExtUsuario.directory_search(DirectoryAgent, agn.Valorador)
+    message = build_message(
+        graph,
+        perf=Literal('request'),
+        sender=AgenteExtUsuario.uri,
+        receiver=valorador.uri,
+        msgcnt=mss_cnt,
+        content=recomendacion
+    )
+    
+    response = send_message(message, valorador.address)
+
+    logging.info('Productos recomendados:')
+
+    productos_recomendados = []
+    for item in response.subjects(RDF.type, None):
+        nombre=str(response.value(subject=item, predicate=agn.nombre))
+        peso = float(response.value(subject=item, predicate=agn.peso)),
+        precio = int(response.value(subject=item, predicate=agn.precio)),
+        tieneMarca = response.value(subject=item, predicate=agn.tieneMarca),
+        tipo = response.value(subject=item, predicate=RDF.type),
+        valoracion = response.value(subject=item, predicate=agn.valoracionTotal)
+        logging.info(nombre)
+        productos_recomendados.append(dict(
+            nombre=nombre,
+            peso=peso,
+            precio=precio,
+            tieneMarca=str(tieneMarca),
+            tipo=tipo,
+            valoracion=valoracion,
+        ))
+    
+    return render_template('feedback.html', productos_recomendados=productos_recomendados, id_usuario=id_usuario)
+
+
 @app.route("/Stop")
 def stop():
     """

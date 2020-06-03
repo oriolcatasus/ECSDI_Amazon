@@ -36,6 +36,38 @@
             </div>
         </form>
         <!--{% endif %}-->
+        <h2>Pedir recomendaciones</h2>
+        <br>
+        <form method="POST" action="/recibir_recomendaciones">
+            <label>
+                Identificador de usuario:<br>
+                <input name="id_usuario" type="text" required>
+            </label><br>
+            <button type="submit">Pedir recomendaciones</button>
+        </form>
+        <br>
+            <!--{% if productos_recomendados %}-->
+            <table border="1px">
+                <tr>
+                    <th><b>Nombre</b></th>
+                    <th><b>Marca</b></th>
+                    <th><b>Tipo</b></th>
+                    <th><b>Precio</b></th>
+                    <th><b>Peso</b></th>
+                    <th><b>Valoracion</b></th>
+                </tr>
+                {% for product in productos_recomendados %}
+                <tr>
+                    <td>{{ product.nombre }}</td>
+                    <td>{{ product.tieneMarca }}</td>
+                    <td>{{ product.tipo }}</td>
+                    <td>{{ product.precio }}€</td>
+                    <td>{{ product.peso }}g</td>
+                    <td>{{ product.valoracion }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        <!--{% endif %}-->
     </div>
     <div>
         <br>

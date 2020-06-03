@@ -71,6 +71,8 @@ def comunicacion():
         return pedir_feedback(req, content)
     elif accion == 'Enviar_Feedback':
         return enviar_feedback(req, content)
+    elif accion == 'Recibir_Recomendaciones':
+        return recomendaciones(req, content)
 
 def pedir_feedback(req, content):
     logging.info("Pedimos feedback")
@@ -135,6 +137,121 @@ def enviar_feedback(req, content):
         productos.add((producto, pontp.valoracionTotal, Literal(valoracion_total)))
         productos.serialize('./data/product.owl')
     return Graph().serialize(format='xml')
+
+def recomendaciones(req, content):
+    logging.info("Generamos recomendaciones")
+    id_usuario = req.value(subject=content, predicate=agn['id_usuario'])
+    logging.info("ID Usuario = " + str(id_usuario))
+
+    historial_compras = Graph().parse('./data/historial_compras.owl')
+    productos = Graph().parse('./data/product.owl')
+    marcas = []
+    sparql_query = Template('''
+        SELECT DISTINCT ?compra ?product ?id ?id_usuario
+        WHERE {
+            ?compra rdf:type ?type_prod .
+            ?compra ns:product ?product .
+            ?compra ns:id_usuario ?id_usuario .
+            FILTER (
+                ?id_usuario = '$id_usuario'
+            )
+        }
+    ''').substitute(dict(
+        id_usuario = id_usuario
+    ))
+    result = historial_compras.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            ns=agn,
+    ))
+
+    for x in result:
+        nombreProd = str(x.product)
+        logging.info("Nombre producto: " + str(nombreProd))
+        sparql_query2 = Template('''
+            SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca ?tipo ?valoracionTotal ?numeroValoraciones
+            WHERE {
+                ?producto rdf:type ?tipo .
+                ?producto pontp:nombre ?nombre .
+                ?producto pontp:precio ?precio .
+                ?producto pontp:peso ?peso .
+                ?producto pontp:tieneMarca ?tieneMarca .
+                ?producto pontp:valoracionTotal ?valoracionTotal .
+                ?producto pontp:numeroValoraciones ?numeroValoraciones .
+                FILTER (
+                    ?nombre = '$nombre'
+                )
+            }
+        ''').substitute(dict(
+            nombre = nombreProd
+        ))
+        result2 = productos.query(
+            sparql_query2,
+            initNs=dict(
+                rdf=RDF,
+                pontp=Namespace("http://www.products.org/ontology/property/")
+        ))
+        for x2 in result2:
+            tieneMarca = str(x2.tieneMarca)
+            logging.info(tieneMarca)
+            exists = 0
+            for marca in marcas:
+                if tieneMarca == marca[0]:
+                    marca[1] += 1
+                    exists = 1
+            if exists == 0:
+                marcas.append([tieneMarca, 1])
+    logging.info(marcas)
+
+    topVal = 0
+    topMarca = 'xd'
+    for marca in marcas:
+        logging.info("marca: " + str(marca[1]))
+        logging.info("topVal: " + str(topVal))
+        if marca[1] > topVal:
+            topMarca = marca[0]
+            topVal = marca[1]
+    logging.info(topMarca)
+
+    productos = Graph().parse('./data/product.owl')
+    sparql_query = Template('''
+        SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca ?tipo ?valoracionTotal ?numeroValoraciones
+        WHERE {
+            ?producto rdf:type ?tipo .
+            ?producto pontp:nombre ?nombre .
+            ?producto pontp:precio ?precio .
+            ?producto pontp:peso ?peso .
+            ?producto pontp:tieneMarca ?tieneMarca .
+            ?producto pontp:valoracionTotal ?valoracionTotal .
+            ?producto pontp:numeroValoraciones ?numeroValoraciones .
+            FILTER (
+                ?tieneMarca = '$topMarca' 
+            )
+        }
+        ORDER BY DESC(?valoracionTotal / (?numeroValoraciones + 1))
+        LIMIT 5
+    ''').substitute(dict(
+        topMarca = topMarca
+    ))
+    result3 = productos.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            pontp=Namespace("http://www.products.org/ontology/property/")
+    ))
+    result_message = Graph()
+    for x3 in result3:
+        logging.info("Nombre producto añadido: " + str(x3.nombre))
+        result_message.add((x3.producto, RDF.type, Literal(x3.tipo)))
+        result_message.add((x3.producto, agn.nombre, x3.nombre))
+        result_message.add((x3.producto, agn.peso, x3.peso))
+        result_message.add((x3.producto, agn.precio, x3.precio))
+        result_message.add((x3.producto, agn.tieneMarca, Literal(x3.tieneMarca)))
+        result_message.add((x3.producto, agn.valoracionTotal, Literal(x3.valoracionTotal)))
+        result_message.add((x3.producto, agn.numeroValoraciones, Literal(x3.numeroValoraciones)))
+    return result_message.serialize(format='xml')
+
     
 @app.route("/Stop")
 def stop():
