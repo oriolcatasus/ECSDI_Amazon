@@ -262,11 +262,13 @@ def devolver():
     )
     result = send_message(message, gestor_devoluciones.address)
 
+    resultado = ""
     for item in result.subjects(RDF.type, agn.respuesta):
         resultado=str(result.value(subject=item, predicate=agn.resultado))
         logging.info(resultado)
 
-    return render_template('devolucion.html')
+    return render_template('devolucion.html', respuesta=resultado)
+
 
 @app.route("/feedback", methods=['POST', 'GET'])
 def feedback():
