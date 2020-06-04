@@ -244,6 +244,9 @@ def devolver():
     graph.add((devolucion, agn.tarjeta, Literal(tarjeta)))
 
     i = 0
+    logging.info(request.form.getlist('nombre'))
+    logging.info(request.form.getlist('id_compra'))
+    
     for nombre in request.form.getlist('nombre'):
         producto = agn[nombre]
         logging.info(Literal(nombre))

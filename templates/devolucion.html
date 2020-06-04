@@ -30,7 +30,7 @@
                     <tr>
                         <td>{{ product.nombre }}</td>
                         <td><input type="checkbox" name="nombre" value="{{ product.nombre }}"></td>
-                        <input type="hidden" name="id_compra" value="{{ product.id_compra }}"></td>
+                        <td><input type="checkbox" name="id_compra" value="{{ product.id_compra }}"></td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -54,7 +54,8 @@
         </div>
     </div>
     <br>
-    {{respuesta}}
+    {{respuesta}}.
+    Su producto será recogido en un plazo máximo de dos días
     <br>
     <hr>
     <div>
