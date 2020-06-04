@@ -162,19 +162,19 @@ def devolver(req, content):
     precio = 0
 
     if motivo == 'equivocado':
-        resultado = 'Devolucion por equivocacion'
+        resultado = 'Devolucion por equivocacion aceptada'
         precio = int(get_producto(nombre)['precio'])
     elif motivo == 'defectuoso':
         prob_dev = random.randint(0, 100)
         if prob_dev < 90:
-            resultado = 'Devolucion por producto defectuoso'
+            resultado = 'Devolucion por producto defectuoso aceptada'
             precio = int(get_producto(nombre)['precio'])
         else:
             resultado = 'Devolucion rechazada'
     else:
         prob_dev = random.randint(0, 100)
         if prob_dev < 70:
-            resultado = 'Devolucion por producto que no satisface las necesidades del comprador'
+            resultado = 'Devolucion por producto que no satisface las necesidades del comprador aceptada'
             precio = int(get_producto(nombre)['precio'])
         else:
             resultado = 'Devolucion rechazada'

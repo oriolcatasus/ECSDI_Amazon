@@ -96,6 +96,7 @@ def get_prod_usuario(id_usuario):
                 ?id_usuario = '$id_usuario'
             )
         }
+        LIMIT 5
     ''').substitute(dict(
         id_usuario = id_usuario
     ))
