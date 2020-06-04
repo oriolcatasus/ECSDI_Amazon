@@ -137,7 +137,9 @@ def comprar(req, content):
     for item in req.subjects(RDF.type, agn.product):
         nombre = str(req.value(subject=item, predicate=agn.nombre))
         producto = get_producto(nombre)
+        prod_ext = False
         if(str(producto['tienda']) != "ALIEXPLESS"):
+            prod_ext = True
             Compra_prod_ext = True
             pagar_producto(nombre, producto['tienda'], producto['precio'], tarjeta_bancaria)
             envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, producto['peso'], producto['tienda'])
@@ -160,8 +162,9 @@ def comprar(req, content):
         #historial_compras.add((producto_compra, agn.nombre, Literal(nombre)))
         #historial_compras.add((producto_compra, agn.id_compra, literal_id_compra))
         historial_compras.add((compra, agn.product, Literal(nombre)))
-        cl_graph.add((producto_compra, RDF.type, agn.product))
-        cl_graph.add((producto_compra, agn.nombre, Literal(nombre)))
+        if(not prod_ext):
+            cl_graph.add((producto_compra, RDF.type, agn.product))
+            cl_graph.add((producto_compra, agn.nombre, Literal(nombre)))
     if(Compra_prod_ext): 
         hacer_factura_externa(productos, precio, marca, tienda, id_compra, id_usuario, direccion, codigo_postal, fecha_compra)
     logging.info('Total precio: ' + str(total_precio))
@@ -331,17 +334,20 @@ def informar_envio_iniciado(req, content):
     for producto in historial_compras.objects(subject, agn.product):
         logging.info('Producto:')
         logging.info('nombre: ' + producto)
-        subject_producto = agn[producto + '_' + str(i)]
-        graph.add((subject_producto, RDF.type, agn.product))
-        graph.add((subject_producto, agn.nombre, producto))
-        datos_producto = get_producto(producto)
-        precio = datos_producto['precio']
-        logging.info('precio: ' + precio)
-        graph.add((subject_producto, agn.precio, Literal(precio)))
-        marca = datos_producto['tieneMarca']#.split('/')[5]
-        logging.info('marca: ' + marca)
-        graph.add((subject_producto, agn.tieneMarca, Literal(marca)))
-        i += 1
+        result = getTienda(producto)
+        logging.info(str(result['tienda']))
+        if (str(result['tienda']) == "ALIEXPLESS"):
+            subject_producto = agn[producto + '_' + str(i)]
+            graph.add((subject_producto, RDF.type, agn.product))
+            graph.add((subject_producto, agn.nombre, producto))
+            datos_producto = get_producto(producto)
+            precio = datos_producto['precio']
+            logging.info('precio: ' + precio)
+            graph.add((subject_producto, agn.precio, Literal(precio)))
+            marca = datos_producto['tieneMarca']#.split('/')[5]
+            logging.info('marca: ' + marca)
+            graph.add((subject_producto, agn.tieneMarca, Literal(marca)))
+            i += 1
     # Precio total
     precio_total = int(historial_compras.value(subject, agn.precio))
     if prioridad_envio > 0:
@@ -533,7 +539,35 @@ def hacer_factura_externa(productos, precio, marca, tienda, id_compra, id_usuari
     )
     send_message(message, agente_ext_usuario.address) 
     return Graph().serialize(format='xml')
- 
+
+def getTienda(nombre):
+    productos = Graph().parse('./data/product.owl')
+    sparql_query = Template('''
+        SELECT ?producto ?tienda
+        WHERE {
+            ?producto rdf:type ?type_prod .
+            ?producto pontp:nombre ?nombre .
+            ?producto pontp:tienda ?tienda .
+            FILTER (
+                ?nombre = '$nombre' 
+            )
+        }
+    ''').substitute(dict(
+        nombre = nombre
+    ))
+    result = productos.query(
+        sparql_query,
+        initNs=dict(
+            rdf=RDF,
+            pontp=Namespace("http://www.products.org/ontology/property/")
+        )
+    )
+    producto = next(iter(result))
+    logging.info(producto)
+    return dict(
+        tienda=producto.tienda
+    )
+
 
 @app.route("/Stop")
 def stop():
