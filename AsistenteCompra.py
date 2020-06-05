@@ -134,6 +134,7 @@ def comprar(req, content):
     # productos
     total_precio = 0
     total_peso = 0.0
+    prod_int = False
     for item in req.subjects(RDF.type, agn.product):
         nombre = str(req.value(subject=item, predicate=agn.nombre))
         producto = get_producto(nombre)
@@ -153,6 +154,7 @@ def comprar(req, content):
             if(not trobat): 
                 tienda.append(producto['tienda'])
         else:
+            prod_int = True
             total_precio += int(producto['precio'])
             total_peso += float(producto['peso'])
         logging.info(nombre)
@@ -173,16 +175,17 @@ def comprar(req, content):
     historial_compras.add((compra, agn.precio, Literal(total_precio)))
     historial_compras.serialize('./data/historial_compras.owl')
     # Enviar mensaje
-    centro_logistico = AsistenteCompra.directory_search(DirectoryAgent, agn.CentroLogistico)
-    message = build_message(
-        cl_graph,
-        perf=Literal('request'),
-        sender=AsistenteCompra.uri,
-        receiver=centro_logistico.uri,
-        msgcnt=mss_cnt,
-        content=content
-    )
-    send_message(message, centro_logistico.address)    
+    if(prod_int):
+        centro_logistico = AsistenteCompra.directory_search(DirectoryAgent, agn.CentroLogistico)
+        message = build_message(
+            cl_graph,
+            perf=Literal('request'),
+            sender=AsistenteCompra.uri,
+            receiver=centro_logistico.uri,
+            msgcnt=mss_cnt,
+            content=content
+        )
+        send_message(message, centro_logistico.address)    
     return Graph().serialize(format='xml')
 
 
