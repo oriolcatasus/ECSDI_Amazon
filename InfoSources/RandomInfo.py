@@ -145,7 +145,7 @@ if __name__ == '__main__':
         # Generamos instancias de marcas al azar (nada impide que las marcas puedan ser comunes
         # entre productos (en este ejemplo no lo son)
         dclases = {'Marca': []}
-        for i in range(10):
+        for i in range(1):
             # instancia al azar
             rmarca = random_name('Marca_'+ prc)
             dclases['Marca'].append(rmarca)
@@ -157,7 +157,7 @@ if __name__ == '__main__':
 
 
         # generamos instancias de productos
-        for i in range(20):
+        for i in range(3):
             # instancia al azar
             rproduct = random_name(prc)
             products_graph.add((PrOntRes[rproduct], RDF.type, PrOnt[prc]))

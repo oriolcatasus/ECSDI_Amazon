@@ -111,7 +111,7 @@ def pagarTiendaExterna(req, content):
     precio = req.value(content, agn.precio)
     nombreProd = req.value(content, agn.nombre_prod)
     logging.info("Se ha realizado el pago del producto externo " + str(nombreProd) +
-    "a la cuenta bancaria " + str(cuenta_bancaria) + " de un importe de " + str(precio) + "€")
+    " a la cuenta bancaria " + str(cuenta_bancaria) + " de un importe de " + str(precio) + "€")
     respuesta = str("Pago realizado correctamente")
     gCobroRealizado = Graph()
     cobroRealizado = agn['pagoRealizado_' + str(mss_cnt)]
