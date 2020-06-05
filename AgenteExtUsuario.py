@@ -214,8 +214,7 @@ def buscarProductosUsuario():
     for item in response.subjects(RDF.type, agn.product):
         nombre=str(response.value(subject=item, predicate=agn.nombre))
         logging.info(nombre)
-        id_compra=str(response.value(subject=item, predicate=agn.id_compra))
-        logging.info("ID Compra: " + str(id_compra))
+        id_compra=(response.value(subject=item, predicate=agn.id_compra))
         productos_usuario.append(dict(
             nombre=nombre,
             id_compra=id_compra,
@@ -306,8 +305,10 @@ def feedback():
     for item in response.subjects(RDF.type, agn.product):
         nombre=str(response.value(subject=item, predicate=agn.nombre))
         logging.info(nombre)
+        id_compra=str(response.value(subject=item, predicate=agn.id_compra))
         productos_usuario.append(dict(
             nombre=nombre,
+            id_compra=id_compra,
         ))
     return render_template('feedback.html', productos_usuario=productos_usuario, id_usuario=id_usuario)
 

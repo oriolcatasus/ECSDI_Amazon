@@ -3,4 +3,30 @@
    xmlns:ns2="http://ALIEXPLESS.ECSDI/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_262142607101916902580087927104959188826">
+    <ns2:codigo_postal>1234</ns2:codigo_postal>
+    <ns2:product>nombre_P23GS2</ns2:product>
+    <ns2:tarjeta_bancaria>2</ns2:tarjeta_bancaria>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:direccion>1234</ns2:direccion>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1789</ns2:precio>
+    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns2:prioridad_envio>
+    <ns2:fecha_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-06-05</ns2:fecha_compra>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">262142607101916902580087927104959188826</ns2:id>
+    <ns2:product>nombre_ZD5ZM2</ns2:product>
+    <ns2:product>nombre_J3E2YU</ns2:product>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_57404021353828915292298232017114680319">
+    <ns2:codigo_postal>1234</ns2:codigo_postal>
+    <ns2:id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57404021353828915292298232017114680319</ns2:id>
+    <ns2:id_usuario>1</ns2:id_usuario>
+    <ns2:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1384</ns2:precio>
+    <ns2:product>nombre_P23GS2</ns2:product>
+    <ns2:fecha_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-06-05</ns2:fecha_compra>
+    <ns2:tarjeta_bancaria>2</ns2:tarjeta_bancaria>
+    <ns2:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns2:prioridad_envio>
+    <ns2:direccion>1234</ns2:direccion>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+  </rdf:Description>
 </rdf:RDF>

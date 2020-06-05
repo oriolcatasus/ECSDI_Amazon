@@ -21,11 +21,13 @@
             <table border="1px">
                 <tr>
                     <th><b>Nombre</b></th>
+                    <th><b>ID Compra</b></th>
                     <th><b>Puntuacion (0-10)</b></th>
                 </tr>
                 {% for product in productos_usuario %}
                 <tr>
                     <td>{{ product.nombre }}</td>
+                    <td>{{ product.id_compra }}</td>
                     <td><input name="valoracion" type="text" required></td>
                     <input type="hidden" name="nombre" value="{{ product.nombre }}"></td>
                 </tr>
