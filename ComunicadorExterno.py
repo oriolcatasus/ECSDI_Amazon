@@ -73,6 +73,8 @@ def comunicacion():
         return recibir_peticion(req, content)
     elif accion == 'EnviarProdTiendaExterna':
         return notificar_envio_tienda_externa(req, content)
+    elif accion == 'NotificarCobro':
+        return notificar_cobro(req, content)
     
 def recibir_peticion(req, content):
     global mss_cnt
@@ -225,6 +227,29 @@ def notificar_envio_tienda_externa(req, content):
         receiver=TiendaExterna.uri,
         msgcnt=mss_cnt,
         content=envio
+    )
+    send_message(message, TiendaExterna.address)
+    return Graph().serialize(format='xml')
+
+def notificar_cobro(req, content):
+    global mss_cnt
+    mss_cnt = mss_cnt + 1
+    tienda = req.value(content, agn.tienda)
+    logging.info("Se informará del cobro a la tienda externa " + str(tienda))
+    precio = req.value(content, agn.precio)
+    TiendaExterna = ComunicadorExterno.directory_search(DirectoryAgent, agn.AgenteExtTiendaExterna)
+    gNotificarCobro = Graph()
+    notificarCobro = agn['notificarCobro_' + str(mss_cnt)]
+    gNotificarCobro.add((notificarCobro, RDF.type, Literal('NotificarCobro')))
+    gNotificarCobro.add((notificarCobro, agn.precio, Literal(precio)))
+    TiendaExterna = TiendaExterna.directory_search(DirectoryAgent, agn.AgenteExtTiendaExterna)
+    message = build_message(
+        gNotificarCobro,
+        perf=Literal('request'),
+        sender=ComunicadorExterno.uri,
+        receiver=TiendaExterna.uri,
+        msgcnt=mss_cnt,
+        content=notificarCobro
     )
     send_message(message, TiendaExterna.address)
     return Graph().serialize(format='xml')

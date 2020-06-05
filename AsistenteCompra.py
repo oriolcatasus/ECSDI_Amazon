@@ -134,6 +134,7 @@ def comprar(req, content):
     # productos
     total_precio = 0
     total_peso = 0.0
+    prod_int = False
     for item in req.subjects(RDF.type, agn.product):
         nombre = str(req.value(subject=item, predicate=agn.nombre))
         producto = get_producto(nombre)
@@ -153,6 +154,7 @@ def comprar(req, content):
             if(not trobat): 
                 tienda.append(producto['tienda'])
         else:
+            prod_int = True
             total_precio += int(producto['precio'])
             total_peso += float(producto['peso'])
         logging.info(nombre)
@@ -173,16 +175,17 @@ def comprar(req, content):
     historial_compras.add((compra, agn.precio, Literal(total_precio)))
     historial_compras.serialize('./data/historial_compras.owl')
     # Enviar mensaje
-    centro_logistico = AsistenteCompra.directory_search(DirectoryAgent, agn.CentroLogistico)
-    message = build_message(
-        cl_graph,
-        perf=Literal('request'),
-        sender=AsistenteCompra.uri,
-        receiver=centro_logistico.uri,
-        msgcnt=mss_cnt,
-        content=content
-    )
-    send_message(message, centro_logistico.address)    
+    if(prod_int):
+        centro_logistico = AsistenteCompra.directory_search(DirectoryAgent, agn.CentroLogistico)
+        message = build_message(
+            cl_graph,
+            perf=Literal('request'),
+            sender=AsistenteCompra.uri,
+            receiver=centro_logistico.uri,
+            msgcnt=mss_cnt,
+            content=content
+        )
+        send_message(message, centro_logistico.address)    
     return Graph().serialize(format='xml')
 
 
@@ -436,10 +439,12 @@ def pagar_producto(nombre, tienda, precio, tarjeta_bancaria):
         content=cobrarProdExt
     )
     Pagado_correctamente = send_message(message, Pagador.address)
+    Notificar_Cobro = ""
     for item in Pagado_correctamente.subjects(RDF.type, Literal('RespuestaCobro')):
         for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
             logging.info(str(RespuestaCobro))
-    logging.info("cobro rebut")
+       
+    
     
     #pagar tienda externa
     mss_cnt = mss_cnt + 1
@@ -463,6 +468,22 @@ def pagar_producto(nombre, tienda, precio, tarjeta_bancaria):
         for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
             logging.info(str(RespuestaCobro))
     logging.info("pago realizado a " + str(tienda))
+    mss_cnt = mss_cnt + 1
+    gNotificarCobroTiendaExterna = Graph()
+    notificarCobroTiendaExterna = agn['notificarCobro_' + str(mss_cnt)]
+    gNotificarCobroTiendaExterna.add((notificarCobroTiendaExterna, RDF.type, Literal('NotificarCobro')))
+    gNotificarCobroTiendaExterna.add((notificarCobroTiendaExterna, agn.precio, Literal(precio)))
+    gNotificarCobroTiendaExterna.add((notificarCobroTiendaExterna, agn.tienda, Literal(tienda)))
+    comunicadorExterno = AsistenteCompra.directory_search(DirectoryAgent, agn.ComunicadorExterno)
+    message = build_message(
+        gNotificarCobroTiendaExterna,
+        perf=Literal('request'),
+        sender=AsistenteCompra.uri,
+        receiver=comunicadorExterno.uri,
+        msgcnt=mss_cnt,
+        content=notificarCobroTiendaExterna
+    )
+    send_message(message, comunicadorExterno.address)
 
 def envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, peso, tienda):
     global mss_cnt

@@ -39,6 +39,10 @@
     <pontp:nombre>nombre_3FMHHL</pontp:nombre>
     <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">993.6328067666918</pontp:peso>
     <pontp:tienda>ALIEXPLESS</pontp:tienda>
+    <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</pontp:precio>
+    <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_L0OJHL"/>
+    <pontp:peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">993.6328067666918</pontp:peso>
+    <pontp:valoracionTotal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:valoracionTotal>
     <pontp:numeroValoraciones rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</pontp:numeroValoraciones>
     <pontp:tieneMarca rdf:resource="http://www.products.org/ontology/resource/Marca_Blender_L0OJHL"/>
     <pontp:precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</pontp:precio>

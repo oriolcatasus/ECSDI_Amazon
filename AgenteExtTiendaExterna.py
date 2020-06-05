@@ -93,10 +93,19 @@ def comunicacion():
 
 
 @app.route("/comm")
-def comm():    
-    req = Graph().parse(data=request.args['content'])
+def comm():
+    req = Graph()
+    req.parse(data=request.args['content'])
     message_properties = get_message_properties(req)
-    content = message_properties['content']    
+    content = message_properties['content']
+    accion = str(req.value(subject=content, predicate=RDF.type))
+    logging.info('Accion: ' + accion)
+    if accion == 'EnvioTiendaExterna':
+        return notificarEnvio(req, content)
+    elif accion == 'NotificarCobro':
+        return notificarCobro(req, content)
+
+def notificarEnvio(req, content):  
     nombreProd = req.value(content, agn.nombre_prod)
     peso = req.value(content, agn.peso)
     cp = req.value(content, agn.cp)
@@ -111,6 +120,13 @@ def comm():
                 ", con un peso de " + str(peso) + "g, a la dirección " + str(direccion) +
                 " con codigo postal " + str(cp))
     return Graph().serialize(format='xml')
+
+def notificarCobro(req, content):  
+    precio = req.value(content, agn.precio)
+    logging.info("Se ha recibido un cobro de " + str(precio) + "€")
+    return Graph().serialize(format='xml')
+
+
 
 
 @app.route("/Stop")
