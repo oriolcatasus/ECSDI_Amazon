@@ -26,7 +26,7 @@ import Constants.Constants as Constants
 
 # Configuration stuff
 hostname = '127.0.1.1'
-port = 9020
+port = 9040
 
 agn = Namespace(Constants.ONTOLOGY)
 
