@@ -91,7 +91,7 @@ def cobrarP(req, content):
     operaciones.append(dict(
         tipo='Cobro',
         tarjeta=tarjeta_bancaria,
-        cuenta='',
+        cuenta='No aplicable',
         importe='+' + str(precio_total)
     ))
     gCobroRealizado = Graph()
@@ -112,7 +112,7 @@ def pagar(req, content):
     operaciones.append(dict(
         tipo='Pago',
         tarjeta=tarjeta_bancaria,
-        cuenta='',
+        cuenta='No aplicable',
         importe='-' + str(precio_total)
     ))
     gCobroRealizado = Graph()
@@ -132,9 +132,9 @@ def pagarTiendaExterna(req, content):
     " a la cuenta bancaria " + str(cuenta_bancaria) + " de un importe de " + str(precio) + "€")
     operaciones.append(dict(
         tipo='Pago',
-        tarjeta='',
+        tarjeta='No aplicable',
         cuenta=cuenta_bancaria,
-        importe=str(precio_total)
+        importe='-' + str(precio)
     ))
     respuesta = str("Pago realizado correctamente")
     gCobroRealizado = Graph()
