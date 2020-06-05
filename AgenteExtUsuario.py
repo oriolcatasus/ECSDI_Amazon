@@ -396,12 +396,15 @@ def recibir_recomendaciones():
 
     productos_recomendados = []
     for item in response.subjects(RDF.type, None):
+        if float(response.value(item, agn.numeroValoraciones)) == 0:
+            valoracion = 0
+        else:
+            valoracion = float(response.value(item, agn.valoracionTotal)) / float(response.value(item, agn.numeroValoraciones))
         nombre=str(response.value(item, agn.nombre))
         peso = float(response.value(item, agn.peso)),
         precio = int(response.value(item, agn.precio)),
         tieneMarca = (response.value(item, agn.tieneMarca)),
         tipo = str(response.value(item, RDF.type)),
-        valoracion = response.value(item, agn.valoracionTotal)
         logging.info(nombre)
         productos_recomendados.append(dict(
             nombre=nombre,

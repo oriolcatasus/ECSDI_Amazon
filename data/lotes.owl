@@ -2,6 +2,5 @@
 <rdf:RDF
    xmlns:ns1="http://ALIEXPLESS.ECSDI/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
->:datatype="http://www.w3.org/2001/XMLSchema#integer">215502213456283951515353649792057979252</ns1:id_compra>
-  </rdf:Description>
+>
 </rdf:RDF>
