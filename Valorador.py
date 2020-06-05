@@ -111,8 +111,10 @@ def get_prod_usuario(id_usuario):
     for x in result:
         producto = agn[x.product + '_' + i]
         logging.info(x.product)
+        logging.info(x.id)
         result_message.add((producto, RDF.type, agn.product))
         result_message.add((producto, agn.nombre, x.product))
+        result_message.add((producto, agn.id_compra, x.id))
         i = i + 1
     return result_message.serialize(format='xml')
 

@@ -221,8 +221,7 @@ def buscarProductosUsuario():
     for item in response.subjects(RDF.type, agn.product):
         nombre=str(response.value(subject=item, predicate=agn.nombre))
         logging.info(nombre)
-        id_compra=str(response.value(subject=item, predicate=agn.id_compra))
-        logging.info("ID Compra: " + str(id_compra))
+        id_compra=(response.value(subject=item, predicate=agn.id_compra))
         productos_usuario.append(dict(
             nombre=nombre,
             id_compra=id_compra,
@@ -251,15 +250,18 @@ def devolver():
     graph.add((devolucion, agn.tarjeta, Literal(tarjeta)))
 
     i = 0
-    logging.info(request.form.getlist('nombre'))
-    logging.info(request.form.getlist('id_compra'))
-    
-    for nombre in request.form.getlist('nombre'):
+    logging.info('Productos a devolver:')
+    for value in request.form.getlist('nombre'):
+        value = value.split(';')
+        nombre = value[0]
+        id_compra = value[1]
         producto = agn[nombre]
-        logging.info(Literal(nombre))
-        logging.info(Literal(request.form.getlist('id_compra')[i]))
+        logging.info('Nombre: ' + nombre)
+        logging.info('ID de la compra: ' + id_compra)
+        #logging.info(Literal(request.form.getlist('id_compra')[i]))
         graph.add((devolucion, agn.producto, Literal(nombre)))
-        graph.add((devolucion, agn.id_compra, Literal(request.form.getlist('id_compra')[i])))
+        graph.add((devolucion, agn.id_compra, Literal(id_compra)))
+        #graph.add((devolucion, agn.id_compra, Literal(request.form.getlist('id_compra')[i])))
         i += 1    
     gestor_devoluciones = AgenteExtUsuario.directory_search(DirectoryAgent, agn.GestorDevoluciones) 
     message = build_message(
@@ -313,8 +315,10 @@ def feedback():
     for item in response.subjects(RDF.type, agn.product):
         nombre=str(response.value(subject=item, predicate=agn.nombre))
         logging.info(nombre)
+        id_compra=str(response.value(subject=item, predicate=agn.id_compra))
         productos_usuario.append(dict(
             nombre=nombre,
+            id_compra=id_compra,
         ))
     return render_template('feedback.html', productos_usuario=productos_usuario, id_usuario=id_usuario)
 

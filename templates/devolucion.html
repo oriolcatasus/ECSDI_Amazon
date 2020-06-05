@@ -20,17 +20,19 @@
         <div>
             <form method="POST" action="/devolver">
                 </div> 
-                <b>Seleccione solamente un producto</b>
+                Seleccione solamente <b>UN</b> producto
                 <table border="1px">
                     <tr>
                         <th><b>Nombre</b></th>
+                        <th><b>ID de la compra</b></th>
                         <th><b>Selección</b></th>
                     </tr>
                     {% for product in productos_usuario %}
                     <tr>
                         <td>{{ product.nombre }}</td>
-                        <td><input type="checkbox" name="nombre" value="{{ product.nombre }}"></td>
-                        <td><input type="checkbox" name="id_compra" value="{{ product.id_compra }}"></td>
+                        <td>{{ product.id_compra }}</td>
+                        <td><input type="checkbox" name="nombre" value="{{ product.nombre }};{{ product.id_compra }}"></td>
+                        <!--<td><input type="checkbox" name="id_compra" value="{{ product.id_compra }}"></td>-->
                     </tr>
                     {% endfor %}
                 </table>
