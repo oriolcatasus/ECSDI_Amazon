@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AgenteExtEntidadBancaria</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h2>Operaciones bancarias realizadas:</h2>
+    <hr>
+    <div>
+        <table border="1px">
+            <tr>
+                <th><b>Tipo de operacion</b></th>
+                <th><b>Targeta bancaria</b></th>
+                <th><b>Cuenta bancaria</b></th>
+                <th><b>Importe</b></th>
+            </tr>
+            {% for op in operaciones %}
+            <tr>
+                <td>{{ op.tipo }}</td>
+                <td>{{ op.tarjeta }}</td>
+                <td>{{ op.cuenta }}</td>
+                <td>{{ op.importe }}€</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+</body>

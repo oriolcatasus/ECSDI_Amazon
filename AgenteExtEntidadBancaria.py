@@ -9,7 +9,7 @@ import uuid
 from rdflib import Namespace, Graph, RDF
 from rdflib.namespace import FOAF
 from rdflib.term import Literal
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 from AgentUtil.ACLMessages import get_message_properties, build_message, send_message
 from AgentUtil.FlaskServer import shutdown_server
@@ -31,6 +31,9 @@ agn = Namespace(Constants.ONTOLOGY)
 
 # Contador de mensajes
 mss_cnt = 0
+
+#Operaciones bancarias
+operaciones = []
 
 # Datos del Agente
 
@@ -54,6 +57,9 @@ cola1 = Queue()
 # Flask stuff
 app = Flask(__name__)
 
+@app.route("/", methods=['GET'])
+def index():
+    return render_template('entidad_bancaria.html', operaciones=operaciones)
 
 @app.route("/comm")
 def comunicacion():
@@ -82,6 +88,12 @@ def cobrarP(req, content):
     logging.info("Se ha realizado el cobro en la tarjeta bancaria " + str(tarjeta_bancaria) +
                 " de un importe de " + str(precio_total)+ "€")
     respuesta = str("Cobro realizado correctamente")
+    operaciones.append(dict(
+        tipo='Cobro',
+        tarjeta=tarjeta_bancaria,
+        cuenta='',
+        importe='+' + str(precio_total)
+    ))
     gCobroRealizado = Graph()
     cobroRealizado = agn['cobroRealizado_' + str(mss_cnt)]
     gCobroRealizado.add((cobroRealizado, RDF.type, Literal('CobroRealizado')))
@@ -97,6 +109,12 @@ def pagar(req, content):
     logging.info("Se ha realizado el pago a la tarjeta bancaria " + str(tarjeta_bancaria) +
                 " de un importe de " + str(precio_total)+ "€")
     respuesta = str("Pago realizado correctamente")
+    operaciones.append(dict(
+        tipo='Pago',
+        tarjeta=tarjeta_bancaria,
+        cuenta='',
+        importe='-' + str(precio_total)
+    ))
     gCobroRealizado = Graph()
     cobroRealizado = agn['pagoRealizado_' + str(mss_cnt)]
     gCobroRealizado.add((cobroRealizado, RDF.type, Literal('PagoRealizado')))
@@ -112,6 +130,12 @@ def pagarTiendaExterna(req, content):
     nombreProd = req.value(content, agn.nombre_prod)
     logging.info("Se ha realizado el pago del producto externo " + str(nombreProd) +
     " a la cuenta bancaria " + str(cuenta_bancaria) + " de un importe de " + str(precio) + "€")
+    operaciones.append(dict(
+        tipo='Pago',
+        tarjeta='',
+        cuenta=cuenta_bancaria,
+        importe=str(precio_total)
+    ))
     respuesta = str("Pago realizado correctamente")
     gCobroRealizado = Graph()
     cobroRealizado = agn['pagoRealizado_' + str(mss_cnt)]
