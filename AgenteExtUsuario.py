@@ -396,10 +396,11 @@ def recibir_recomendaciones():
 
     productos_recomendados = []
     for item in response.subjects(RDF.type, None):
-        nombre= response.value(item, agn.nombre),
+        nombre=str(response.value(item, agn.nombre))
         peso = float(response.value(item, agn.peso)),
         precio = int(response.value(item, agn.precio)),
-        tieneMarca = response.value(item, agn.tieneMarca),
+        tieneMarca = (response.value(item, agn.tieneMarca)),
+        tipo = str(response.value(item, RDF.type)),
         valoracion = response.value(item, agn.valoracionTotal)
         logging.info(nombre)
         productos_recomendados.append(dict(
@@ -407,6 +408,7 @@ def recibir_recomendaciones():
             peso=peso,
             precio=precio,
             tieneMarca=str(tieneMarca),
+            tipo=tipo,
             valoracion=valoracion,
         ))
     
