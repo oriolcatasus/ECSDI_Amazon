@@ -8,4 +8,9 @@
     <ns1:nombre_tienda>AmazonSelvice</ns1:nombre_tienda>
     <ns1:cuenta_bancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">456</ns1:cuenta_bancaria>
   </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/tienda_EcsdiExpress">
+    <ns1:nombre_tienda>EcsdiExpress</ns1:nombre_tienda>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/tienda_externa"/>
+    <ns1:cuenta_bancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">147</ns1:cuenta_bancaria>
+  </rdf:Description>
 </rdf:RDF>

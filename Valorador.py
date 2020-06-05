@@ -219,7 +219,7 @@ def recomendaciones(req, content):
 
     productos = Graph().parse('./data/product.owl')
     sparql_query = Template('''
-        SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tieneMarca ?tipo ?valoracionTotal ?numeroValoraciones
+        SELECT DISTINCT ?producto ?nombre ?precio ?peso ?tipo ?tieneMarca ?valoracionTotal ?numeroValoraciones
         WHERE {
             ?producto rdf:type ?tipo .
             ?producto pontp:nombre ?nombre .
@@ -229,24 +229,23 @@ def recomendaciones(req, content):
             ?producto pontp:valoracionTotal ?valoracionTotal .
             ?producto pontp:numeroValoraciones ?numeroValoraciones .
             FILTER (
-                ?tieneMarca = '$topMarca' 
+                str(?tieneMarca) = '$topMarca' 
             )
         }
-        ORDER BY DESC(?valoracionTotal / (?numeroValoraciones + 1))
-        LIMIT 5
     ''').substitute(dict(
-        topMarca = topMarca
+            topMarca = topMarca
     ))
     result3 = productos.query(
         sparql_query,
         initNs=dict(
             rdf=RDF,
             pontp=Namespace("http://www.products.org/ontology/property/")
-    ))
+        )
+    )
     result_message = Graph()
     for x3 in result3:
         logging.info("Nombre producto añadido: " + str(x3.nombre))
-        result_message.add((x3.producto, RDF.type, Literal(x3.tipo)))
+        result_message.add((x3.producto, RDF.type, x3.tipo))
         result_message.add((x3.producto, agn.nombre, x3.nombre))
         result_message.add((x3.producto, agn.peso, x3.peso))
         result_message.add((x3.producto, agn.precio, x3.precio))
