@@ -436,10 +436,12 @@ def pagar_producto(nombre, tienda, precio, tarjeta_bancaria):
         content=cobrarProdExt
     )
     Pagado_correctamente = send_message(message, Pagador.address)
+    Notificar_Cobro = ""
     for item in Pagado_correctamente.subjects(RDF.type, Literal('RespuestaCobro')):
         for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
             logging.info(str(RespuestaCobro))
-    logging.info("cobro rebut")
+       
+    
     
     #pagar tienda externa
     mss_cnt = mss_cnt + 1
@@ -463,6 +465,22 @@ def pagar_producto(nombre, tienda, precio, tarjeta_bancaria):
         for RespuestaCobro in Pagado_correctamente.objects(item, agn.respuesta_cobro):
             logging.info(str(RespuestaCobro))
     logging.info("pago realizado a " + str(tienda))
+    mss_cnt = mss_cnt + 1
+    gNotificarCobroTiendaExterna = Graph()
+    notificarCobroTiendaExterna = agn['notificarCobro_' + str(mss_cnt)]
+    gNotificarCobroTiendaExterna.add((notificarCobroTiendaExterna, RDF.type, Literal('NotificarCobro')))
+    gNotificarCobroTiendaExterna.add((notificarCobroTiendaExterna, agn.precio, Literal(precio)))
+    gNotificarCobroTiendaExterna.add((notificarCobroTiendaExterna, agn.tienda, Literal(tienda)))
+    comunicadorExterno = AsistenteCompra.directory_search(DirectoryAgent, agn.ComunicadorExterno)
+    message = build_message(
+        gNotificarCobroTiendaExterna,
+        perf=Literal('request'),
+        sender=AsistenteCompra.uri,
+        receiver=comunicadorExterno.uri,
+        msgcnt=mss_cnt,
+        content=notificarCobroTiendaExterna
+    )
+    send_message(message, comunicadorExterno.address)
 
 def envia_prod_tiendaExt(direccion, codigo_postal, nombre, prioridad_envio, peso, tienda):
     global mss_cnt

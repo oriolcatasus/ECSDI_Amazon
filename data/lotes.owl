@@ -3,31 +3,40 @@
    xmlns:ns1="http://ALIEXPLESS.ECSDI/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
-  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_299096620999521861281560575481940108870">
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
-    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0</ns1:total_peso>
-    <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</ns1:lote>
-    <ns1:codigo_postal>789</ns1:codigo_postal>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_238180395595652486000468766267096116903">
+    <ns1:codigo_postal>123</ns1:codigo_postal>
     <ns1:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns1:prioridad_envio>
     <ns1:direccion>mikasa</ns1:direccion>
+    <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">238180395595652486000468766267096116903</ns1:id_compra>
+    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0</ns1:total_peso>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</ns1:lote>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_299096620999521861281560575481940108870">
+    <ns1:codigo_postal>789</ns1:codigo_postal>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</ns1:lote>
     <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">299096620999521861281560575481940108870</ns1:id_compra>
+    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0</ns1:total_peso>
+    <ns1:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns1:prioridad_envio>
+    <ns1:direccion>mikasa</ns1:direccion>
   </rdf:Description>
   <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_152939967571879231137783861108954987493">
-    <ns1:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns1:prioridad_envio>
     <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">152939967571879231137783861108954987493</ns1:id_compra>
+    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns1:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns1:prioridad_envio>
     <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</ns1:lote>
-    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0</ns1:total_peso>
     <ns1:direccion>mikasa</ns1:direccion>
     <ns1:codigo_postal>6789</ns1:codigo_postal>
-    <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0</ns1:total_peso>
   </rdf:Description>
   <rdf:Description rdf:about="http://ALIEXPLESS.ECSDI/compra_281376638563066589027848499170939265510">
     <ns1:id_compra rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">281376638563066589027848499170939265510</ns1:id_compra>
     <ns1:prioridad_envio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</ns1:prioridad_envio>
-    <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</ns1:lote>
-    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0</ns1:total_peso>
     <ns1:direccion>mikasa</ns1:direccion>
+    <ns1:total_peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.0</ns1:total_peso>
     <ns1:codigo_postal>6789</ns1:codigo_postal>
     <rdf:type rdf:resource="http://ALIEXPLESS.ECSDI/compra"/>
+    <ns1:lote rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</ns1:lote>
   </rdf:Description>
 </rdf:RDF>
