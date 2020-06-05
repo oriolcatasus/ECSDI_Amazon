@@ -232,6 +232,8 @@ def recomendaciones(req, content):
                 str(?tieneMarca) = '$topMarca' 
             )
         }
+        ORDER BY DESC((?valoracionTotal / (?numeroValoraciones + 1)))
+        LIMIT 5
     ''').substitute(dict(
             topMarca = topMarca
     ))
