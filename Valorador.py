@@ -132,7 +132,7 @@ def enviar_feedback(req, content):
         num_valoraciones = int(productos.value(producto, pontp.numeroValoraciones))
         valoracion_total = float(productos.value(producto, pontp.valoracionTotal))
         num_valoraciones += 1
-        valoracion_total = (valoracion_total+valoracion)/num_valoraciones
+        valoracion_total = (valoracion_total+valoracion)
         logging.info('Nueva valoracion total: ' + str(valoracion_total))
         productos.remove((producto, pontp.numeroValoraciones, None))
         productos.add((producto, pontp.numeroValoraciones, Literal(num_valoraciones)))

@@ -93,13 +93,17 @@ def comunicacion():
     # Respuesta
     productos = []
     for item in response.subjects(RDF.type, None):
+        if float(response.value(item, agn.numeroValoraciones)) == 0:
+            valoracion = 0
+        else:
+            valoracion = float(response.value(item, agn.valoracionTotal)) / float(response.value(item, agn.numeroValoraciones))
         producto = dict(
             nombre = response.value(item, agn.nombre),
             peso = float(response.value(item, agn.peso)),
             precio = int(response.value(item, agn.precio)),
             tieneMarca = response.value(item, agn.tieneMarca),
             tipo = response.value(item, RDF.type),
-            valoracion = response.value(item, agn.valoracionTotal)
+            valoracion = valoracion
         )
         if (int(response.value(item, agn.numeroValoraciones)) == 0):
             producto['valoracion'] = 'N/D'
@@ -333,12 +337,15 @@ def enviar_feedback():
     i = 0
     for nombre in request.form.getlist('nombre'):
         logging.info(Literal(nombre))
-        logging.info(Literal(request.form.getlist('valoracion')[i]))
+        numero = str(Literal(request.form.getlist('valoracion')[i]))
+        logging.info(numero)
 
-        producto = agn[nombre]
-        graph.add((producto, RDF.type, agn.product))
-        graph.add((producto, agn.nombre, Literal(nombre)))
-        graph.add((producto, agn.valoracion, Literal(request.form.getlist('valoracion')[i])))
+        if str(numero) != ''  and float(numero) <= float(10) and float(numero) >= float(0):
+            logging.info("xd")
+            producto = agn[str(nombre) + '_' + str(i)]
+            graph.add((producto, RDF.type, agn.product))
+            graph.add((producto, agn.nombre, Literal(nombre)))
+            graph.add((producto, agn.valoracion, Literal(request.form.getlist('valoracion')[i])))
         i += 1       
 
     valorador = AgenteExtUsuario.directory_search(DirectoryAgent, agn.Valorador) 
