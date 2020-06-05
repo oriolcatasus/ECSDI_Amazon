@@ -145,8 +145,15 @@ def comprar():
         msgcnt=mss_cnt,
         content=compra
     )
+    newFactura = ""
+    Pedido_en_marcha = ""
+    numFact = len(facturas)
     send_message(message, asistente_compra.address)
-    return render_template('search_product.html')
+    if(numFact != len(facturas)):
+        newFactura = "Hay una nueva factura disponible"
+    else:
+        Pedido_en_marcha = "Pedido en marcha"
+    return render_template('search_product.html', newFactura = newFactura, Pedido_en_marcha = Pedido_en_marcha)
 
 @app.route("/factura", methods=['GET', 'POST'])
 def factura():

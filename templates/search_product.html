@@ -9,7 +9,8 @@
     <div>
         <a href="http://127.0.1.1:9001/factura">Facturas</a> | 
         <a href="http://127.0.1.1:9001/buscarProductosUsuario">Devoluciones</a> | 
-        <a href="http://127.0.1.1:9001/feedback">Feedback</a>
+        <a href="http://127.0.1.1:9001/feedback">Feedback</a> |
+        <a href="http://127.0.1.1:9009/">Entidad bancaria</a>
     </div>
     <hr>
     <div>
@@ -42,6 +43,9 @@
     <hr>
     <div>
         <h2>Compra</h2>
+        <div>{{newFactura}}</div>
+        <div>{{Pedido_en_marcha}}</div>
+        <br>
         <form method="POST" action="/comprar">
             <label>
                 Dirección de envío:<br>
